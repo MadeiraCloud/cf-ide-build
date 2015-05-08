@@ -3952,7 +3952,7 @@ define('ui/UI.bubblepopup',[], function() {
   return bubblePopup;
 });
 
-define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup", "ace/editor"], function(RuleTpl, popupBubble) {
+define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup", "lib/ace/editor"], function(RuleTpl, popupBubble) {
   Ember.TEMPLATES["ruleManager/loading"] = RuleTpl.loading;
   return {
     RuleManagerView: Ember.View.extend({
