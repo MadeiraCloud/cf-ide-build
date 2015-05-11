@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"3a929238","account/template.js":"9b6c0a6e","core/bundle.js":"19cc3f53","core/config.js":"18b1e4b8","core/debug.js":"cfb41559","lib/ace.js":"1e1dbc85","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"a659f6ad","lib/require.js":"56cbcc51","lib/vender.js":"bd73d9b8","ui/UI.notification.js":"03d4add8"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -31,7 +30,7 @@ window.FileVersions={"account/account.js":"3a929238","account/template.js":"9b6c
     if (p === "/") {
       p = window.location.hash.replace("#", "/");
     }
-    if (p && p !== "/") {
+    if (p && p !== "/login") {
       window.location.href = "/login?ref=" + p;
     } else {
       window.location.href = "/login";
@@ -59,21 +58,24 @@ require.config({
   waitSeconds: 10,
   locale: language,
   urlArgs: "v=" + version,
+  paths: {
+    "jquery": "lib/jquery"
+  },
   shim: {
     'lib/ember': {
-      deps: ['lib/jquery']
+      deps: ['jquery']
     },
     'lib/ember-data': {
       deps: ['lib/ember']
     },
     'lib/jquery-cookie': {
-      deps: ["lib/jquery"]
+      deps: ["jquery"]
     }
   },
 
   /* env:prod */
   bundles: {
-    'lib/jquery': ["lib/jquery"],
+    'lib/jquery': ["jquery"],
     'lib/vender': ["lib/q", "lib/base64", "lib/underscore", "lib/ember", "lib/ember-data"],
     'lib/ace': ["lib/ace/editor", "lib/ace/editor-grammar-checker"],
     'core/bundle': ["core/Application"],
@@ -106,7 +108,7 @@ require.config({
     }
   };
   requirejs.onError = requirejsErrorHandler;
-  require(["lib/q", "lib/base64", "lib/jquery", "lib/jquery-cookie", "lib/underscore", "lib/ember", "lib/ember-data"], function(Q, Base64) {
+  require(["jquery", "lib/q", "lib/base64", "lib/jquery-cookie", "lib/underscore", "lib/ember", "lib/ember-data"], function(jquery, Q, Base64) {
     window.Q = Q;
     window.Base64 = Base64;
     return require(["core/Application", "core/Debugger"], function(App) {

@@ -5,13 +5,27 @@
   text-transform: uppercase;
 }
 .form{
+  position: relative;
+  &.loading{
+    fieldset{
+      opacity: 0;
+    }
+    fieldset.loading{
+      opacity: 1;
+    }
+  }
   fieldset{
     -webkit-appearance: none;
     border: 0;
     padding: 20px 10px;
     margin: 0;
+    opacity: 1;
+    transition: opacity 0.2s;
     &:last-child{
       margin-top: 30px;
+    }
+    &.loading{
+      opacity: 0;
     }
     label{
       width: 180px;
@@ -28,6 +42,9 @@
       color: $light-grey;
       font-size: 16px;
       width: 350px;
+      &.half{
+        width: 150px;
+      }
     }
     span.text{
       min-width: 240px;
@@ -56,7 +73,7 @@
       background: none;
       color: $blue;
       padding: 0;
-      margin: 0;
+      margin-right: 20px;
       cursor: pointer;
       &:hover{
         background: none;
@@ -64,6 +81,18 @@
       &.red{
         color: $red;
         float: right;
+      }
+      &.disabled{
+        background: none;
+        color: $grey;
+      }
+    }
+    .input-group{
+      display: block;
+      margin-left: 185px;
+      margin-top: -20px;
+      input{
+        margin-bottom: 10px;
       }
     }
   }

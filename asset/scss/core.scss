@@ -4,6 +4,8 @@
 @import "type";
 @import "helper";
 @import "dashboard";
+@import "log";
+@import "icon/ionicons";
 @import "component/panel";
 @import "component/violation";
 @import "component/ui";
@@ -137,6 +139,12 @@ $sideWidth: 180px;
     background  : $base-b;
     text-align  : center;
     color       : #FFF;
+    .icon {
+        font-size: 24px;
+        margin-right: 10px;
+        text-align: center;
+        width: 30px;
+    }
   }
 
   > a {
@@ -170,6 +178,14 @@ $sideWidth: 180px;
       position      : absolute;
       right         : 8px;
       top           : 12px;
+    }
+
+    .icon {
+        font-size: 24px;
+        margin-right: 10px;
+        float: left;
+        text-align: center;
+        width: 30px;
     }
   }
 }
@@ -260,7 +276,7 @@ $sideWidth: 180px;
   bottom   : 0;
   left     : 0;
   right    : 0;
-  padding  : 7px;
+  // padding  : 7px;
   width      : 100%;
   overflow-y: auto;
   .rule-manager & {

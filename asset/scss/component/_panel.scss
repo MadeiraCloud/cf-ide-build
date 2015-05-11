@@ -22,7 +22,7 @@ $panel-text-color  : #969EBB;
 
 	&.panel-half {
 		width        : 49%;
-    + .panel-half { margin-left : 2%; }
+    + .panel-half { margin-left : 1%; }
 
 		&.last-child { margin-right: 0; }
 	}
@@ -79,7 +79,7 @@ $panel-text-color  : #969EBB;
 	}
 
 	.panel-content {
-		padding: 10px;
+		// padding: 10px;
         background: $dark-b2;
 		&.blank {
 			text-align : center;
