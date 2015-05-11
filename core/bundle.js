@@ -4302,7 +4302,7 @@ define('api/ApiRequestDefs',[], function() {
     'profile_create': {
       url: '/profile/',
       method: 'create',
-      params: ['username', 'session_id', 'members', 'credentials', 'scan_interval']
+      params: ['username', 'session_id', 'members', 'credential', 'scan_interval']
     },
     'profile_remove': {
       url: '/profile/',
@@ -4339,16 +4339,6 @@ define('api/ApiRequestDefs',[], function() {
       method: 'update_role',
       params: ['username', 'session_id', 'profile_id', 'member_id', 'new_role']
     },
-    'profile_add_credential': {
-      url: '/profile/',
-      method: 'add_credential',
-      params: ['username', 'session_id', 'profile_id', 'credential']
-    },
-    'profile_remove_credential': {
-      url: '/profile/',
-      method: 'remove_credential',
-      params: ['username', 'session_id', 'profile_id', 'key_id']
-    },
     'profile_update_credential': {
       url: '/profile/',
       method: 'update_credential',
@@ -4382,7 +4372,32 @@ define('api/ApiRequestDefs',[], function() {
     'rule_verify': {
       url: '/rule/',
       method: 'verify',
-      params: ['username', 'session_id', 'spec']
+      params: ['username', 'session_id', 'content']
+    },
+    'rule_resource_filter': {
+      url: '/rule/',
+      method: 'resource_filter',
+      params: ['username', 'session_id', 'profile_id', 'rule_id']
+    },
+    'scheduler_create': {
+      url: '/scheduler/',
+      method: 'create',
+      params: ['username', 'session_id', 'profile_id']
+    },
+    'scheduler_update': {
+      url: '/scheduler/',
+      method: 'update',
+      params: ['username', 'session_id', 'profile_id']
+    },
+    'scheduler_delete': {
+      url: '/scheduler/',
+      method: 'delete',
+      params: ['username', 'session_id', 'profile_id']
+    },
+    'scheduler_list': {
+      url: '/scheduler/',
+      method: 'list',
+      params: ['username', 'session_id', 'profile_ids']
     },
     'account_register': {
       url: '/account/',
