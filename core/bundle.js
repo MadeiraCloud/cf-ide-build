@@ -350,7 +350,7 @@ define('ui/UI.tooltip',[], function() {
  * (c) Copyright 2013 Madeiracloud  All Rights Reserved
  * **********************************************************
  */
-define('ui/UI.table',['jquery'], function() {
+define('ui/UI.table',[], function() {
   var table;
   table = {
     edit: function(event) {
