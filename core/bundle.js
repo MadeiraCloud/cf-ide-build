@@ -9,7 +9,7 @@ define('template/ApplicationTpl',[''], (function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
-        dom.setAttribute(el1,"class","icon ion-ios-home");
+        dom.setAttribute(el1,"class","fa fa-home");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("Dashboard");
         dom.appendChild(el0, el1);
@@ -48,7 +48,7 @@ define('template/ApplicationTpl',[''], (function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
-        dom.setAttribute(el1,"class","icon ion-navicon-round");
+        dom.setAttribute(el1,"class","fa fa-bars");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("Rule");
         dom.appendChild(el0, el1);
@@ -87,7 +87,7 @@ define('template/ApplicationTpl',[''], (function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
-        dom.setAttribute(el1,"class","icon ion-clock");
+        dom.setAttribute(el1,"class","fa fa-clock-o");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("Log");
         dom.appendChild(el0, el1);
@@ -126,7 +126,7 @@ define('template/ApplicationTpl',[''], (function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
-        dom.setAttribute(el1,"class","icon ion-settings");
+        dom.setAttribute(el1,"class","fa fa-wrench");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("Configuration");
         dom.appendChild(el0, el1);
@@ -165,7 +165,7 @@ define('template/ApplicationTpl',[''], (function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
-        dom.setAttribute(el1,"class","icon ion-bug");
+        dom.setAttribute(el1,"class","fa fa-bug");
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("Debug");
         dom.appendChild(el0, el1);
@@ -209,7 +209,7 @@ define('template/ApplicationTpl',[''], (function() {
       var el2 = dom.createElement("div");
       dom.setAttribute(el2,"class","logo");
       var el3 = dom.createElement("i");
-      dom.setAttribute(el3,"class","icon ion-ionic");
+      dom.setAttribute(el3,"class","fa fa-stumbleupon-circle");
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("CloudFielder");
       dom.appendChild(el2, el3);
@@ -461,15 +461,12 @@ define('core/Router',[], function() {
   return Ember.Router.map(function() {
     this.route("dashboard", {
       path: "/dashboard"
-    });
+    }, function() {});
     this.route("logViewer", {
       path: "/logs"
     });
     this.route("settings", {
       path: "/settings"
-    }, function() {
-      this.route("scan");
-      return this.route("account");
     });
     return this.route("ruleManager", {
       path: "/rules"
@@ -521,303 +518,10 @@ define('route/IndexRoute',[], function() {
   });
 });
 
-define('template/Panel',[], function(){ var TEMPLATE={};
-
-TEMPLATE.panel=(function() {
-  var child0 = (function() {
-    var child0 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","modal-confirm ");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element1 = dom.childAt(fragment, [0]);
-          var morph0 = dom.createMorphAt(element1,0,0);
-          element(env, element1, context, "action", ["confirm"], {});
-          content(env, morph0, context, "confirm.text");
-          return fragment;
-        }
-      };
-    }());
-    var child1 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","modal-cancel");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element0 = dom.childAt(fragment, [0]);
-          var morph0 = dom.createMorphAt(element0,0,0);
-          element(env, element0, context, "action", ["cancel"], {});
-          content(env, morph0, context, "cancel.text");
-          return fragment;
-        }
-      };
-    }());
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("    ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","modal-footer");
-        var el2 = dom.createTextNode("\n        ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n        ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n    ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element2 = dom.childAt(fragment, [1]);
-        var morph0 = dom.createMorphAt(element2,1,1);
-        var morph1 = dom.createMorphAt(element2,3,3);
-        block(env, morph0, context, "unless", [get(env, context, "confirm.hide")], {}, child0, null);
-        block(env, morph1, context, "unless", [get(env, context, "cancel.hide")], {}, child1, null);
-        return fragment;
-      }
-    };
-  }());
-  return {
-    isHTMLBars: true,
-    revision: "Ember@1.11.3",
-    blockParams: 0,
-    cachedFragment: null,
-    hasRendered: false,
-    build: function build(dom) {
-      var el0 = dom.createDocumentFragment();
-      var el1 = dom.createElement("div");
-      dom.setAttribute(el1,"class","panel panel-float");
-      var el2 = dom.createTextNode("\n    ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("div");
-      dom.setAttribute(el2,"class","panel-title");
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("ul");
-      dom.setAttribute(el3,"class","panel-title");
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("li");
-      var el5 = dom.createComment("");
-      dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n        ");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("div");
-      dom.setAttribute(el3,"class","modal-close");
-      var el4 = dom.createTextNode("×");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n    ");
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n    ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("div");
-      dom.setAttribute(el2,"class","panel-content");
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createComment("");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n    ");
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createComment("");
-      dom.appendChild(el1, el2);
-      dom.appendChild(el0, el1);
-      return el0;
-    },
-    render: function render(context, env, contextualElement) {
-      var dom = env.dom;
-      var hooks = env.hooks, content = hooks.content, element = hooks.element, get = hooks.get, block = hooks.block;
-      dom.detectNamespace(contextualElement);
-      var fragment;
-      if (env.useFragmentCache && dom.canClone) {
-        if (this.cachedFragment === null) {
-          fragment = this.build(dom);
-          if (this.hasRendered) {
-            this.cachedFragment = fragment;
-          } else {
-            this.hasRendered = true;
-          }
-        }
-        if (this.cachedFragment) {
-          fragment = dom.cloneNode(this.cachedFragment, true);
-        }
-      } else {
-        fragment = this.build(dom);
-      }
-      var element3 = dom.childAt(fragment, [0]);
-      var element4 = dom.childAt(element3, [1]);
-      var element5 = dom.childAt(element4, [3]);
-      var morph0 = dom.createMorphAt(dom.childAt(element4, [1, 1]),0,0);
-      var morph1 = dom.createUnsafeMorphAt(dom.childAt(element3, [3]),1,1);
-      var morph2 = dom.createMorphAt(element3,5,5);
-      content(env, morph0, context, "title");
-      element(env, element5, context, "action", ["close"], {});
-      content(env, morph1, context, "body");
-      block(env, morph2, context, "unless", [get(env, context, "footer.hide")], {}, child0, null);
-      return fragment;
-    }
-  };
-}());
-
-return TEMPLATE; });
-define('utils/panel',["../template/Panel"], function(template) {
-  var Panel, PanelController, PanelView;
-  PanelView = Ember.View.extend({
-    template: template.panel,
-    didInsertElement: function() {
-      var controller;
-      _.delay((function(_this) {
-        return function() {
-          return $(_this.element).find(".panel").addClass("show");
-        };
-      })(this));
-      controller = this.get("controller");
-      return controller.on("close", (function(_this) {
-        return function() {
-          $(_this.element).find(".panel").removeClass("show");
-          return _.delay(function() {
-            _this.remove();
-            return _this.destroy();
-          }, 300);
-        };
-      })(this));
-    }
-  });
-  PanelController = Ember.Controller.extend({
-    actions: {
-      close: function() {
-        return this.trigger('close');
-      }
-    }
-  }).extend(Ember.Evented);
-  Panel = Ember.Object.extend({
-    init: function() {
-      var controller, view;
-      controller = PanelController.create(this);
-      view = PanelView.create({
-        controller: controller
-      });
-      return view.append();
-    }
-  });
-  return Panel;
-});
-
-define('route/DashboardRoute',["../utils/panel"], function(Panel) {
+define('route/DashboardRoute',[], function() {
   return Ember.Route.extend({
     model: function() {
       return this.store.find('dashboard', 1);
-    },
-    actions: {
-      slide: function() {
-        return Panel.create({
-          title: "Validation Details",
-          body: "<h1>Wow~~</h1>",
-          footer: {
-            hide: true
-          }
-        });
-      }
     }
   });
 });
@@ -905,31 +609,18 @@ define('route/RuleManagerRoute',[], function() {
 
 define('route/SettingsRoute',[], function() {
   return {
-    SettingsIndexRoute: Ember.Route.extend({
-      redirect: function() {
-        return this.transitionTo('settings.scan');
-      }
-    }),
-    SettingsScanRoute: Ember.Route.extend({
-      model: function() {
-        return {
-          "profile": App.user.get("profile"),
-          "user": App.user,
-          "hasCredential": App.user.get("profile").get("awsAccount")
-        };
-      }
-    }),
-    SettingsAccountRoute: Ember.Route.extend({
+    SettingsRoute: Ember.Route.extend({
       model: function() {
         return App.user;
+      },
+      deactivate: function() {
+        this.controllerFor("settings").resetState();
       }
     })
   };
 });
 
-define('template/SettingsTpl',[], function(){ var TEMPLATE={};
-
-TEMPLATE.cloud=(function() {
+define('template/SettingsTpl',[''], (function() {
   var child0 = (function() {
     return {
       isHTMLBars: true,
@@ -939,1698 +630,49 @@ TEMPLATE.cloud=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("SCAN CONFIGURATIONS");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        return fragment;
-      }
-    };
-  }());
-  var child1 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("ACCOUNT SETTINGS");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        return fragment;
-      }
-    };
-  }());
-  var child2 = (function() {
-    var child0 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                    ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button");
-          var el2 = dom.createTextNode("Add Cloud Account");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element9 = dom.childAt(fragment, [1]);
-          element(env, element9, context, "action", ["addCloudAccount"], {"target": "view"});
-          return fragment;
-        }
-      };
-    }());
-    var child1 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                    ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button disabled");
-          dom.setAttribute(el1,"disabled","disabled");
-          var el2 = dom.createTextNode("Updating Account...");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
-      };
-    }());
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("p");
-        dom.setAttribute(el1,"class","major");
-        var el2 = dom.createTextNode("CLOUD ACCOUNT");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
+        var el1 = dom.createTextNode("      ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","warning-bar two-line");
-        var el2 = dom.createTextNode("\n                To get started monitoring your cloud infrastructure, set up cloud account first.\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("br");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("Currently only AWS is supported\n            ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-number");
-        var el4 = dom.createTextNode("\n                        Account Number\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                        ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-key-id");
-        var el4 = dom.createTextNode("\n                        Account Access Key\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                        ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-key-hash");
-        var el4 = dom.createTextNode("\n                        Account Secret Key\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                        ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2,"class","loading");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","workarea-loading");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","account-instruction");
-        var el2 = dom.createTextNode("\n                ");
+        dom.setAttribute(el1,"class","static font-mono");
+        var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("p");
-        dom.setAttribute(el2,"class","small");
-        var el3 = dom.createTextNode("How to set up AWS credential for CloudFielder");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("ol");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        var el4 = dom.createTextNode("Go to ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("a");
-        dom.setAttribute(el4,"href","http://console.aws.com");
-        var el5 = dom.createTextNode("AWS console > Security Credentials > Users");
-        dom.appendChild(el4, el5);
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        var el4 = dom.createTextNode("Create new user for CloudFielder. Then download/copy the generated\n                        access key and secret.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        var el4 = dom.createTextNode("Set up proper permissions for this user. Read-only access to all supported\n                        resources is recommended.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        var el4 = dom.createTextNode("Fill your account number, access key and secret key saved in step #2 in\n                        the fields on left.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("li");
-        var el4 = dom.createTextNode("Click \"Add Cloud Account\" and we will look after the rest.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, element = hooks.element, inline = hooks.inline, get = hooks.get, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element10 = dom.childAt(fragment, [5]);
-        var morph0 = dom.createMorphAt(dom.childAt(element10, [1]),3,3);
-        var morph1 = dom.createMorphAt(dom.childAt(element10, [3]),3,3);
-        var morph2 = dom.createMorphAt(dom.childAt(element10, [5]),3,3);
-        var morph3 = dom.createMorphAt(dom.childAt(element10, [7]),1,1);
-        element(env, element10, context, "bind-attr", [], {"class": ":form :add-cloud-account isSavingCred:loading"});
-        inline(env, morph0, context, "input", [], {"type": "text", "class": "accountNumber"});
-        inline(env, morph1, context, "input", [], {"type": "text", "class": "accessKey"});
-        inline(env, morph2, context, "input", [], {"type": "text", "class": "secretKey"});
-        block(env, morph3, context, "unless", [get(env, context, "isSavingCred")], {}, child0, child1);
-        return fragment;
-      }
-    };
-  }());
-  var child3 = (function() {
-    var child0 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          dom.setAttribute(el1,"class","text");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          content(env, morph0, context, "model.profile.awsAccount");
-          return fragment;
-        }
-      };
-    }());
-    var child1 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "input", [], {"type": "text", "class": "accountNumber"});
-          return fragment;
-        }
-      };
-    }());
-    var child2 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          dom.setAttribute(el1,"class","text");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          content(env, morph0, context, "model.profile.awsAccessKey");
-          return fragment;
-        }
-      };
-    }());
-    var child3 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "input", [], {"type": "text", "class": "accessKey"});
-          return fragment;
-        }
-      };
-    }());
-    var child4 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          dom.setAttribute(el1,"class","text");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          content(env, morph0, context, "model.profile.secretKey");
-          return fragment;
-        }
-      };
-    }());
-    var child5 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "input", [], {"type": "text", "class": "secretKey"});
-          return fragment;
-        }
-      };
-    }());
-    var child6 = (function() {
-      var child0 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link");
-            var el2 = dom.createTextNode("Update Credential");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link red");
-            var el2 = dom.createTextNode("Remove Credential");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, element = hooks.element;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var element5 = dom.childAt(fragment, [1]);
-            var element6 = dom.childAt(fragment, [3]);
-            element(env, element5, context, "action", ["editCredential"], {});
-            element(env, element6, context, "action", ["removeCredential"], {});
-            return fragment;
-          }
-        };
-      }());
-      var child1 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link disabled");
-            var el2 = dom.createTextNode("Updating ...");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            return fragment;
-          }
-        };
-      }());
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, get = hooks.get, block = hooks.block;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-          dom.insertBoundary(fragment, 0);
-          block(env, morph0, context, "unless", [get(env, context, "isSavingCred")], {}, child0, child1);
-          return fragment;
-        }
-      };
-    }());
-    var child7 = (function() {
-      var child0 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link");
-            var el2 = dom.createTextNode("Update Credential");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link");
-            var el2 = dom.createTextNode("Cancel");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, element = hooks.element;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var element3 = dom.childAt(fragment, [1]);
-            var element4 = dom.childAt(fragment, [3]);
-            element(env, element3, context, "action", ["addCloudAccount"], {"target": "view"});
-            element(env, element4, context, "action", ["editCredentialCancel"], {});
-            return fragment;
-          }
-        };
-      }());
-      var child1 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link disabled");
-            var el2 = dom.createTextNode("please wait...");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            return fragment;
-          }
-        };
-      }());
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, get = hooks.get, block = hooks.block;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-          dom.insertBoundary(fragment, null);
-          dom.insertBoundary(fragment, 0);
-          block(env, morph0, context, "unless", [get(env, context, "isSavingCred")], {}, child0, child1);
-          return fragment;
-        }
-      };
-    }());
-    var child8 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          dom.setAttribute(el1,"class","text");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          content(env, morph0, context, "model.user.email");
-          return fragment;
-        }
-      };
-    }());
-    var child9 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "input", [], {"type": "email", "class": "alertEmail"});
-          return fragment;
-        }
-      };
-    }());
-    var child10 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          dom.setAttribute(el1,"class","text");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode(" min");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          content(env, morph0, context, "model.cfgScanInt");
-          return fragment;
-        }
-      };
-    }());
-    var child11 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode(" ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("span");
-          var el2 = dom.createTextNode("min");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, inline = hooks.inline;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "input", [], {"type": "text", "class": "isEditingScan:disabled scanInterval half"});
-          return fragment;
-        }
-      };
-    }());
-    var child12 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link");
-          var el2 = dom.createTextNode("Edit");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element2 = dom.childAt(fragment, [1]);
-          element(env, element2, context, "action", ["editScanOptions"], {});
-          return fragment;
-        }
-      };
-    }());
-    var child13 = (function() {
-      var child0 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link");
-            var el2 = dom.createTextNode("Update");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link");
-            var el2 = dom.createTextNode("Cancel");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, element = hooks.element;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var element0 = dom.childAt(fragment, [1]);
-            var element1 = dom.childAt(fragment, [3]);
-            element(env, element0, context, "action", ["updateScanOptions"], {"target": "view"});
-            element(env, element1, context, "action", ["editScanOptionsCancel"], {});
-            return fragment;
-          }
-        };
-      }());
-      var child1 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("                            ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("button");
-            dom.setAttribute(el1,"class","button link disabled");
-            var el2 = dom.createTextNode("Please wait...");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            return fragment;
-          }
-        };
-      }());
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createComment("");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, get = hooks.get, block = hooks.block;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-          dom.insertBoundary(fragment, 0);
-          block(env, morph0, context, "unless", [get(env, context, "isSavingScan")], {}, child0, child1);
-          return fragment;
-        }
-      };
-    }());
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("p");
-        dom.setAttribute(el1,"class","major");
-        var el2 = dom.createTextNode("CLOUD ACCOUNT");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-number");
-        var el4 = dom.createTextNode("\n                        Account Number\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-key-id");
-        var el4 = dom.createTextNode("\n                        Account Access Key\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-key-id");
-        var el4 = dom.createTextNode("\n                        Account Secret Key\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2,"class","loading");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","workarea-loading");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("hr");
-        dom.setAttribute(el1,"class","through clearfix");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("p");
-        dom.setAttribute(el1,"class","major");
-        var el2 = dom.createTextNode("SCAN OPTIONS");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-number");
-        var el4 = dom.createTextNode("\n                        Alert Email\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("label");
-        dom.setAttribute(el3,"for","account-key-id");
-        var el4 = dom.createTextNode("\n                        Scan Interval\n                    ");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        var el3 = dom.createTextNode("\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("fieldset");
-        dom.setAttribute(el2,"class","loading");
-        var el3 = dom.createTextNode("\n                    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","workarea-loading");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n                ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element7 = dom.childAt(fragment, [3]);
-        var element8 = dom.childAt(fragment, [9]);
-        var morph0 = dom.createMorphAt(dom.childAt(element7, [1]),3,3);
-        var morph1 = dom.createMorphAt(dom.childAt(element7, [3]),3,3);
-        var morph2 = dom.createMorphAt(dom.childAt(element7, [5]),3,3);
-        var morph3 = dom.createMorphAt(dom.childAt(element7, [7]),1,1);
-        var morph4 = dom.createMorphAt(dom.childAt(element8, [1]),3,3);
-        var morph5 = dom.createMorphAt(dom.childAt(element8, [3]),3,3);
-        var morph6 = dom.createMorphAt(dom.childAt(element8, [5]),1,1);
-        element(env, element7, context, "bind-attr", [], {"class": ":add-cloud-account :form isRemovingCred:loading isSavingCred:loading"});
-        block(env, morph0, context, "unless", [get(env, context, "isEditingCred")], {}, child0, child1);
-        block(env, morph1, context, "unless", [get(env, context, "isEditingCred")], {}, child2, child3);
-        block(env, morph2, context, "unless", [get(env, context, "isEditingCred")], {}, child4, child5);
-        block(env, morph3, context, "unless", [get(env, context, "isEditingCred")], {}, child6, child7);
-        element(env, element8, context, "bind-attr", [], {"class": ":form :add-cloud-account isSavingScan:loading"});
-        block(env, morph4, context, "unless", [get(env, context, "isEditingScan")], {}, child8, child9);
-        block(env, morph5, context, "unless", [get(env, context, "isEditingScan")], {}, child10, child11);
-        block(env, morph6, context, "unless", [get(env, context, "isEditingScan")], {}, child12, child13);
-        return fragment;
-      }
-    };
-  }());
-  return {
-    isHTMLBars: true,
-    revision: "Ember@1.11.3",
-    blockParams: 0,
-    cachedFragment: null,
-    hasRendered: false,
-    build: function build(dom) {
-      var el0 = dom.createDocumentFragment();
-      var el1 = dom.createElement("header");
-      dom.setAttribute(el1,"class","workarea-header");
-      var el2 = dom.createTextNode("\n    ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("h2");
-      dom.setAttribute(el2,"class","header-title");
-      var el3 = dom.createTextNode("Configuration");
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n");
-      dom.appendChild(el1, el2);
-      dom.appendChild(el0, el1);
-      var el1 = dom.createTextNode("\n");
-      dom.appendChild(el0, el1);
-      var el1 = dom.createElement("section");
-      dom.setAttribute(el1,"class","clearfix work-area-content");
-      var el2 = dom.createTextNode("\n    ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("section");
-      dom.setAttribute(el2,"class","panel");
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("ul");
-      dom.setAttribute(el3,"class","panel-title tab");
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("li");
-      dom.setAttribute(el4,"class","active");
-      var el5 = dom.createComment("");
-      dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("li");
-      var el5 = dom.createComment("");
-      dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n        ");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("div");
-      dom.setAttribute(el3,"class","panel-content clearfix");
-      var el4 = dom.createTextNode("\n");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createComment("");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("        ");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n    ");
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n");
-      dom.appendChild(el1, el2);
-      dom.appendChild(el0, el1);
-      return el0;
-    },
-    render: function render(context, env, contextualElement) {
-      var dom = env.dom;
-      var hooks = env.hooks, block = hooks.block, get = hooks.get;
-      dom.detectNamespace(contextualElement);
-      var fragment;
-      if (env.useFragmentCache && dom.canClone) {
-        if (this.cachedFragment === null) {
-          fragment = this.build(dom);
-          if (this.hasRendered) {
-            this.cachedFragment = fragment;
-          } else {
-            this.hasRendered = true;
-          }
-        }
-        if (this.cachedFragment) {
-          fragment = dom.cloneNode(this.cachedFragment, true);
-        }
-      } else {
-        fragment = this.build(dom);
-      }
-      var element11 = dom.childAt(fragment, [2, 1]);
-      var element12 = dom.childAt(element11, [1]);
-      var morph0 = dom.createMorphAt(dom.childAt(element12, [1]),0,0);
-      var morph1 = dom.createMorphAt(dom.childAt(element12, [3]),0,0);
-      var morph2 = dom.createMorphAt(dom.childAt(element11, [3]),1,1);
-      block(env, morph0, context, "link-to", ["settings.scan"], {}, child0, null);
-      block(env, morph1, context, "link-to", ["settings.account"], {}, child1, null);
-      block(env, morph2, context, "unless", [get(env, context, "model.hasCredential")], {}, child2, child3);
-      return fragment;
-    }
-  };
-}());
-
-TEMPLATE.account=(function() {
-  var child0 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("SCAN CONFIGURATIONS");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        return fragment;
-      }
-    };
-  }());
-  var child1 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("ACCOUNT SETTINGS");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        return fragment;
-      }
-    };
-  }());
-  var child2 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                    ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("span");
-        dom.setAttribute(el1,"class","result");
-        var el2 = dom.createTextNode("\n                        ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("span");
-        dom.setAttribute(el2,"class","text");
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode(" ");
+        dom.setAttribute(el2,"class","setting-cred");
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-user-secret");
         dom.appendChild(el2, el3);
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                        ");
+        var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("a");
-        dom.setAttribute(el2,"href","#");
-        var el3 = dom.createTextNode("Edit");
+        var el2 = dom.createElement("p");
+        dom.setAttribute(el2,"class","setting-cred");
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-key");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                    ");
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("p");
+        dom.setAttribute(el2,"class","setting-cred");
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-lock");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("button");
+        dom.setAttribute(el2,"class","red");
+        dom.setAttribute(el2,"id","cfgRemoveAccount");
+        var el3 = dom.createTextNode("Remove Account");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n      ");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -2640,533 +682,6 @@ TEMPLATE.account=(function() {
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
         var hooks = env.hooks, content = hooks.content, element = hooks.element;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element9 = dom.childAt(fragment, [1]);
-        var element10 = dom.childAt(element9, [1]);
-        var element11 = dom.childAt(element9, [3]);
-        var morph0 = dom.createMorphAt(element10,0,0);
-        var morph1 = dom.createMorphAt(element10,2,2);
-        content(env, morph0, context, "model.firstName");
-        content(env, morph1, context, "model.lastName");
-        element(env, element11, context, "action", ["editFullname"], {"class": "edit"});
-        return fragment;
-      }
-    };
-  }());
-  var child3 = (function() {
-    var child0 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link disabled");
-          var el2 = dom.createTextNode("Saving...");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
-      };
-    }());
-    var child1 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link");
-          var el2 = dom.createTextNode("Save");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link");
-          var el2 = dom.createTextNode("Cancel");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element7 = dom.childAt(fragment, [1]);
-          var element8 = dom.childAt(fragment, [3]);
-          element(env, element7, context, "action", ["saveFullname"], {"target": "view"});
-          element(env, element8, context, "action", ["editFullnameCancel"], {});
-          return fragment;
-        }
-      };
-    }());
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                    ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("span");
-        dom.setAttribute(el1,"class","edit");
-        var el2 = dom.createTextNode("\n                        ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("input");
-        dom.setAttribute(el2,"type","text");
-        dom.setAttribute(el2,"class","half firstName");
-        dom.setAttribute(el2,"placeholder","First Name");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                        ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("input");
-        dom.setAttribute(el2,"type","text");
-        dom.setAttribute(el2,"class","half lastName");
-        dom.setAttribute(el2,"placeholder","Last Name");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("                    ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),5,5);
-        block(env, morph0, context, "if", [get(env, context, "model.isSaving")], {}, child0, child1);
-        return fragment;
-      }
-    };
-  }());
-  var child4 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                        ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("span");
-        dom.setAttribute(el1,"class","text");
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n                        ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("a");
-        dom.setAttribute(el1,"href","#");
-        var el2 = dom.createTextNode("Edit");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, content = hooks.content, element = hooks.element;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element6 = dom.childAt(fragment, [3]);
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-        content(env, morph0, context, "model.email");
-        element(env, element6, context, "action", ["editEmail"], {"class": "edit"});
-        return fragment;
-      }
-    };
-  }());
-  var child5 = (function() {
-    var child0 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                                ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link");
-          var el2 = dom.createTextNode("Update Email");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n                            ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link");
-          var el2 = dom.createTextNode("Cancel");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          var element4 = dom.childAt(fragment, [1]);
-          var element5 = dom.childAt(fragment, [3]);
-          element(env, element4, context, "action", ["updateEmail"], {});
-          element(env, element5, context, "action", ["editEmailCancel"], {});
-          return fragment;
-        }
-      };
-    }());
-    var child1 = (function() {
-      return {
-        isHTMLBars: true,
-        revision: "Ember@1.11.3",
-        blockParams: 0,
-        cachedFragment: null,
-        hasRendered: false,
-        build: function build(dom) {
-          var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                                ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","button link disabled");
-          var el2 = dom.createTextNode("Saving...");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
-          return el0;
-        },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
-      };
-    }());
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                        ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("span");
-        dom.setAttribute(el1,"class","input-group");
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("input");
-        dom.setAttribute(el2,"type","email");
-        dom.setAttribute(el2,"class","updateEmail");
-        dom.setAttribute(el2,"placeholder","New Email");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("input");
-        dom.setAttribute(el2,"type","password");
-        dom.setAttribute(el2,"class","updateEmailPassword");
-        dom.setAttribute(el2,"placeholder","Password");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("br");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("                        ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),7,7);
-        block(env, morph0, context, "unless", [get(env, context, "isSavingEmail")], {}, child0, child1);
-        return fragment;
-      }
-    };
-  }());
-  var child6 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                        ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("button");
-        dom.setAttribute(el1,"class","button link");
-        var el2 = dom.createTextNode("Change Password");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, element = hooks.element;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element3 = dom.childAt(fragment, [1]);
-        element(env, element3, context, "action", ["editPassword"], {});
-        return fragment;
-      }
-    };
-  }());
-  var child7 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("                        ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","input-group");
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("label");
-        dom.setAttribute(el2,"for","");
-        var el3 = dom.createTextNode("\n                                Current Password\n                            ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("br");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("label");
-        dom.setAttribute(el2,"for","");
-        var el3 = dom.createTextNode("\n                                New Password\n                            ");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("input");
-        dom.setAttribute(el2,"type","password");
-        dom.setAttribute(el2,"class","newPassword");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("br");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2,"class","button link");
-        var el3 = dom.createTextNode("Update Password");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                            ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("button");
-        dom.setAttribute(el2,"class","button link");
-        var el3 = dom.createTextNode("Cancel");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                        ");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, inline = hooks.inline, element = hooks.element;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -3185,12 +700,145 @@ TEMPLATE.account=(function() {
           fragment = this.build(dom);
         }
         var element0 = dom.childAt(fragment, [1]);
-        var element1 = dom.childAt(element0, [13]);
-        var element2 = dom.childAt(element0, [15]);
-        var morph0 = dom.createMorphAt(element0,3,3);
-        inline(env, morph0, context, "input", [], {"type": "password", "class": "oldPassword"});
-        element(env, element1, context, "action", ["updatePassword"], {});
-        element(env, element2, context, "action", ["editPasswordCancel"], {});
+        var element1 = dom.childAt(element0, [7]);
+        var morph0 = dom.createMorphAt(dom.childAt(element0, [1]),1,1);
+        var morph1 = dom.createMorphAt(dom.childAt(element0, [3]),1,1);
+        var morph2 = dom.createMorphAt(dom.childAt(element0, [5]),1,1);
+        content(env, morph0, context, "model.profile.awsAccount");
+        content(env, morph1, context, "model.profile.awsAccessKey");
+        content(env, morph2, context, "model.profile.awsSecretKey");
+        element(env, element1, context, "action", ["removeAwsAccount"], {"target": "view", "bubbles": false});
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("      ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","static");
+        var el2 = dom.createTextNode("None");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n      ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","static wide hint");
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("p");
+        var el3 = dom.createTextNode("In order to monitor your cloud infrastructure with CloudField, you have to provide an cloud account.");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("p");
+        var el3 = dom.createTextNode("Currently only AWS account is supported.");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n      ");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  var child2 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("      ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("ol");
+        dom.setAttribute(el1,"class","account-instruction");
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        dom.setAttribute(el2,"style","line-height:30px;");
+        var el3 = dom.createTextNode("Go to ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("a");
+        dom.setAttribute(el3,"href","http://console.aws.com");
+        var el4 = dom.createTextNode("AWS console > Security Credentials > Users");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode(" ");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        var el3 = dom.createTextNode("Create new user for CloudFielder. Then download/copy the generated access key and secret.");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("li");
+        var el3 = dom.createTextNode("Set up proper permissions for this user. Read-only access to all supported resources is recommended.");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n      ");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
         return fragment;
       }
     };
@@ -3205,130 +853,615 @@ TEMPLATE.account=(function() {
       var el0 = dom.createDocumentFragment();
       var el1 = dom.createElement("header");
       dom.setAttribute(el1,"class","workarea-header");
-      var el2 = dom.createTextNode("\n    ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("h2");
-      dom.setAttribute(el2,"class","header-title");
-      var el3 = dom.createTextNode("Configuration");
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n");
+      var el2 = dom.createTextNode("RULE");
       dom.appendChild(el1, el2);
       dom.appendChild(el0, el1);
       var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
       var el1 = dom.createElement("section");
-      dom.setAttribute(el1,"class","clearfix work-area-content");
-      var el2 = dom.createTextNode("\n    ");
+      dom.setAttribute(el1,"class","work-area-content settings-form");
+      var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
-      var el2 = dom.createElement("section");
-      dom.setAttribute(el2,"class","panel");
-      var el3 = dom.createTextNode("\n        ");
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","settings-content settings-form");
+      var el3 = dom.createTextNode("\n  ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createElement("ul");
-      dom.setAttribute(el3,"class","panel-title tab");
-      var el4 = dom.createTextNode("\n            ");
+      var el3 = dom.createElement("fieldset");
+      var el4 = dom.createTextNode("\n    ");
       dom.appendChild(el3, el4);
-      var el4 = dom.createElement("li");
+      var el4 = dom.createElement("header");
+      var el5 = dom.createTextNode("Account");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      dom.setAttribute(el4,"class","entry");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      var el6 = dom.createTextNode("Username");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","static");
+      var el6 = dom.createComment("");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n    ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      dom.setAttribute(el5,"for","account-key-id");
+      var el6 = dom.createTextNode("Name");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","static");
+      var el6 = dom.createComment("");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode(" ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createComment("");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","dynamic");
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap half");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgFirstName");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("First Name");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap half");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgLastName");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("Last Name");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","action-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      var el8 = dom.createTextNode("Save");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      dom.setAttribute(el7,"class","link");
+      var el8 = dom.createTextNode("Cancel");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n      ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n    ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      var el6 = dom.createTextNode("Email");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","static");
+      var el6 = dom.createComment("");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","dynamic");
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgEmail");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("New Email");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","password");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgEmailPass");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("Confirm with password");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","action-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      var el8 = dom.createTextNode("Update Email");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      dom.setAttribute(el7,"class","link");
+      var el8 = dom.createTextNode("Cancel");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n      ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n    ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      var el6 = dom.createTextNode("Password");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","static font-mono");
+      var el6 = dom.createTextNode("******");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","dynamic");
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","password");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgPass0");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("Old password");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","password");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgPass1");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("New password");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","password");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgPass2");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("Confirm new password");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","action-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      var el8 = dom.createTextNode("Update Password");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      dom.setAttribute(el7,"class","link");
+      var el8 = dom.createTextNode("Cancel");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n      ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n    ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n  ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n\n  ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("fieldset");
+      var el4 = dom.createTextNode("\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("header");
+      var el5 = dom.createTextNode("Scan Configuration");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      var el6 = dom.createTextNode("Scan Interval");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","static");
+      var el6 = dom.createComment("");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode(" min");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","dynamic");
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgScan");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createTextNode("Scan Interval ( miniute )");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","action-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      var el8 = dom.createTextNode("Save");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      dom.setAttribute(el7,"class","link");
+      var el8 = dom.createTextNode("Cancel");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n      ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n    ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n\n    ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("section");
+      var el5 = dom.createTextNode("\n      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("label");
+      dom.setAttribute(el5,"for","account-key-id");
+      var el6 = dom.createTextNode("Cloud Account");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n");
+      dom.appendChild(el4, el5);
       var el5 = dom.createComment("");
       dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("li");
-      dom.setAttribute(el4,"class","active");
+      var el5 = dom.createTextNode("      ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","dynamic");
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgAwsAccount");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-user-secret");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("AWS Account Number");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgAwsAccess");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-key");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("AWS Access Key");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","input-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("input");
+      dom.setAttribute(el7,"type","text");
+      dom.setAttribute(el7,"required","required");
+      dom.setAttribute(el7,"id","cfgAwsPrivate");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("label");
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-lock");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("AWS Private Key");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","error");
+      var el8 = dom.createComment("");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("div");
+      dom.setAttribute(el6,"class","action-wrap");
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      var el8 = dom.createTextNode("Link Account");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n          ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("button");
+      dom.setAttribute(el7,"class","link");
+      var el8 = dom.createTextNode("Cancel");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n        ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n\n        ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("button");
+      dom.setAttribute(el6,"class","link");
+      dom.setAttribute(el6,"style","margin-top:1em;");
+      var el7 = dom.createTextNode("Having trouble geting the account info?");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n      ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n");
+      dom.appendChild(el4, el5);
       var el5 = dom.createComment("");
       dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n        ");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("div");
-      dom.setAttribute(el3,"class","panel-content clearfix");
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("p");
-      dom.setAttribute(el4,"class","major");
-      var el5 = dom.createTextNode("USER ACCOUNT");
+      var el5 = dom.createTextNode("    ");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n            ");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createElement("div");
-      dom.setAttribute(el4,"class","form add-cloud-account");
-      var el5 = dom.createTextNode("\n                ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("fieldset");
-      var el6 = dom.createTextNode("\n                    ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("label");
-      dom.setAttribute(el6,"for","account-number");
-      var el7 = dom.createTextNode("\n                        Username\n                    ");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("\n                    ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("span");
-      dom.setAttribute(el6,"class","text");
-      var el7 = dom.createComment("");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("\n                ");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n                ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("fieldset");
-      var el6 = dom.createTextNode("\n                    ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("label");
-      dom.setAttribute(el6,"for","account-key-id");
-      var el7 = dom.createTextNode("\n                        Name\n                    ");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("\n");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createComment("");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("                ");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n                ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("fieldset");
-      var el6 = dom.createTextNode("\n                    ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("label");
-      dom.setAttribute(el6,"for","account-email");
-      var el7 = dom.createTextNode("\n                        Email\n                    ");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("\n");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createComment("");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("                ");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n                ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("fieldset");
-      var el6 = dom.createTextNode("\n");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createComment("");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("\n                ");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n            ");
-      dom.appendChild(el4, el5);
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n        ");
+      var el4 = dom.createTextNode("\n\n  ");
       dom.appendChild(el3, el4);
       dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n    ");
+      var el3 = dom.createTextNode("\n");
       dom.appendChild(el2, el3);
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n");
@@ -3338,7 +1471,7 @@ TEMPLATE.account=(function() {
     },
     render: function render(context, env, contextualElement) {
       var dom = env.dom;
-      var hooks = env.hooks, block = hooks.block, content = hooks.content, get = hooks.get;
+      var hooks = env.hooks, content = hooks.content, element = hooks.element, get = hooks.get, concat = hooks.concat, attribute = hooks.attribute, block = hooks.block;
       dom.detectNamespace(contextualElement);
       var fragment;
       if (env.useFragmentCache && dom.canClone) {
@@ -3356,107 +1489,396 @@ TEMPLATE.account=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element12 = dom.childAt(fragment, [2, 1]);
-      var element13 = dom.childAt(element12, [1]);
-      var element14 = dom.childAt(element12, [3, 3]);
-      var morph0 = dom.createMorphAt(dom.childAt(element13, [1]),0,0);
-      var morph1 = dom.createMorphAt(dom.childAt(element13, [3]),0,0);
-      var morph2 = dom.createMorphAt(dom.childAt(element14, [1, 3]),0,0);
-      var morph3 = dom.createMorphAt(dom.childAt(element14, [3]),3,3);
-      var morph4 = dom.createMorphAt(dom.childAt(element14, [5]),3,3);
-      var morph5 = dom.createMorphAt(dom.childAt(element14, [7]),1,1);
-      block(env, morph0, context, "link-to", ["settings.scan"], {}, child0, null);
-      block(env, morph1, context, "link-to", ["settings.account"], {}, child1, null);
-      content(env, morph2, context, "model.username");
-      block(env, morph3, context, "unless", [get(env, context, "isEditing")], {}, child2, child3);
-      block(env, morph4, context, "unless", [get(env, context, "isEditingEmail")], {}, child4, child5);
-      block(env, morph5, context, "unless", [get(env, context, "isEditingPassword")], {}, child6, child7);
+      var element2 = dom.childAt(fragment, [2, 1]);
+      var element3 = dom.childAt(element2, [1]);
+      var element4 = dom.childAt(element3, [5]);
+      var element5 = dom.childAt(element4, [3]);
+      var element6 = dom.childAt(element4, [5]);
+      var element7 = dom.childAt(element6, [1]);
+      var element8 = dom.childAt(element7, [1]);
+      var element9 = dom.childAt(element6, [3]);
+      var element10 = dom.childAt(element9, [1]);
+      var element11 = dom.childAt(element6, [5]);
+      var element12 = dom.childAt(element11, [1]);
+      var element13 = dom.childAt(element11, [3]);
+      var element14 = dom.childAt(element3, [7]);
+      var element15 = dom.childAt(element14, [5]);
+      var element16 = dom.childAt(element15, [5]);
+      var element17 = dom.childAt(element16, [1]);
+      var element18 = dom.childAt(element16, [3]);
+      var element19 = dom.childAt(element3, [9]);
+      var element20 = dom.childAt(element19, [5]);
+      var element21 = dom.childAt(element20, [7]);
+      var element22 = dom.childAt(element21, [1]);
+      var element23 = dom.childAt(element21, [3]);
+      var element24 = dom.childAt(element2, [3]);
+      var element25 = dom.childAt(element24, [3]);
+      var element26 = dom.childAt(element25, [5]);
+      var element27 = dom.childAt(element26, [3]);
+      var element28 = dom.childAt(element27, [1]);
+      var element29 = dom.childAt(element27, [3]);
+      var element30 = dom.childAt(element24, [5]);
+      var element31 = dom.childAt(element30, [5]);
+      var element32 = dom.childAt(element31, [7]);
+      var element33 = dom.childAt(element32, [1]);
+      var element34 = dom.childAt(element32, [3]);
+      var element35 = dom.childAt(element31, [9]);
+      var morph0 = dom.createMorphAt(dom.childAt(element3, [3, 3]),0,0);
+      var morph1 = dom.createMorphAt(element5,0,0);
+      var morph2 = dom.createMorphAt(element5,2,2);
+      var attrMorph0 = dom.createAttrMorph(element8, 'value');
+      var morph3 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
+      var attrMorph1 = dom.createAttrMorph(element10, 'value');
+      var morph4 = dom.createMorphAt(dom.childAt(element9, [5]),0,0);
+      var morph5 = dom.createMorphAt(dom.childAt(element14, [3]),0,0);
+      var morph6 = dom.createMorphAt(dom.childAt(element15, [1, 5]),0,0);
+      var morph7 = dom.createMorphAt(dom.childAt(element15, [3, 5]),0,0);
+      var morph8 = dom.createMorphAt(dom.childAt(element20, [1, 5]),0,0);
+      var morph9 = dom.createMorphAt(dom.childAt(element20, [3, 5]),0,0);
+      var morph10 = dom.createMorphAt(dom.childAt(element20, [5, 5]),0,0);
+      var morph11 = dom.createMorphAt(dom.childAt(element25, [3]),0,0);
+      var morph12 = dom.createMorphAt(dom.childAt(element26, [1, 5]),0,0);
+      var morph13 = dom.createMorphAt(element30,3,3);
+      var morph14 = dom.createMorphAt(dom.childAt(element31, [1, 5]),0,0);
+      var morph15 = dom.createMorphAt(dom.childAt(element31, [3, 5]),0,0);
+      var morph16 = dom.createMorphAt(dom.childAt(element31, [5, 5]),0,0);
+      var morph17 = dom.createMorphAt(element30,7,7);
+      content(env, morph0, context, "model.username");
+      element(env, element4, context, "bind-attr", [], {"class": ":entry isEditingName:editing isSavingName:saving"});
+      element(env, element4, context, "action", ["editFullName"], {});
+      content(env, morph1, context, "model.firstName");
+      content(env, morph2, context, "model.lastName");
+      attribute(env, attrMorph0, element8, "value", concat(env, [get(env, context, "model.firstName")]));
+      content(env, morph3, context, "view.errorFirstName");
+      attribute(env, attrMorph1, element10, "value", concat(env, [get(env, context, "model.lastName")]));
+      content(env, morph4, context, "view.errorLastName");
+      element(env, element12, context, "action", ["saveFullname"], {"target": "view", "bubbles": false});
+      element(env, element13, context, "action", ["cancelFullName"], {"bubbles": false});
+      element(env, element14, context, "bind-attr", [], {"class": ":entry isEditingEmail:editing isSavingEmail:saving"});
+      element(env, element14, context, "action", ["editEmail"], {});
+      content(env, morph5, context, "model.email");
+      content(env, morph6, context, "view.errorEmail");
+      content(env, morph7, context, "view.errorEmailPass");
+      element(env, element17, context, "action", ["updateEmail"], {"target": "view", "bubbles": false});
+      element(env, element18, context, "action", ["cancelEmail"], {"target": "view", "bubbles": false});
+      element(env, element19, context, "bind-attr", [], {"class": ":entry isEditingPassword:editing isSavingPassword:saving"});
+      element(env, element19, context, "action", ["editPassword"], {});
+      content(env, morph8, context, "view.errorPass0");
+      content(env, morph9, context, "view.errorPass1");
+      content(env, morph10, context, "view.errorPass2");
+      element(env, element22, context, "action", ["updatePassword"], {"target": "view", "bubbles": false});
+      element(env, element23, context, "action", ["cancelPassword"], {"target": "view", "bubbles": false});
+      element(env, element25, context, "bind-attr", [], {"class": ":entry isEditingScanInt:editing isSavingScanInt:saving"});
+      element(env, element25, context, "action", ["editScanInt"], {});
+      content(env, morph11, context, "model.profile.cfgScanInt");
+      content(env, morph12, context, "view.errorScan");
+      element(env, element28, context, "action", ["saveScanInt"], {"target": "view", "bubbles": false});
+      element(env, element29, context, "action", ["cancelScanInt"], {"target": "view", "bubbles": false});
+      element(env, element30, context, "bind-attr", [], {"class": ":entry isEditingCred:editing isSavingCred:saving"});
+      element(env, element30, context, "action", ["editCredential"], {});
+      block(env, morph13, context, "if", [get(env, context, "hasCredential")], {}, child0, child1);
+      content(env, morph14, context, "view.errorAwsAccount");
+      content(env, morph15, context, "view.errorAwsAccess");
+      content(env, morph16, context, "view.errorAwsPrivate");
+      element(env, element33, context, "action", ["saveAwsAccount"], {"target": "view", "bubbles": false});
+      element(env, element34, context, "action", ["cancelCredential"], {"target": "view", "bubbles": false});
+      element(env, element35, context, "action", ["toggleAwsHelp"], {"bubbles": false});
+      block(env, morph17, context, "if", [get(env, context, "isShowingAwsHelp")], {}, child2, null);
       return fragment;
     }
   };
-}());
-
-return TEMPLATE; });
-define('view/SettingsView',["template/SettingsTpl"], function(SettingsTemplate) {
-  return {
-    SettingsScanView: Ember.View.extend({
-      template: SettingsTemplate.cloud,
-      classNames: ["settings"],
-      actions: {
-        addCloudAccount: function() {
-          var awsAccessKey, awsAccount, awsSecretKey, controller, model;
-          awsAccount = this.$(".accountNumber").val();
-          awsAccessKey = this.$(".accessKey").val();
-          awsSecretKey = this.$(".secretKey").val();
-          model = this.get("controller").get("model");
-          controller = this.get("controller");
-          controller.set("isSavingCred", true);
-          model.profile.setProperties({
-            awsAccount: awsAccount,
-            awsAccessKey: awsAccessKey,
-            awsSecretKey: awsSecretKey
-          });
-          return model.profile.save().then(function() {
-            controller.set("isSavingCred", false);
-            controller.set("isEditingCred", false);
-            return controller.transitionToRoute("settings");
-          });
-        },
-        updateScanOptions: function() {
-          var alertEmail, controller, model, scanInterval;
-          alertEmail = this.$(".alertEmail").val();
-          scanInterval = this.$(".scanInterval").val();
-          controller = this.get("controller");
-          model = controller.get("model").profile;
-          model.setProperties({
-            cfgScanInt: scanInterval,
-            alertEmail: alertEmail
-          });
-          return controller.send("updateScanOptions");
-        }
+}()));
+define('ui/UI.bubblepopup',[], function() {
+  var bubblePopup;
+  $(document).on('click', function(event) {
+    if (!$(event.target).hasClass('bubble-popuped')) {
+      $('#bubble-box').remove();
+      return $('.bubble-popuped').removeClass('bubble-popuped');
+    }
+  });
+  bubblePopup = function(target, option, handleMap) {
+    var $content, bubble_box, content, coordinate, height, target_height, target_offset, target_width, width;
+    target = $(target);
+    bubble_box = $('#bubble-box');
+    coordinate = {};
+    if (typeof option !== 'string') {
+      content = "<div class=\"info\">" + option.title + "</div>\n<div class=\"operate\">\n    <button class=\"confirm btn btn-red\">" + option.confirm + "</li>\n    <button class=\"cancel btn btn-silver\">" + option.cancel + "</li>\n</div>";
+    } else {
+      content = option;
+    }
+    if ($.trim(content) !== '') {
+      if (!bubble_box[0]) {
+        $(document.body).append('<div id="bubble-box" class="bubble-popup"><div class="arrow"></div><div class="content"></div></div>');
+        bubble_box = $('#bubble-box');
       }
-    }),
-    SettingsAccountView: Ember.View.extend({
-      template: SettingsTemplate.account,
+      $content = $('#bubble-box .content').html(content);
+      $content.find('.cancel').on('click', function() {
+        $('#bubble-box').remove();
+        return $('.bubble-popuped').removeClass('bubble-popuped');
+      });
+      _.each(handleMap, function(handle, selector) {
+        return $content.find(selector).on('click', handle);
+      });
+      target_offset = target.offset();
+      target_width = target.innerWidth();
+      target_height = target.innerHeight();
+      width = bubble_box.width();
+      height = bubble_box.height();
+      if (target_offset.top + target_height + height - document.documentElement.scrollTop > window.innerHeight) {
+        coordinate.top = target_offset.top - height - 15;
+        bubble_box.addClass('bubble-top');
+      } else {
+        coordinate.top = target_offset.top + target_height + 15;
+        bubble_box.addClass('bubble-bottom');
+      }
+      coordinate.left = target_offset.left - ((width - target_width) / 2);
+      bubble_box.css(coordinate).show();
+      return target.addClass('bubble-popuped');
+    }
+  };
+  return bubblePopup;
+});
+
+define('view/SettingsView',["template/SettingsTpl", "ui/UI.bubblepopup"], function(SettingsTemplate, popupBubble) {
+  var error1, error2, error3, error4, error5, error6, error7, error8, error9;
+  error1 = "Cannot be empty.";
+  error2 = "Error occured, please retry later.";
+  error3 = "Please provide a valid value.";
+  error4 = "Password must contain 6 characters at least.";
+  error5 = "These passwords don't match.";
+  error6 = "The email has be used.";
+  error7 = "Your password is invalid.";
+  error8 = "Cannot link your account, please retry later.";
+  error9 = "Scan interval should be >= 30";
+  return {
+    SettingsView: Ember.View.extend({
+      template: SettingsTemplate,
       classNames: ["settings"],
+      clearError: function() {
+        this.set("errorFirstName", "");
+        this.set("errorLastName", "");
+        this.set("errorEmail", "");
+        this.set("errorEmailPass", "");
+        this.set("errorPass0", "");
+        this.set("errorPass1", "");
+        this.set("errorPass2", "");
+        this.set("errorScan", "");
+        this.set("errorAwsAccount", "");
+        this.set("errorAwsAccess", "");
+        return this.set("errorAwsPrivate", "");
+      },
+      clearPasswords: function() {
+        this.$("#cfgPass0").val("");
+        this.$("#cfgPass1").val("");
+        this.$("#cfgPass2").val("");
+      },
+      clearEmail: function() {
+        this.$("#cfgEmail").val("");
+        this.$("#cfgEmailPass").val("");
+      },
+      clearCredential: function() {
+        this.$("#cfgAwsAccount").val("");
+        this.$("#cfgAwsAccess").val("");
+        this.$("#cfgAwsPrivate").val("");
+      },
       actions: {
         saveFullname: function() {
-          var controller, firstName, lastName, model;
-          firstName = this.$(".firstName").val();
-          lastName = this.$(".lastName").val();
-          controller = this.get("controller");
-          model = this.get("controller").get("model");
-          model.setProperties({
-            firstName: firstName,
-            lastName: lastName
-          });
-          return model.save().then(function() {
-            return controller.set("isEditing", false);
-          });
+          var fn, ln;
+          this.clearError();
+          fn = this.$("#cfgFirstName").val();
+          ln = this.$("#cfgLastName").val();
+          if (!fn) {
+            this.set("errorFirstName", error1);
+          }
+          if (!ln) {
+            this.set("errorLastName", error1);
+          }
+          if (!fn || !ln) {
+            return;
+          }
+          this.set("controller.isSavingName", true);
+          this.get("controller.model").updateName(fn, ln).then((function(_this) {
+            return function() {
+              return _this.get("controller").send("cancelFullName");
+            };
+          })(this), (function(_this) {
+            return function(error) {
+              _this.set("controller.isSavingName", false);
+              return _this.set("errorFirstName", error2);
+            };
+          })(this));
         },
         updateEmail: function() {
-          var controller, model, newEmail, password;
-          newEmail = this.$(".updateEmail").val();
-          password = this.$(".updateEmailPassword").val();
-          controller = this.get("controller");
-          model = controller.get("model");
-          return model.updateEmail(newEmail, password).then(function() {
-            return controller.send("editEmailCancel");
-          })["finally"](function() {
-            return controller.send("updateEmailDone");
-          }, null);
+          var em, ep;
+          this.clearError();
+          em = this.$("#cfgEmail").val();
+          ep = this.$("#cfgEmailPass").val();
+          if (em === App.user.get("email")) {
+            this.send("cancelEmail");
+            return;
+          }
+          if (!em) {
+            this.set("errorEmail", error1);
+          }
+          if (!ep) {
+            this.set("errorEmailPass", error1);
+          }
+          if (!em || !ep) {
+            return;
+          }
+          if (!/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(em)) {
+            this.set("errorEmail", error3);
+            return;
+          }
+          this.set("controller.isSavingEmail", true);
+          this.get("controller.model").updateEmail(em, ep).then((function(_this) {
+            return function() {
+              return _this.send("cancelEmail");
+            };
+          })(this), (function(_this) {
+            return function(error) {
+              _this.set("controller.isSavingEmail", false);
+              if (error && error.error === 117) {
+                return _this.set("errorEmail", error6);
+              } else {
+                return _this.set("errorEmail", error2);
+              }
+            };
+          })(this));
+        },
+        cancelEmail: function() {
+          this.clearEmail();
+          this.get("controller").send("cancelEmail");
         },
         updatePassword: function() {
-          var controller, model, newPassword, oldPassword;
-          oldPassword = this.$(".oldPassword").val();
-          newPassword = this.$(".newPassword").val();
-          controller = this.get("controller");
-          model = controller.get("model");
-          return model.updatePassword(oldPassword, newPassword).then(function() {
-            return controller.send("editPasswordCancel");
-          })["finally"](function() {
-            return controller.send("editPasswordDone");
-          }, null);
+          var p0, p1, p2;
+          this.clearError();
+          p0 = this.$("#cfgPass0").val();
+          p1 = this.$("#cfgPass1").val();
+          p2 = this.$("#cfgPass2").val();
+          if (!p0) {
+            this.set("errorPass0", error1);
+          }
+          if (!p1) {
+            this.set("errorPass1", error1);
+          }
+          if (!p2) {
+            this.set("errorPass2", error1);
+          }
+          if (!p0 || !p1 || !p2) {
+            return;
+          }
+          if (p1.length < 6) {
+            this.set("errorPass0", error4);
+            return;
+          }
+          if (p1 !== p2) {
+            this.set("errorPass2", error5);
+            return;
+          }
+          this.set("controller.isSavingPassword", true);
+          this.get("controller.model").updatePassword(p0, p1).then((function(_this) {
+            return function() {
+              return _this.send("cancelPassword");
+            };
+          })(this), (function(_this) {
+            return function(error) {
+              _this.set("controller.isSavingPassword", false);
+              if (error && error.error === 110) {
+                return _this.set("errorPass0", error7);
+              } else {
+                return _this.set("errorPass0", error2);
+              }
+            };
+          })(this));
+        },
+        cancelPassword: function() {
+          this.clearPasswords();
+          this.get("controller").send("cancelPassword");
+        },
+        saveAwsAccount: function() {
+          var aa, an, ap;
+          this.clearError();
+          an = this.$("#cfgAwsAccount").val();
+          aa = this.$("#cfgAwsAccess").val();
+          ap = this.$("#cfgAwsPrivate").val();
+          if (!an) {
+            this.set("errorAwsAccount", error1);
+          }
+          if (!aa) {
+            this.set("errorAwsAccess", error1);
+          }
+          if (!ap) {
+            this.set("errorAwsPrivate", error1);
+          }
+          if (!an || !aa || !ap) {
+            return;
+          }
+          this.set("controller.isSavingCred", true);
+          this.get("controller.model.profile").updateCredential(an, aa, ap).then((function(_this) {
+            return function() {
+              return _this.send("cancelCredential");
+            };
+          })(this), (function(_this) {
+            return function(error) {
+              _this.set("controller.isSavingCred", false);
+              if (error && error.error === 293) {
+                return _this.set("errorAwsAccount", error8);
+              } else {
+                return _this.set("errorAwsAccount", error2);
+              }
+            };
+          })(this));
+        },
+        removeAwsAccount: function() {
+          var self;
+          self = this;
+          popupBubble(this.$('#cfgRemoveAccount'), {
+            title: "Are youre sure to remove the cloud account?",
+            confirm: "Confirm",
+            cancel: "Cancel"
+          }, {
+            '.confirm': function() {
+              self.set("controller.isSavingCred", true);
+              self.get("controller.model.profile").updateCredential("", "", "").then(function() {
+                return self.send("cancelCredential");
+              }, function(error) {
+                return self.set("controller.isSavingCred", false);
+              });
+            }
+          });
+        },
+        cancelCredential: function() {
+          this.clearCredential();
+          return this.get("controller").send("cancelCredential");
+        },
+        saveScanInt: function() {
+          var s;
+          s = this.$("#cfgScan").val();
+          if (!s) {
+            this.set("errorScan", error1);
+            return;
+          }
+          s = parseInt(s);
+          if (isNaN(s) || s < 30) {
+            this.set("errorScan", error9);
+            return;
+          }
+          this.set("controller.isSavingScanInt", true);
+          this.get("controller.model.profile").updateScanInterval(s).then((function(_this) {
+            return function() {
+              return _this.send("cancelScanInt");
+            };
+          })(this), (function(_this) {
+            return function(error) {
+              _this.set("controller.isSavingScanInt", false);
+              return _this.set("errorScan", error2);
+            };
+          })(this));
+        },
+        cancelScanInt: function() {
+          this.$("#cfgScan").val("");
+          return this.get("controller").send("cancelScanInt");
         }
       }
     })
@@ -3465,82 +1887,80 @@ define('view/SettingsView',["template/SettingsTpl"], function(SettingsTemplate) 
 
 define('controller/SettingsController',[], function() {
   return {
-    SettingsAccountController: Ember.Controller.extend({
+    SettingsController: Ember.Controller.extend({
+      init: function() {
+        this._super();
+        return this.resetState();
+      },
+      hasCredential: (function() {
+        return !!this.get("model.profile.awsAccount");
+      }).property("model.profile.awsAccount"),
+      resetState: function() {
+        this.set("isEditingName", false);
+        this.set("isEditingEmail", false);
+        this.set("isEditingPassword", false);
+        this.set("isEditingCred", false);
+        this.set("isEditingScanInt", false);
+        this.set("isShowingAwsHelp", false);
+        this.set("isSavingName", false);
+        this.set("isSavingEmail", false);
+        this.set("isSavingPasword", false);
+        this.set("isSavingCred", false);
+        this.set("isSavingScanInt", false);
+      },
       actions: {
-        editFullname: function() {
-          return this.set('isEditing', true);
+
+        /*
+         UI State
+         */
+        toggleAwsHelp: function() {
+          this.set("isShowingAwsHelp", !this.get("isShowingAwsHelp"));
         },
-        editFullnameCancel: function() {
-          return this.set('isEditing', false);
+        editFullName: function() {
+          if (!this.get("isSavingName")) {
+            this.set('isEditingName', true);
+          }
         },
         editEmail: function() {
-          return this.set("isEditingEmail", true);
-        },
-        editEmailCancel: function() {
-          return this.set("isEditingEmail", false);
-        },
-        updateEmail: function() {
-          return this.set("isSavingEmail", true);
-        },
-        updateEmailDone: function() {
-          return this.set("isSavingEmail", false);
+          if (!this.get("isSavingEmail")) {
+            this.set("isEditingEmail", true);
+          }
         },
         editPassword: function() {
-          return this.set("isEditingPassword", true);
+          if (!this.get("isSavingPassword")) {
+            this.set("isEditingPassword", true);
+          }
         },
-        editPasswordCancel: function() {
-          return this.set("isEditingPassword", false);
+        editScanInt: function() {
+          if (!this.get("isSavingScanInt")) {
+            this.set("isEditingScanInt", true);
+          }
         },
-        updatePassword: function() {
-          return this.set("isSavingPassword", true);
-        },
-        updatePasswordDone: function() {
-          return this.set("isSavingPassword", false);
-        }
-      }
-    }),
-    SettingsScanController: Ember.Controller.extend({
-      actions: {
         editCredential: function() {
-          return this.set("isEditingCred", true);
+          if (!this.get("isSavingCred")) {
+            this.set("isEditingCred", true);
+          }
         },
-        editCredentialCancel: function() {
-          return this.set("isEditingCred", false);
+        cancelFullName: function() {
+          this.set('isEditingName', false);
+          this.set('isSavingName', false);
         },
-        removeCredential: function() {
-          var awsAccessKey, awsAccount, awsSecretKey, model;
-          this.set("isRemovingCred", true);
-          model = this.get("model");
-          awsAccount = awsAccessKey = awsSecretKey = null;
-          model.profile.setProperties({
-            awsAccount: awsAccount,
-            awsAccessKey: awsAccessKey,
-            awsSecretKey: awsSecretKey
-          });
-          return model.profile.save().then((function(_this) {
-            return function() {
-              _this.set("isRemovingCred", false);
-              _this.set("isEditingCred", false);
-              return _this.transitionToRoute('settings');
-            };
-          })(this));
+        cancelEmail: function() {
+          this.set("isEditingEmail", false);
+          this.set("isSavingEmail", false);
         },
-        editScanOptions: function() {
-          return this.set("isEditingScan", true);
+        cancelPassword: function() {
+          this.set("isEditingPassword", false);
+          this.set("isSavingPassword", false);
         },
-        editScanOptionsCancel: function() {
-          return this.set("isEditingScan", false);
+        cancelScanInt: function() {
+          this.set("isEditingScanInt", false);
+          this.set("isSavingScanInt", false);
         },
-        updateScanOptions: function() {
-          var model, self;
-          self = this;
-          this.set("isSavingScan", true);
-          model = this.get('model').profile;
-          return model.save().then(function() {
-            return self.set("isEditingScan", false);
-          })["finally"](function() {
-            return self.set("isSavingScan", false);
-          }, null);
+        cancelCredential: function() {
+          this.set("isShowingAwsHelp", false);
+          this.set("isEditingCred", false);
+          this.set("isSavingCred", false);
         }
       }
     })
@@ -3600,8 +2020,8 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element7 = dom.childAt(fragment, [3, 1]);
-        element(env, element7, context, "action", ["setup"], {});
+        var element8 = dom.childAt(fragment, [3, 1]);
+        element(env, element8, context, "action", ["setup"], {});
         return fragment;
       }
     };
@@ -3663,7 +2083,7 @@ TEMPLATE.dashboard=(function() {
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
           dom.setAttribute(el1,"class","panel-content blank");
-          var el2 = dom.createTextNode("No resouce has been scanned.");
+          var el2 = dom.createTextNode("No resource has been scanned.");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -3714,7 +2134,7 @@ TEMPLATE.dashboard=(function() {
             var el2 = dom.createTextNode("\n                                ");
             dom.appendChild(el1, el2);
             var el2 = dom.createElement("span");
-            dom.setAttribute(el2,"class","count");
+            dom.setAttribute(el2,"class","res-count");
             var el3 = dom.createComment("");
             dom.appendChild(el2, el3);
             dom.appendChild(el1, el2);
@@ -3754,12 +2174,15 @@ TEMPLATE.dashboard=(function() {
             }
             var element2 = dom.childAt(fragment, [1]);
             var element3 = dom.childAt(element2, [1]);
+            var element4 = dom.childAt(element2, [5]);
             var attrMorph0 = dom.createAttrMorph(element3, 'src');
             var morph0 = dom.createMorphAt(dom.childAt(element2, [3]),0,0);
-            var morph1 = dom.createMorphAt(dom.childAt(element2, [5]),0,0);
-            attribute(env, attrMorph0, element3, "src", concat(env, [get(env, context, "type"), ".png"]));
-            content(env, morph0, context, "count");
-            content(env, morph1, context, "type");
+            var morph1 = dom.createMorphAt(element4,0,0);
+            var attrMorph1 = dom.createAttrMorph(element4, 'title');
+            attribute(env, attrMorph0, element3, "src", concat(env, [get(env, context, "resource.type"), ".png"]));
+            content(env, morph0, context, "resource.count");
+            attribute(env, attrMorph1, element4, "title", concat(env, [get(env, context, "resource.type")]));
+            content(env, morph1, context, "resource.type");
             return fragment;
           }
         };
@@ -3815,7 +2238,7 @@ TEMPLATE.dashboard=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),1,1);
-          block(env, morph0, context, "each", [get(env, context, "model.resources")], {}, child0, null);
+          block(env, morph0, context, "each", [get(env, context, "model.resources")], {"keyword": "resource"}, child0, null);
           return fragment;
         }
       };
@@ -3896,8 +2319,11 @@ TEMPLATE.dashboard=(function() {
             var el2 = dom.createTextNode("\n                                ");
             dom.appendChild(el1, el2);
             var el2 = dom.createElement("a");
-            dom.setAttribute(el2,"href","");
-            dom.setAttribute(el2,"class","btn-vio-detail icon-detail");
+            dom.setAttribute(el2,"href","#");
+            dom.setAttribute(el2,"class","btn-vio-detail");
+            var el3 = dom.createElement("i");
+            dom.setAttribute(el3,"class","fa fa-chevron-right");
+            dom.appendChild(el2, el3);
             dom.appendChild(el1, el2);
             var el2 = dom.createTextNode("\n                            ");
             dom.appendChild(el1, el2);
@@ -3944,6 +2370,7 @@ TEMPLATE.dashboard=(function() {
           var el2 = dom.createTextNode("\n                        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","vio-rule-info");
           var el3 = dom.createTextNode("Rule ");
           dom.appendChild(el2, el3);
           var el3 = dom.createElement("span");
@@ -4065,6 +2492,23 @@ TEMPLATE.dashboard=(function() {
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("li");
         dom.setAttribute(el4,"class","");
+        var el5 = dom.createElement("i");
+        dom.setAttribute(el5,"class","fa fa-heartbeat");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("Scanner is ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("a");
+        var el6 = dom.createTextNode("Healthy");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("\n                    ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("li");
+        dom.setAttribute(el4,"class","");
+        var el5 = dom.createElement("i");
+        dom.setAttribute(el5,"class","fa fa-bars");
+        dom.appendChild(el4, el5);
         var el5 = dom.createElement("a");
         var el6 = dom.createComment("");
         dom.appendChild(el5, el6);
@@ -4076,6 +2520,9 @@ TEMPLATE.dashboard=(function() {
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("li");
         dom.setAttribute(el4,"class","");
+        var el5 = dom.createElement("i");
+        dom.setAttribute(el5,"class","fa fa-clock-o");
+        dom.appendChild(el4, el5);
         var el5 = dom.createTextNode("Next scan in ");
         dom.appendChild(el4, el5);
         var el5 = dom.createElement("a");
@@ -4173,21 +2620,21 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element4 = dom.childAt(fragment, [2, 3]);
-        var element5 = dom.childAt(element4, [3]);
-        var element6 = dom.childAt(fragment, [6]);
+        var element5 = dom.childAt(fragment, [2, 3]);
+        var element6 = dom.childAt(element5, [3]);
+        var element7 = dom.childAt(fragment, [6]);
         var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-        var morph1 = dom.createMorphAt(dom.childAt(element4, [1, 1]),0,0);
-        var morph2 = dom.createMorphAt(dom.childAt(element5, [1, 0]),0,0);
-        var morph3 = dom.createMorphAt(dom.childAt(element5, [3, 1]),0,0);
+        var morph1 = dom.createMorphAt(dom.childAt(element5, [1, 1]),0,0);
+        var morph2 = dom.createMorphAt(dom.childAt(element6, [3, 1]),0,0);
+        var morph3 = dom.createMorphAt(dom.childAt(element6, [5, 2]),0,0);
         var morph4 = dom.createMorphAt(dom.childAt(fragment, [4]),3,3);
-        var morph5 = dom.createMorphAt(dom.childAt(element6, [1, 1]),0,0);
-        var morph6 = dom.createMorphAt(dom.childAt(element6, [3, 1]),1,1);
+        var morph5 = dom.createMorphAt(dom.childAt(element7, [1, 1]),0,0);
+        var morph6 = dom.createMorphAt(dom.childAt(element7, [3, 1]),1,1);
         dom.insertBoundary(fragment, 0);
         block(env, morph0, context, "unless", [get(env, context, "model.resources.length")], {}, child0, null);
         content(env, morph1, context, "model.violationCount");
-        content(env, morph2, context, "model.activeRuleCount");
-        content(env, morph3, context, "model.lastScannedTime");
+        content(env, morph2, context, "activeRules");
+        content(env, morph3, context, "nextScanTime");
         block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child1, child2);
         content(env, morph5, context, "model.violationCount");
         block(env, morph6, context, "each", [get(env, context, "model.violationRules")], {"keyword": "violationRule"}, child3, null);
@@ -4218,7 +2665,7 @@ TEMPLATE.dashboard=(function() {
       var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
       var el1 = dom.createElement("section");
-      dom.setAttribute(el1,"class","clearfix work-area-content");
+      dom.setAttribute(el1,"class","work-area-content");
       var el2 = dom.createTextNode("\n\n    ");
       dom.appendChild(el1, el2);
       var el2 = dom.createComment("");
@@ -4255,8 +2702,47 @@ TEMPLATE.dashboard=(function() {
   };
 }());
 
+TEMPLATE.loading=(function() {
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","workarea-loading");
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      return fragment;
+    }
+  };
+}());
+
 return TEMPLATE; });
 define('view/DashboardView',["template/DashboardTpl"], function(DashboardTemplate) {
+  Ember.TEMPLATES["dashboard/loading"] = DashboardTemplate.loading;
   return Ember.View.extend({
     template: DashboardTemplate.dashboard,
     classNames: ["dashboard"]
@@ -4265,13 +2751,44 @@ define('view/DashboardView',["template/DashboardTpl"], function(DashboardTemplat
 
 define('controller/DashboardController',[], function() {
   return Ember.Controller.extend({
-    needs: ["application"]
+    needs: ["application", "ruleList"],
+    nextScanTime: (function() {
+      var nextScanTime;
+      nextScanTime = Math.round((this.model.get("nextScannedTime") * 1000 - new Date()) / 1000 / 60);
+      return nextScanTime;
+    }).property("nextScannedTime"),
+    activeRules: (function() {
+      var rules;
+      rules = this.model.get("rules");
+      return rules.filterBy("enabled", true).get("length");
+    }).property("rules.@each.enabled"),
+    actions: {
+      initResources: function() {
+        return this.store.get("resource");
+      }
+    },
+    resourceModel: (function() {
+      console.log("initialized");
+      console.log(this.store.get("resource"));
+      console.log("---------------");
+      return this.store.get("resource");
+    }).property("resources")
   });
 });
 
 define('model/SessionModel',["api/ApiRequest"], function(ApiRequest) {
-  var SessionInited;
+  var SessionInited, __maskString;
   SessionInited = false;
+  __maskString = function(text) {
+    if (text == null) {
+      text = "";
+    }
+    if (text.length > 6) {
+      return (new Array(6)).join("*") + text.substr(-6);
+    } else {
+      return text;
+    }
+  };
   return {
     SessionAdapter: DS.Adapter.extend({
       createRecord: function(store, type, session) {
@@ -4299,8 +2816,8 @@ define('model/SessionModel',["api/ApiRequest"], function(ApiRequest) {
             id: profile.id,
             cfgScanInt: profile.config.scan_interval,
             awsAccount: credential.account_id,
-            awsAccessKey: credential.access_key,
-            awsSecretKey: credential.secret_key
+            awsAccessKey: __maskString(credential.access_key),
+            awsSecretKey: __maskString(credential.secret_key)
           });
           return {
             id: session.get("id"),
@@ -4329,32 +2846,89 @@ define('model/SessionModel',["api/ApiRequest"], function(ApiRequest) {
   http://stackoverflow.com/questions/16463958/how-to-use-multiple-models-with-a-single-route-in-emberjs-ember-data
  */
 define('model/UserModel',["api/ApiRequest"], function(ApiRequest) {
+  var __maskString, _localSet;
+  __maskString = function(text) {
+    if (text.length > 6) {
+      return (new Array(6)).join("*") + text.substr(-6);
+    } else {
+      return text;
+    }
+  };
+  _localSet = function(key, value) {
+    var k, v;
+    if (value !== void 0) {
+      key = {
+        key: value
+      };
+    }
+    for (k in key) {
+      v = key[k];
+      this._data[k] = v;
+      this.set(k, v);
+    }
+  };
   return {
-    ProfileAdapter: DS.Adapter.extend({
-      updateRecord: function(store, type, profile) {
-        if (profile.record.changedAttributes().cfgScanInt || profile.record.changedAttributes().alertEmail) {
-          return ApiRequest("profile_update_config", {});
-        } else {
-          return ApiRequest("profile_update_credential", {
-            "profile_id": profile.get("id"),
-            "credential": {
-              account_id: profile.get("awsAccount"),
-              access_key: profile.get("awsAccessKey"),
-              secret_key: profile.get("awsSecretKey"),
-              provider: "aws::global"
-            }
-          }).then(function(result) {
-            var awsAccessKey, awsAccount, awsSecretKey, id;
-            awsAccount = result[0], awsAccessKey = result[1], awsSecretKey = result[2];
-            id = profile.get("id");
-            return {
-              awsAccount: awsAccount,
-              awsAccessKey: awsAccessKey,
-              awsSecretKey: awsSecretKey,
-              id: id
-            };
-          });
-        }
+    UserModel: DS.Model.extend({
+      firstName: DS.attr('string'),
+      lastName: DS.attr('string'),
+      email: DS.attr('string'),
+      username: DS.attr('string'),
+      usercode: DS.attr('string'),
+      rules: DS.hasMany('rule', {
+        async: true
+      }),
+
+      /*
+        The first version of user has multiple profiles and each profile has multiple cloud accounts
+        The negotiate version of user has multiple profiles but each profile has only one cloud accounts
+        But the current version became single profile and single cloud account... WTF?
+       */
+      profiles: DS.hasMany('profile'),
+      profile: (function() {
+        return this.get("profiles").toArray()[0];
+      }).property("profiles.@each"),
+
+      /*
+        It's more appropriate to update user's data locally only after saving the new value to backend.
+        Thus, we use some ApiRequest here ( which should, by following the convention, exist in Adaptor if only ember provie a clean way to save/sync partial data of a model )
+       */
+      _localSet: _localSet,
+      updateName: function(firstName, lastName) {
+        return ApiRequest("account_update_account", {
+          attributes: {
+            first_name: firstName,
+            last_name: lastName
+          }
+        }).then((function(_this) {
+          return function() {
+            return _this._localSet({
+              firstName: firstName,
+              lastName: lastName
+            });
+          };
+        })(this));
+      },
+      updateEmail: function(email, password) {
+        return ApiRequest("account_update_account", {
+          attributes: {
+            email: email,
+            password: password
+          }
+        }).then((function(_this) {
+          return function() {
+            return _this._localSet({
+              email: email
+            });
+          };
+        })(this));
+      },
+      updatePassword: function(password, new_password) {
+        return ApiRequest("account_update_account", {
+          attributes: {
+            password: password,
+            new_password: new_password
+          }
+        });
       }
     }),
     ProfileModel: DS.Model.extend({
@@ -4368,33 +2942,46 @@ define('model/UserModel',["api/ApiRequest"], function(ApiRequest) {
       }),
       awsSecretKey: DS.attr("string", {
         defaultValue: ""
-      })
-    }),
-    UserAdapter: DS.Adapter.extend({
-      updateRecord: function(store, type, user) {
-        return ApiRequest("account_update_account", {
-          attributes: {
-            first_name: user.get("firstName"),
-            last_name: user.get("lastName")
-          }
-        }).then(function() {
-          return null;
-        });
-      }
-    }),
-    UserModel: DS.Model.extend({
-      firstName: DS.attr('string'),
-      lastName: DS.attr('string'),
-      email: DS.attr('string'),
-      username: DS.attr('string'),
-      usercode: DS.attr('string'),
-      rules: DS.hasMany('rule', {
-        async: true
       }),
-      profiles: DS.hasMany('profile'),
-      profile: (function() {
-        return this.get("profiles").toArray()[0];
-      }).property("profiles.@each")
+
+      /*
+        Just like user.
+       */
+      _localSet: _localSet,
+      updateScanInterval: function(scanInt) {
+        return ApiRequest("profile_update", {
+          profile_id: this.get("id"),
+          scan_interval: scanInt
+        }).then((function(_this) {
+          return function() {
+            _this._localSet({
+              cfgScanInt: scanInt
+            });
+          };
+        })(this));
+      },
+      updateCredential: function(account_id, access_key, secret_key, provider) {
+        if (provider == null) {
+          provider = "aws::global";
+        }
+        return ApiRequest("profile_update_credential", {
+          "profile_id": this.get("id"),
+          "credential": {
+            account_id: account_id,
+            access_key: access_key,
+            secret_key: secret_key,
+            provider: provider
+          }
+        }).then((function(_this) {
+          return function() {
+            _this._localSet({
+              awsAccount: account_id,
+              awsAccessKey: __maskString(access_key),
+              awsSecretKey: __maskString(secret_key)
+            });
+          };
+        })(this));
+      }
     })
   };
 });
@@ -4607,12 +3194,7 @@ TEMPLATE.list=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("div");
-          dom.setAttribute(el1,"class","rule-warning");
-          var el2 = dom.createTextNode("There is no active rule. To start enforcing policies to your cloud infrastructure, you need to activate the rules.");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createTextNode("Create Rule");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -4648,7 +3230,14 @@ TEMPLATE.list=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("Create Rule");
+          var el1 = dom.createTextNode("  ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1,"class","rule-warning");
+          var el2 = dom.createTextNode("There is no active rule. To start enforcing policies to your cloud infrastructure, you need to enable at least one rule.");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
           dom.appendChild(el0, el1);
           return el0;
         },
@@ -4687,6 +3276,7 @@ TEMPLATE.list=(function() {
             build: function build(dom) {
               var el0 = dom.createDocumentFragment();
               var el1 = dom.createElement("button");
+              dom.setAttribute(el1,"data-tooltip","Enable / Disable rule");
               dom.appendChild(el0, el1);
               return el0;
             },
@@ -4711,7 +3301,7 @@ TEMPLATE.list=(function() {
                 fragment = this.build(dom);
               }
               var element0 = dom.childAt(fragment, [0]);
-              element(env, element0, context, "bind-attr", [], {"class": ":rule-cond item.enabled"});
+              element(env, element0, context, "bind-attr", [], {"class": ":tooltip :rule-cond item.enabled"});
               element(env, element0, context, "action", ["toggleRuleCond", get(env, context, "item.content")], {"bubbles": false});
               return fragment;
             }
@@ -4784,7 +3374,7 @@ TEMPLATE.list=(function() {
             var morph1 = dom.createMorphAt(dom.childAt(element2, [1]),0,0);
             var morph2 = dom.createMorphAt(dom.childAt(element2, [3]),0,0);
             block(env, morph0, context, "if", [get(env, context, "item.id")], {}, child0, null);
-            element(env, element1, context, "bind-attr", [], {"class": ":rule-select item.isSelected:selected"});
+            element(env, element1, context, "bind-attr", [], {"class": ":rule-select :fa item.isSelected:fa-check"});
             element(env, element1, context, "action", ["selectItem", get(env, context, "item")], {"bubbles": false});
             content(env, morph1, context, "item.name");
             content(env, morph2, context, "item.description");
@@ -4842,8 +3432,6 @@ TEMPLATE.list=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
-        dom.appendChild(el0, el1);
         var el1 = dom.createElement("section");
         dom.setAttribute(el1,"class","rule-viewer");
         var el2 = dom.createTextNode("\n");
@@ -4857,7 +3445,9 @@ TEMPLATE.list=(function() {
         dom.appendChild(el3, el4);
         var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode(")");
+        var el4 = dom.createTextNode(") ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -4870,22 +3460,41 @@ TEMPLATE.list=(function() {
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4,"class","no-sure-wth-is-this");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("\n    ");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createElement("button");
-        dom.setAttribute(el4,"data-tooltip","Toggle all rule");
+        var el4 = dom.createElement("span");
+        dom.setAttribute(el4,"class","clearfix");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("button");
+        dom.setAttribute(el5,"class","rule-action rule-remove");
+        var el6 = dom.createElement("i");
+        dom.setAttribute(el6,"class","fa fa-trash-o");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("button");
+        dom.setAttribute(el5,"class","rule-action");
+        var el6 = dom.createTextNode("Enable");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("button");
+        dom.setAttribute(el5,"class","rule-action rule-disable");
+        var el6 = dom.createTextNode("Disable");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n    ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n  ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n  ");
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("  ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("nav");
         var el4 = dom.createTextNode("\n    ");
@@ -4911,7 +3520,7 @@ TEMPLATE.list=(function() {
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, block = hooks.block, content = hooks.content, element = hooks.element;
+        var hooks = env.hooks, content = hooks.content, block = hooks.block, element = hooks.element, get = hooks.get;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -4929,26 +3538,28 @@ TEMPLATE.list=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element3 = dom.childAt(fragment, [1]);
+        var element3 = dom.childAt(fragment, [0]);
         var element4 = dom.childAt(element3, [1]);
-        var element5 = dom.childAt(element4, [3]);
-        var element6 = dom.childAt(element5, [1]);
-        var element7 = dom.childAt(element5, [5]);
-        var element8 = dom.childAt(element5, [7]);
-        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-        var morph1 = dom.createMorphAt(dom.childAt(element4, [1]),1,1);
-        var morph2 = dom.createMorphAt(element5,3,3);
-        var morph3 = dom.createMorphAt(dom.childAt(element4, [5]),1,1);
+        var element5 = dom.childAt(element4, [1]);
+        var element6 = dom.childAt(element4, [3]);
+        var element7 = dom.childAt(element6, [1]);
+        var element8 = dom.childAt(element6, [3]);
+        var element9 = dom.childAt(element8, [1]);
+        var element10 = dom.childAt(element8, [3]);
+        var element11 = dom.childAt(element8, [5]);
+        var morph0 = dom.createMorphAt(element5,1,1);
+        var morph1 = dom.createMorphAt(element5,3,3);
+        var morph2 = dom.createMorphAt(element4,5,5);
+        var morph3 = dom.createMorphAt(dom.childAt(element4, [7]),1,1);
         var morph4 = dom.createMorphAt(element3,3,3);
-        dom.insertBoundary(fragment, 0);
-        block(env, morph0, context, "unless", [get(env, context, "hasEnabledRule")], {}, child0, null);
-        content(env, morph1, context, "model.length");
-        element(env, element6, context, "bind-attr", [], {"class": ":rule-select allRuleSelected:selected"});
-        element(env, element6, context, "action", ["toggleSelect"], {});
-        block(env, morph2, context, "link-to", ["rule", "new"], {"classNames": "create-rule"}, child1, null);
-        element(env, element7, context, "action", ["deleteRules"], {});
-        element(env, element8, context, "bind-attr", [], {"class": ":rule-cond :toggle-all mostRuleEnabled:enabled"});
-        element(env, element8, context, "action", ["toggleAllRules"], {"target": "view"});
+        content(env, morph0, context, "model.length");
+        block(env, morph1, context, "link-to", ["rule", "new"], {"classNames": "create-rule"}, child0, null);
+        element(env, element7, context, "bind-attr", [], {"class": ":rule-select :fa allRuleSelected:fa-check hasRuleSelected:partial-selected"});
+        element(env, element7, context, "action", ["toggleSelect"], {});
+        element(env, element9, context, "action", ["deleteRules"], {"target": "view"});
+        element(env, element10, context, "action", ["enableSelectedRules"], {});
+        element(env, element11, context, "action", ["disableSelectedRules"], {"target": "view"});
+        block(env, morph2, context, "unless", [get(env, context, "hasEnabledRule")], {}, child1, null);
         block(env, morph3, context, "each", [get(env, context, "wrappedModel")], {"keyword": "item"}, child2, null);
         content(env, morph4, context, "outlet");
         return fragment;
@@ -5002,34 +3613,38 @@ TEMPLATE.list=(function() {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","rule-empty");
-        var el2 = dom.createTextNode("\n  ");
+        var el2 = dom.createTextNode(" ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         dom.setAttribute(el2,"class","rule-empty-wrap");
-        var el3 = dom.createTextNode("\n    ");
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("There is no rule yet");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createComment("");
-        dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode(" from scratch, or get started with pre-built rule set.");
-        dom.appendChild(el3, el4);
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n    ");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("How to write a rule? Read the doc.");
+        var el3 = dom.createElement("h5");
+        var el4 = dom.createTextNode("You have not yet created any rule");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
+        var el3 = dom.createElement("p");
+        var el4 = dom.createTextNode("To monitor your cloud infrastructure, you have to create rules.");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("p");
+        var el4 = dom.createTextNode("Check out the document, if you're not familiar with them.");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n  ");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createElement("p");
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n");
+        var el2 = dom.createTextNode(" ");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -5056,7 +3671,7 @@ TEMPLATE.list=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 1, 3]),0,0);
+        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 1, 7]),0,0);
         block(env, morph0, context, "link-to", ["rule", "new"], {"classNames": "create-rule"}, child0, null);
         return fragment;
       }
@@ -5113,10 +3728,58 @@ TEMPLATE.item=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, inline = hooks.inline;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, 0);
+        inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail"});
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
         var el1 = dom.createTextNode("        ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("button");
         var el2 = dom.createTextNode("Save");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n        ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("button");
+        var el2 = dom.createTextNode("Valid");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -5144,12 +3807,14 @@ TEMPLATE.item=(function() {
           fragment = this.build(dom);
         }
         var element0 = dom.childAt(fragment, [1]);
+        var element1 = dom.childAt(fragment, [3]);
         element(env, element0, context, "action", ["saveRule"], {});
+        element(env, element1, context, "action", ["validRule"], {});
         return fragment;
       }
     };
   }());
-  var child1 = (function() {
+  var child2 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -5163,6 +3828,13 @@ TEMPLATE.item=(function() {
         var el1 = dom.createElement("button");
         dom.setAttribute(el1,"disabled","disabled");
         var el2 = dom.createTextNode("Save");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n        ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("button");
+        dom.setAttribute(el1,"disabled","disabled");
+        var el2 = dom.createTextNode("Valid");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -5192,7 +3864,7 @@ TEMPLATE.item=(function() {
       }
     };
   }());
-  var child2 = (function() {
+  var child3 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -5230,12 +3902,12 @@ TEMPLATE.item=(function() {
           fragment = this.build(dom);
         }
         var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-        inline(env, morph0, context, "ace-editor", [], {"content": get(env, context, "model.content")});
+        inline(env, morph0, context, "rule-editor", [], {"content": get(env, context, "model.content")});
         return fragment;
       }
     };
   }());
-  var child3 = (function() {
+  var child4 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -5356,10 +4028,10 @@ TEMPLATE.item=(function() {
         var el4 = dom.createTextNode("\n                ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("td");
-        var el5 = dom.createElement("button");
-        dom.setAttribute(el5,"class","detail");
-        var el6 = dom.createTextNode("Detail");
-        dom.appendChild(el5, el6);
+        var el5 = dom.createTextNode("Detail ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("i");
+        dom.setAttribute(el5,"class","fa fa-chevron-right");
         dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("\n            ");
@@ -5406,6 +4078,8 @@ TEMPLATE.item=(function() {
     hasRendered: false,
     build: function build(dom) {
       var el0 = dom.createDocumentFragment();
+      var el1 = dom.createComment("");
+      dom.appendChild(el0, el1);
       var el1 = dom.createElement("ul");
       dom.setAttribute(el1,"class","panel-title");
       var el2 = dom.createTextNode("\n    ");
@@ -5435,7 +4109,7 @@ TEMPLATE.item=(function() {
     },
     render: function render(context, env, contextualElement) {
       var dom = env.dom;
-      var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block;
+      var hooks = env.hooks, get = hooks.get, block = hooks.block, element = hooks.element;
       dom.detectNamespace(contextualElement);
       var fragment;
       if (env.useFragmentCache && dom.canClone) {
@@ -5453,114 +4127,28 @@ TEMPLATE.item=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element1 = dom.childAt(fragment, [0]);
-      var element2 = dom.childAt(element1, [1]);
-      var element3 = dom.childAt(element1, [3]);
-      var morph0 = dom.createMorphAt(element2,1,1);
-      var morph1 = dom.createMorphAt(fragment,2,2,contextualElement);
+      var element2 = dom.childAt(fragment, [1]);
+      var element3 = dom.childAt(element2, [1]);
+      var element4 = dom.childAt(element2, [3]);
+      var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+      var morph1 = dom.createMorphAt(element3,1,1);
+      var morph2 = dom.createMorphAt(fragment,3,3,contextualElement);
       dom.insertBoundary(fragment, null);
-      element(env, element2, context, "bind-attr", [], {"class": "isContent:active"});
-      element(env, element2, context, "action", ["toggleContent"], {});
-      block(env, morph0, context, "if", [get(env, context, "model.isDirty")], {}, child0, child1);
-      element(env, element3, context, "bind-attr", [], {"class": "isContent::active"});
-      element(env, element3, context, "action", ["toggleLog"], {});
-      block(env, morph1, context, "if", [get(env, context, "isContent")], {}, child2, child3);
-      return fragment;
-    }
-  };
-}());
-
-TEMPLATE.editor=(function() {
-  return {
-    isHTMLBars: true,
-    revision: "Ember@1.11.3",
-    blockParams: 0,
-    cachedFragment: null,
-    hasRendered: false,
-    build: function build(dom) {
-      var el0 = dom.createDocumentFragment();
-      var el1 = dom.createElement("article");
-      dom.setAttribute(el1,"class","editor");
-      dom.appendChild(el0, el1);
-      return el0;
-    },
-    render: function render(context, env, contextualElement) {
-      var dom = env.dom;
-      dom.detectNamespace(contextualElement);
-      var fragment;
-      if (env.useFragmentCache && dom.canClone) {
-        if (this.cachedFragment === null) {
-          fragment = this.build(dom);
-          if (this.hasRendered) {
-            this.cachedFragment = fragment;
-          } else {
-            this.hasRendered = true;
-          }
-        }
-        if (this.cachedFragment) {
-          fragment = dom.cloneNode(this.cachedFragment, true);
-        }
-      } else {
-        fragment = this.build(dom);
-      }
+      dom.insertBoundary(fragment, 0);
+      block(env, morph0, context, "if", [get(env, context, "showViolationDetail")], {}, child0, null);
+      element(env, element3, context, "bind-attr", [], {"class": "isContent:active"});
+      element(env, element3, context, "action", ["toggleContent"], {});
+      block(env, morph1, context, "if", [get(env, context, "model.isDirty")], {}, child1, child2);
+      element(env, element4, context, "bind-attr", [], {"class": "isContent::active"});
+      element(env, element4, context, "action", ["toggleLog"], {});
+      block(env, morph2, context, "if", [get(env, context, "isContent")], {}, child3, child4);
       return fragment;
     }
   };
 }());
 
 return TEMPLATE; });
-define('ui/UI.bubblepopup',[], function() {
-  var bubblePopup;
-  $(document).on('click', function(event) {
-    if (!$(event.target).hasClass('bubble-popuped')) {
-      $('#bubble-box').remove();
-      return $('.bubble-popuped').removeClass('bubble-popuped');
-    }
-  });
-  bubblePopup = function(target, option, handleMap) {
-    var $content, bubble_box, content, coordinate, height, target_height, target_offset, target_width, width;
-    target = $(target);
-    bubble_box = $('#bubble-box');
-    coordinate = {};
-    if (typeof option !== 'string') {
-      content = "<div class=\"info\">" + option.title + "</div>\n<div class=\"operate\">\n    <button class=\"confirm btn btn-red\">" + option.confirm + "</li>\n    <button class=\"cancel btn btn-silver\">" + option.cancel + "</li>\n</div>";
-    } else {
-      content = option;
-    }
-    if ($.trim(content) !== '') {
-      if (!bubble_box[0]) {
-        $(document.body).append('<div id="bubble-box" class="bubble-popup"><div class="arrow"></div><div class="content"></div></div>');
-        bubble_box = $('#bubble-box');
-      }
-      $content = $('#bubble-box .content').html(content);
-      $content.find('.cancel').on('click', function() {
-        $('#bubble-box').remove();
-        return $('.bubble-popuped').removeClass('bubble-popuped');
-      });
-      _.each(handleMap, function(handle, selector) {
-        return $content.find(selector).on('click', handle);
-      });
-      target_offset = target.offset();
-      target_width = target.innerWidth();
-      target_height = target.innerHeight();
-      width = bubble_box.width();
-      height = bubble_box.height();
-      if (target_offset.top + target_height + height - document.documentElement.scrollTop > window.innerHeight) {
-        coordinate.top = target_offset.top - height - 15;
-        bubble_box.addClass('bubble-top');
-      } else {
-        coordinate.top = target_offset.top + target_height + 15;
-        bubble_box.addClass('bubble-bottom');
-      }
-      coordinate.left = target_offset.left - ((width - target_width) / 2);
-      bubble_box.css(coordinate).show();
-      return target.addClass('bubble-popuped');
-    }
-  };
-  return bubblePopup;
-});
-
-define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup", "lib/ace/editor"], function(RuleTpl, popupBubble) {
+define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup"], function(RuleTpl, popupBubble) {
   Ember.TEMPLATES["ruleManager/loading"] = RuleTpl.loading;
   return {
     RuleManagerView: Ember.View.extend({
@@ -5571,66 +4159,45 @@ define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup", "lib/ace/editor
       template: RuleTpl.list,
       classNames: ["work-area-content"],
       actions: {
-        toggleAllRules: function() {
-          var that;
-          that = this;
-          return popupBubble(this.$('.toggle-all'), {
-            title: "Confirm toggle all rules?",
+        deleteRules: function() {
+          var controller, text;
+          controller = this.get("controller");
+          if (controller.get("allRuleSelected")) {
+            text = "Are you sure to delect all rules?";
+          } else if (controller.get("hasRuleSelected")) {
+            text = "Are you sure to delect selected rules?";
+          } else {
+            return;
+          }
+          return popupBubble(this.$('.rule-remove'), {
+            title: text,
             confirm: "Confirm",
             cancel: "Cancel"
           }, {
             '.confirm': function() {
-              return that.get('controller').send('toggleAllRules');
+              controller.deleteRules();
             }
           });
-        }
-      }
-    }),
-    AceEditorComponent: Ember.Component.extend({
-      template: RuleTpl.editor,
-      classNames: ["ace-component", "panel-content"],
-      content: (function(key, val) {
-        var cursor;
-        if (!this.editor) {
-          this.preset = val;
-          return val;
-        }
-        if (arguments.length === 1) {
-          return this.editor.getSession().getValue();
-        }
-        cursor = this.editor.getCursorPosition();
-        this.editor.getSession().setValue(val);
-        this.editor.moveCursorToPosition(cursor);
-        return val;
-      }).property(),
-      didInsertElement: function() {
-        var $editor, CloudFielderCompleter, editor, langTools, that;
-        $editor = this.$('.editor');
-        editor = this.editor = ace.edit($editor.get(0));
-        editor.setTheme('./theme/monokai');
-        editor.getSession().setMode('ace/mode/cloudfielder');
-        editor.setShowPrintMargin(false);
-        editor.setOptions({
-          enableBasicAutocompletion: true,
-          enableSnippets: true
-        });
-        langTools = ace.require('ace/ext/language_tools');
-        CloudFielderCompleter = ace.require('ace/autocomplete/cloudfielder_completer');
-        langTools.addCompleter(CloudFielderCompleter);
-        $editor.on('keyup', function(e) {
-          var code;
-          code = e.keyCode || e.which;
-          if (code === 190 || code === 57 || code === 188 || code === 32) {
-            return editor.execCommand('startAutocomplete');
+        },
+        disableSelectedRules: function() {
+          var controller, text;
+          controller = this.get("controller");
+          if (controller.isAllSavedRuleSelected()) {
+            text = "Are you sure to disable all rules?";
+          } else if (controller.hasSavedRuleSelected()) {
+            text = "Are you sure to disable selected rules?";
+          } else {
+            return;
           }
-        });
-        that = this;
-        editor.on('change', function() {
-          return that.notifyPropertyChange('content');
-        });
-        if (this.preset) {
-          this.set('content', this.preset);
-          return this.preset = null;
+          return popupBubble(this.$('.rule-disable'), {
+            title: text,
+            confirm: "Confirm",
+            cancel: "Cancel"
+          }, {
+            '.confirm': function() {
+              controller.disableSelectedRules();
+            }
+          });
         }
       }
     }),
@@ -5646,11 +4213,16 @@ define('controller/RuleManagerC',[], function() {
   return {
     RuleListController: Ember.ArrayController.extend({
       hasEnabledRule: (function() {
-        return this.get("model").filterBy("enabled", true).length > 0;
+        var savedModels;
+        savedModels = this.get("model").filterBy("id");
+        return savedModels.length === 0 || savedModels.filterBy("enabled", true).length > 0;
       }).property("model.@each.enabled"),
       mostRuleEnabled: (function() {
         return this.get("model").filterBy("enabled", true).length > this.get("model").get("length") / 2;
       }).property("model.@each.enabled"),
+      hasRuleSelected: (function() {
+        return this.get("wrappedModel").filterBy("isSelected", true).length > 0;
+      }).property("wrappedModel.@each.isSelected"),
       allRuleSelected: (function() {
         return this.get("wrappedModel").filterBy("isSelected", false).length === 0;
       }).property("wrappedModel.@each.isSelected"),
@@ -5662,23 +4234,58 @@ define('controller/RuleManagerC',[], function() {
           });
         });
       }).property("model.@each"),
+      isAllSavedRuleSelected: function() {
+        return this.get("wrappedModel").filterBy("id").filterBy("isSelected", false).length === 0;
+      },
+      hasSavedRuleSelected: function() {
+        return this.get("wrappedModel").filterBy("id").filterBy("isSelected", true).length > 0;
+      },
+      getSelectedSavedModels: function() {
+        var content, selectedRules, wrapped, _i, _len, _ref;
+        selectedRules = [];
+        _ref = this.get("wrappedModel");
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          wrapped = _ref[_i];
+          content = wrapped.content;
+          if (content.get("id") && wrapped.get("isSelected")) {
+            selectedRules.push(content);
+          }
+        }
+        return selectedRules;
+      },
+      disableSelectedRules: function() {
+        var rules;
+        rules = this.getSelectedSavedModels();
+        if (rules.length) {
+          rules[0].toggleCondition(rules, false);
+        }
+        return false;
+      },
+      deleteRules: function() {
+        var rule, _i, _len, _ref;
+        _ref = this.get("wrappedModel").filterBy("isSelected", true);
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          rule = _ref[_i];
+          rule.content.destroyRecord();
+        }
+      },
       actions: {
         toggleRuleCond: function(rule) {
           rule.toggleCondition();
           return false;
         },
-        toggleAllRules: function() {
+        enableSelectedRules: function() {
           var rules;
-          rules = this.get("model").filterBy("id").toArray();
+          rules = this.getSelectedSavedModels();
           if (rules.length) {
-            rules[0].toggleCondition(rules, !this.get("mostRuleEnabled"));
+            rules[0].toggleCondition(rules, true);
           }
           return false;
         },
         toggleSelect: function(toState) {
           var wrapped, _i, _len, _ref;
           if (toState === void 0) {
-            toState = !this.get("allRuleSelected");
+            toState = !this.get("hasRuleSelected");
           }
           _ref = this.get("wrappedModel");
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -5690,20 +4297,13 @@ define('controller/RuleManagerC',[], function() {
         selectItem: function(item) {
           item.set("isSelected", !item.get("isSelected"));
           return false;
-        },
-        deleteRules: function() {
-          var rule, _i, _len, _ref;
-          _ref = this.get("wrappedModel").filterBy("isSelected", true);
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            rule = _ref[_i];
-            rule.content.destroyRecord();
-          }
         }
       }
     }),
     RuleController: Ember.Controller.extend({
       needs: ["application"],
       isContent: true,
+      showViolationDetail: false,
       onRuleDeleted: (function() {
         if (this.model.get("isDeleted") && this.get("controllers.application.currentRouteName") === "rule") {
           this.replaceRoute("ruleList");
@@ -5722,6 +4322,12 @@ define('controller/RuleManagerC',[], function() {
             }
           });
         },
+        validRule: function() {
+          return this.set('showViolationDetail', true);
+        },
+        closeViolationDetail: function() {
+          return this.set('showViolationDetail', false);
+        },
         toggleContent: function() {
           return this.set('isContent', true);
         },
@@ -5733,44 +4339,66 @@ define('controller/RuleManagerC',[], function() {
   };
 });
 
-define('model/DashboardModel',[], function() {
+define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
   var Models;
   Models = {
     DashboardAdapter: DS.Adapter.extend({
       find: function() {
-        return {
-          id: 1,
-          activeRuleCount: 36,
-          lastScannedTime: 30,
-          violationRules: [1],
-          resources: [1]
-        };
+        return Q.all([
+          ApiRequest("scheduler_list", {
+            profile_ids: [App.user.get("profile").id]
+          }), App.user.store.findAll("rule"), App.user.store.findAll("resource")
+        ]).spread(function(result, rules, resources) {
+          var id, nextScannedTime;
+          nextScannedTime = result[0]["next_run_time_utc"];
+          rules = rules.toArray().map(function(a) {
+            return a.id;
+          });
+          id = 1;
+          resources = resources.toArray().map(function(resource) {
+            return resource.id;
+          });
+          return {
+            id: id,
+            nextScannedTime: nextScannedTime,
+            rules: rules,
+            resources: resources
+          };
+        });
       }
     }),
     Dashboard: DS.Model.extend({
-      activeRuleCount: DS.attr("number", {
+      nextScannedTime: DS.attr("number", {
         defaultValue: 0
       }),
-      lastScannedTime: DS.attr("number", {
-        defaultValue: 0
+      rules: DS.hasMany("rule", {
+        async: true
       }),
       resources: DS.hasMany('resource', {
         async: true
       }),
       violationRules: DS.hasMany('violationRule', {
         async: true
-      }),
-      violationCount: (function() {
-        return 18;
-      }).property('violationRules')
+      })
     }),
     ResourceAdapter: DS.Adapter.extend({
-      find: function() {
-        return {
-          id: 1,
-          type: "instance",
-          count: 12
-        };
+      findAll: function() {
+        return ApiRequest("aws_resource", {
+          profile_id: App.user.get("profile").id
+        }).then(function(result) {
+          var index, resources, value, _i, _len;
+          console.log(result);
+          resources = [];
+          for (index = _i = 0, _len = result.length; _i < _len; index = ++_i) {
+            value = result[index];
+            resources.push({
+              id: resources.length + 1,
+              type: value.type,
+              count: value.resource.length || 0
+            });
+          }
+          return resources;
+        });
       }
     }),
     Resource: DS.Model.extend({
@@ -5835,31 +4463,33 @@ TEMPLATE.index=(function() {
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("th");
+      dom.setAttribute(el4,"class","status");
       dom.appendChild(el3, el4);
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("th");
-      dom.setAttribute(el4,"class","sortable");
+      dom.setAttribute(el4,"class","time sortable");
       var el5 = dom.createTextNode("TIME");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("th");
-      dom.setAttribute(el4,"class","sortable");
+      dom.setAttribute(el4,"class","evvent sortable");
       var el5 = dom.createTextNode("EVENT");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("th");
-      dom.setAttribute(el4,"class","sortable");
+      dom.setAttribute(el4,"class","violation sortable");
       var el5 = dom.createTextNode("VIOLATION");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("th");
+      dom.setAttribute(el4,"class","detail");
       var el5 = dom.createTextNode("DETAIL");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
@@ -5934,10 +4564,216 @@ TEMPLATE.index=(function() {
       var el4 = dom.createTextNode("\n            ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("td");
-      var el5 = dom.createElement("button");
-      dom.setAttribute(el5,"class","detail");
-      var el6 = dom.createTextNode("Detail");
+      var el5 = dom.createElement("i");
+      dom.setAttribute(el5,"class","fa fa-list");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("tr");
+      dom.setAttribute(el3,"class","rule-log-detail");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      dom.setAttribute(el4,"colspan","5");
+      var el5 = dom.createTextNode("\n                ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("ul");
+      dom.setAttribute(el5,"class","rule-violation-list table tr-detail");
+      var el6 = dom.createTextNode("\n                    ");
       dom.appendChild(el5, el6);
+      var el6 = dom.createElement("li");
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","vio-rule-info");
+      var el8 = dom.createTextNode("Rule ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","rule-name");
+      var el9 = dom.createTextNode("no-idle-eip");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" has ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","vio-count");
+      var el9 = dom.createTextNode("2");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" violations.");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("span");
+      dom.setAttribute(el7,"class","detail");
+      var el8 = dom.createTextNode("Detail ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-chevron-right");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                    ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n                    ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("li");
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","vio-rule-info");
+      var el8 = dom.createTextNode("Rule ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","rule-name");
+      var el9 = dom.createTextNode("no-idle-eip");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" has ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","vio-count");
+      var el9 = dom.createTextNode("2");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" violations.");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("span");
+      dom.setAttribute(el7,"class","detail");
+      var el8 = dom.createTextNode("Detail ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-chevron-right");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                    ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n                    ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("li");
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("div");
+      dom.setAttribute(el7,"class","vio-rule-info");
+      var el8 = dom.createTextNode("Rule ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","rule-name");
+      var el9 = dom.createTextNode("no-idle-eip");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" has ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("span");
+      dom.setAttribute(el8,"class","vio-count");
+      var el9 = dom.createTextNode("2");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode(" violations.");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                        ");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("span");
+      dom.setAttribute(el7,"class","detail");
+      var el8 = dom.createTextNode("Detail ");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("i");
+      dom.setAttribute(el8,"class","fa fa-chevron-right");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                    ");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n                ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n            ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("tr");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","status error");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("2015.3.31 8:32");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("Scheduled Scan");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("4");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createElement("i");
+      dom.setAttribute(el5,"class","fa fa-list");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("tr");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createElement("div");
+      dom.setAttribute(el5,"class","status error");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("2015.3.31 8:32");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("Scheduled Scan");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createTextNode("4");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("td");
+      var el5 = dom.createElement("i");
+      dom.setAttribute(el5,"class","fa fa-list");
       dom.appendChild(el4, el5);
       dom.appendChild(el3, el4);
       var el4 = dom.createTextNode("\n        ");
@@ -5983,6 +4819,400 @@ define('view/LogView',["template/LogTpl"], function(template) {
   });
 });
 
+define('component/template/ViolationDetailTpl',[], function(){ var TEMPLATE={};
+
+TEMPLATE.index=(function() {
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","panel panel-float");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-title");
+      var el3 = dom.createTextNode("\n        Violation Detail");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","modal-close");
+      var el4 = dom.createTextNode("×");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-content");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","vio-rule-info");
+      var el4 = dom.createTextNode("Rule ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("span");
+      dom.setAttribute(el4,"class","rule-name");
+      var el5 = dom.createTextNode("no-idle-eip");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode(" has ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("span");
+      dom.setAttribute(el4,"class","vio-count");
+      var el5 = dom.createTextNode("2");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode(" violations.");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","vio-rule-head");
+      var el4 = dom.createTextNode("Rule content");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","vio-rule-content");
+      var el4 = dom.createComment("");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","vio-rule-head");
+      var el4 = dom.createTextNode("Violating Resource #1");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("ul");
+      dom.setAttribute(el3,"class","vio-rule vio-rule-summary");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("li");
+      dom.setAttribute(el4,"class","vio-rule-item");
+      var el5 = dom.createTextNode("\n                ");
+      dom.appendChild(el4, el5);
+      var el5 = dom.createElement("ul");
+      dom.setAttribute(el5,"class","vio-res vio-detail");
+      var el6 = dom.createTextNode("\n                	");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("li");
+      dom.setAttribute(el6,"class","vio-res-item");
+      var el7 = dom.createTextNode("\n                		");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("dl");
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dt");
+      var el9 = dom.createTextNode("VPC");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dd");
+      var el9 = dom.createTextNode("vpc-3jf3nsd");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                		");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                		");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("dl");
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dt");
+      var el9 = dom.createTextNode("INSTANCE");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dd");
+      var el9 = dom.createTextNode("i-dfjienfd");
+      dom.appendChild(el8, el9);
+      var el9 = dom.createElement("span");
+      dom.setAttribute(el9,"class","res-name");
+      var el10 = dom.createTextNode("(web-server-1)\n                			");
+      dom.appendChild(el9, el10);
+      dom.appendChild(el8, el9);
+      var el9 = dom.createTextNode("\n                			");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("div");
+      dom.setAttribute(el8,"class","vio-res-filter");
+      var el9 = dom.createTextNode("\n                				");
+      dom.appendChild(el8, el9);
+      var el9 = dom.createElement("p");
+      var el10 = dom.createElement("span");
+      dom.setAttribute(el10,"class","var-name");
+      var el11 = dom.createTextNode("tags[\"type\"]");
+      dom.appendChild(el10, el11);
+      dom.appendChild(el9, el10);
+      var el10 = dom.createTextNode(" = ");
+      dom.appendChild(el9, el10);
+      var el10 = dom.createElement("span");
+      dom.setAttribute(el10,"class","var-value");
+      var el11 = dom.createTextNode("private\"");
+      dom.appendChild(el10, el11);
+      dom.appendChild(el9, el10);
+      var el10 = dom.createTextNode(",");
+      dom.appendChild(el9, el10);
+      dom.appendChild(el8, el9);
+      var el9 = dom.createTextNode("\n                				");
+      dom.appendChild(el8, el9);
+      var el9 = dom.createElement("p");
+      var el10 = dom.createElement("span");
+      dom.setAttribute(el10,"class","func-name");
+      var el11 = dom.createTextNode("hasSGRule(");
+      dom.appendChild(el10, el11);
+      dom.appendChild(el9, el10);
+      var el10 = dom.createElement("span");
+      dom.setAttribute(el10,"class","var-value");
+      var el11 = dom.createTextNode("in,22");
+      dom.appendChild(el10, el11);
+      dom.appendChild(el9, el10);
+      var el10 = dom.createElement("span");
+      dom.setAttribute(el10,"class","func-name");
+      var el11 = dom.createTextNode(")");
+      dom.appendChild(el10, el11);
+      dom.appendChild(el9, el10);
+      dom.appendChild(el8, el9);
+      var el9 = dom.createTextNode("\n                			");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                		");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                		");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("dl");
+      dom.setAttribute(el7,"class","active");
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dt");
+      var el9 = dom.createTextNode("SUBNET");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dd");
+      var el9 = dom.createTextNode("subnet-34jdfad");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                		");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                		");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createElement("dl");
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dt");
+      var el9 = dom.createTextNode("ROUTE TABLE");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                			");
+      dom.appendChild(el7, el8);
+      var el8 = dom.createElement("dd");
+      var el9 = dom.createTextNode("rtb-a34ndfe");
+      dom.appendChild(el8, el9);
+      dom.appendChild(el7, el8);
+      var el8 = dom.createTextNode("\n                		");
+      dom.appendChild(el7, el8);
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode("\n                	");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("\n                ");
+      dom.appendChild(el5, el6);
+      dom.appendChild(el4, el5);
+      var el5 = dom.createTextNode("\n            ");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      var hooks = env.hooks, element = hooks.element, inline = hooks.inline;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      var element0 = dom.childAt(fragment, [0]);
+      var element1 = dom.childAt(element0, [1, 1]);
+      var morph0 = dom.createMorphAt(dom.childAt(element0, [3, 5]),0,0);
+      element(env, element1, context, "action", ["close"], {});
+      inline(env, morph0, context, "rule-editor", [], {"content": "if region.instance do email()", "readonly": true});
+      return fragment;
+    }
+  };
+}());
+
+return TEMPLATE; });
+define('component/ViolationDetailComponent',["./template/ViolationDetailTpl"], function(template) {
+  var ViolationDetailComponent;
+  ViolationDetailComponent = Ember.Component.extend({
+    template: template.index,
+    classNames: ["violation-detail"],
+    didInsertElement: function() {
+      return _.delay((function(_this) {
+        return function() {
+          return $(_this.element).find(".panel").addClass("show");
+        };
+      })(this));
+    },
+    actions: {
+      close: function() {
+        $(this.element).find(".panel").removeClass("show");
+        return this.sendAction();
+      }
+    }
+  });
+  return ViolationDetailComponent;
+});
+
+define('component/template/RuleEditorTpl',[], function(){ var TEMPLATE={};
+
+TEMPLATE.index=(function() {
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("article");
+      dom.setAttribute(el1,"class","editor");
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      return fragment;
+    }
+  };
+}());
+
+return TEMPLATE; });
+define('component/RuleEditorComponent',["./template/RuleEditorTpl", "lib/ace/editor"], function(template) {
+  var RuleEditorComponent;
+  RuleEditorComponent = Ember.Component.extend({
+    template: template.index,
+    classNames: ["ace-component"],
+    content: (function(key, val) {
+      var cursor;
+      if (!this.editor) {
+        this.preset = val;
+        return val;
+      }
+      if (arguments.length === 1) {
+        return this.editor.getSession().getValue();
+      }
+      cursor = this.editor.getCursorPosition();
+      this.editor.getSession().setValue(val);
+      this.editor.moveCursorToPosition(cursor);
+      return val;
+    }).property(),
+    readonly: (function(key, val) {
+      if (!this.editor) {
+        this.readOnlyMode = val;
+        return val;
+      }
+      if (arguments.length === 1) {
+        return this.editor.getReadOnly();
+      } else {
+        return this.editor.setReadOnly(val);
+      }
+    }).property(),
+    didInsertElement: function() {
+      var $editor, CloudFielderCompleter, editor, langTools, that;
+      $editor = this.$('.editor');
+      editor = this.editor = ace.edit($editor.get(0));
+      editor.setTheme('./theme/monokai');
+      editor.getSession().setMode('ace/mode/cloudfielder');
+      editor.setShowPrintMargin(false);
+      editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true
+      });
+      langTools = ace.require('ace/ext/language_tools');
+      CloudFielderCompleter = ace.require('ace/autocomplete/cloudfielder_completer');
+      langTools.addCompleter(CloudFielderCompleter);
+      $editor.on('keyup', function(e) {
+        var code;
+        code = e.keyCode || e.which;
+        if (code === 190 || code === 57 || code === 188 || code === 32) {
+          return editor.execCommand('startAutocomplete');
+        }
+      });
+      that = this;
+      editor.on('change', function() {
+        return that.notifyPropertyChange('content');
+      });
+      if (this.preset) {
+        this.set('content', this.preset);
+        this.preset = null;
+      }
+      if (this.readOnlyMode) {
+        return this.editor.setReadOnly(true);
+      }
+    }
+  });
+  return RuleEditorComponent;
+});
+
 
 /*
 ----------------------------
@@ -5992,7 +5222,7 @@ define('view/LogView',["template/LogTpl"], function(template) {
   Application acts as namespace in Ember. We store our component defination(a.k.a Class)
   in Application, so that Ember will find the component and wire them up.
  */
-define('core/Application',["view/ApplicationView", "core/Router", "core/Store", "route/ApplicationRoute", "route/IndexRoute", "route/DashboardRoute", "route/LogViewerRoute", "route/RuleManagerRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "view/LogView"], function(ApplicationView, Router, Store, ApplicationRoute, IndexRoute, DashboardRoute, LogViewerRoute, RuleManagerRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogViewerView) {
+define('core/Application',["view/ApplicationView", "core/Router", "core/Store", "route/ApplicationRoute", "route/IndexRoute", "route/DashboardRoute", "route/LogViewerRoute", "route/RuleManagerRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent"], function(ApplicationView, Router, Store, ApplicationRoute, IndexRoute, DashboardRoute, LogViewerRoute, RuleManagerRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogViewerView, ViolationDetailComponent, RuleEditorComponent) {
   window.App = Ember.Application.extend({
     LOG_TRANSITIONS: true,
     rootElement: "body",
@@ -6045,11 +5275,13 @@ define('core/Application',["view/ApplicationView", "core/Router", "core/Store", 
   App.ApplicationView = ApplicationView;
   App.ApplicationRoute = ApplicationRoute;
   App.IndexRoute = IndexRoute;
-  App.DashboardRoute = DashboardRoute;
-  App.DashboardView = DashboardView;
-  App.DashboardController = DashboardController;
+  App.DashboardIndexRoute = DashboardRoute;
+  App.DashboardIndexView = DashboardView;
+  App.DashboardIndexController = DashboardController;
   App.LogViewerRoute = LogViewerRoute;
   App.LogViewerView = LogViewerView;
+  App.ViolationDetailComponent = ViolationDetailComponent;
+  App.RuleEditorComponent = RuleEditorComponent;
   Ember.mixin(App, SettingsRoute);
   Ember.mixin(App, SettingsView);
   Ember.mixin(App, SettingsController);

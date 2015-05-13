@@ -38,6 +38,11 @@ define('api/ApiRequestDefs',[], function() {
       method: 'remove',
       params: ['username', 'session_id', 'profile_id']
     },
+    'profile_update': {
+      url: '/profile/',
+      method: 'update',
+      params: ['username', 'session_id', 'profile_id', 'scan_interval']
+    },
     'profile_list': {
       url: '/profile/',
       method: 'list',
@@ -103,26 +108,6 @@ define('api/ApiRequestDefs',[], function() {
       method: 'verify',
       params: ['username', 'session_id', 'content']
     },
-    'rule_resource_filter': {
-      url: '/rule/',
-      method: 'resource_filter',
-      params: ['username', 'session_id', 'profile_id', 'rule_id']
-    },
-    'scheduler_create': {
-      url: '/scheduler/',
-      method: 'create',
-      params: ['username', 'session_id', 'profile_id']
-    },
-    'scheduler_update': {
-      url: '/scheduler/',
-      method: 'update',
-      params: ['username', 'session_id', 'profile_id']
-    },
-    'scheduler_delete': {
-      url: '/scheduler/',
-      method: 'delete',
-      params: ['username', 'session_id', 'profile_id']
-    },
     'scheduler_list': {
       url: '/scheduler/',
       method: 'list',
@@ -157,6 +142,11 @@ define('api/ApiRequestDefs',[], function() {
       url: '/account/',
       method: 'check_validation',
       params: ['key', 'operation_flag']
+    },
+    'aws_resource': {
+      url: '/aws/',
+      method: 'resource',
+      params: ['username', 'session_id', 'profile_id', 'regions', 'resources']
     }
   };
 

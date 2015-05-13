@@ -48,7 +48,9 @@ section.form {
   width: 100%;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%); }
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%); }
   section.form header {
     font-size: 20px;
     color: #fff;
@@ -87,7 +89,9 @@ section.form {
     position: relative;
     z-index: 2;
     padding-top: 18px;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
     color: #5C5B5C; }
     .input-wrap input.ipt-error {
       border-bottom: 1px solid #D9232A; }
@@ -96,7 +100,8 @@ section.form {
     top: 25px;
     color: #C0C1CE;
     font-size: 16px;
-    transition: all .15s ease-in-out;
+    -webkit-transition: all .15s ease-in-out;
+            transition: all .15s ease-in-out;
     z-index: 1; }
   .input-wrap .error {
     color: #D9232A;
@@ -149,7 +154,8 @@ section.form {
   font-size: 12px;
   margin-top: 5px;
   right: 0;
-  border-radius: 1px;
+  -webkit-border-radius: 1px;
+          border-radius: 1px;
   color: #696969; }
 
 .reset-success {

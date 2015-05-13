@@ -220,8 +220,10 @@
       if (!error) {
         return;
       }
-      if (error.error === 324) {
-        showError($("#iptRegisterName"), "The username/email has already been registered.");
+      if (error.error === 118) {
+        showError($("#iptRegisterName"), "The username has already been registered.");
+      } else if (error.error === 117) {
+        showError($("#iptRegisterEmail"), "The email has already been registered.");
       }
       return console.log(error);
     });
