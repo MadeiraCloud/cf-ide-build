@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"2a917b5a","api/ApiRequest.js":"08c6128b","controller/LogViewerController.js":"76e584fa","core/bundle.js":"301244c6","core/config.js":"052be48e","core/debug.js":"cfb41559","lib/ace.js":"1e1dbc85","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"f389a3e3","lib/require.js":"56cbcc51","lib/vender.js":"53999d10","ui/UI.notification.js":"03d4add8"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -109,9 +108,35 @@ require.config({
   };
   requirejs.onError = requirejsErrorHandler;
   require(["lib/q", "lib/base64", "lib/jquery", "lib/jquery-cookie", "lib/underscore", "lib/ember", "lib/ember-data"], function(Q, Base64) {
+
+    /* Platform */
+    var browser, deps, kclass, ua;
+    ua = navigator.userAgent.toLowerCase();
+    browser = /(chrome)[ \/]([\w.]+)/.exec(ua);
+    browser = browser || /(webkit)[ \/]([\w.]+)/.exec(ua);
+    browser = browser || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua);
+    browser = browser || /(msie) ([\w.]+)/.exec(ua);
+    browser = browser || ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua);
+    kclass = (browser || [""])[1];
+    if (kclass === "webkit") {
+      if (/version\/([\d\.]+).*safari/.exec(ua)) {
+        kclass += " safari";
+      }
+    } else if (kclass === "chrome") {
+      kclass += " webkit";
+    }
+    if (navigator.platform.toLowerCase().indexOf('mac') >= 0) {
+      kclass += " mac";
+    }
+    $(document.body).addClass(kclass);
+
+    /* Platform */
     window.Q = Q;
     window.Base64 = Base64;
-    return require(["core/Application", "core/Debugger"], function(App) {
+    deps = ["core/Application"];
+
+    /* env:dev                                           env:dev:end */
+    return require(deps, function(App) {
       return App.advanceReadiness();
     });
   });

@@ -26,7 +26,17 @@ define('api/ApiRequestDefs',[], function() {
     'log_list': {
       url: '/log/',
       method: 'list',
-      params: ['username', 'session_id', 'profile_id', 'filter']
+      params: ['username', 'session_id', 'rule_id', 'log_type']
+    },
+    'log_violation': {
+      url: '/log/',
+      method: 'violation',
+      params: ['username', 'session_id', 'profile_id']
+    },
+    'log_filter_log': {
+      url: '/log/',
+      method: 'filter_log',
+      params: ['username', 'session_id', 'filter']
     },
     'profile_create': {
       url: '/profile/',
@@ -98,6 +108,11 @@ define('api/ApiRequestDefs',[], function() {
       method: 'list',
       params: ['username', 'session_id', 'rule_ids']
     },
+    'rule_version': {
+      url: '/rule/',
+      method: 'version',
+      params: ['username', 'session_id', 'rule_id', 'rule_version']
+    },
     'rule_enable': {
       url: '/rule/',
       method: 'enable',
@@ -107,6 +122,11 @@ define('api/ApiRequestDefs',[], function() {
       url: '/rule/',
       method: 'verify',
       params: ['username', 'session_id', 'content']
+    },
+    'rule_filter': {
+      url: '/rule/',
+      method: 'filter',
+      params: ['username', 'session_id', 'profile_id', 'content']
     },
     'scheduler_list': {
       url: '/scheduler/',

@@ -129,19 +129,30 @@
       return false;
     }
   };
+  $(".reset-card").flip({
+    trigger: "manual"
+  });
   $("#actReset").click(function() {
+    var $email;
     $(".network-error").hide();
     if (!gloablInputCheck(".form-wrap.reset")) {
       return;
     }
+    $email = $("#iptReset");
+    if (/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test($email.val())) {
+      showError($email);
+    } else {
+      showError($email, "Please provide a valid email.");
+      return;
+    }
     toggleActionBtn("#actReset", true);
-    return ApiRequest("/account/", "reset_password", [$("#iptReset").val()]).then(function(result) {
-      return console.log(result);
+    return ApiRequest("/account/", "reset_password", [$email.val()]).then(function(result) {
+      return $(".reset-card").flip(true);
     }, function(error) {
       if (!error) {
         return;
       }
-      showError("#iptReset", error.message);
+      showError("#iptReset", "Failed to reset your password, please make sure your email address is correct.");
     });
   });
   $("#actLogin").click(function() {

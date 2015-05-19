@@ -216,7 +216,7 @@ define('core/Debugger',["api/ApiRequest", "core/Application", "template/Debugger
   });
   App.DebuggerView = Ember.View.extend({
     template: DebuggerTpl.Frame,
-    classNames: ["debugger"]
+    classNames: ["debugger", "workarea"]
   });
   App.ApiRequestRoute = Ember.Route.extend({
     model: function(param) {

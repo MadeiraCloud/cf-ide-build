@@ -4,27 +4,30 @@
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<link rel="shortcut icon" href="/asset/image/favicon.ico" type="image/x-icon"/>
-  <link rel="stylesheet" href="/asset/css/account.css?v=a853fcec"/>
+  <link rel="stylesheet" href="/asset/css/account.css"/>
 </head>
 
 <body>
   <h1>CloudFielder</h1>
   <div class="form-wrap reset" style="display:none;">
-    <section class="form">
-      <header>Reset password<span>Already a member? <a href="/login/">Log In</a></span></header>
-      <div class="form-content">
-        <div class="input-wrap">
-          <input type="text" required="required" id="iptReset">
-          <label>PLEASE PROVIDE YOUR EMAIL ADDRESS:</label>
+    <section class="form reset-card">
+      <div class="front">
+        <header>Reset password<span>Already a member? <a href="/login/">Log In</a></span></header>
+        <div class="form-content">
+          <div class="input-wrap">
+            <input type="text" required="required" id="iptReset">
+            <label>PLEASE PROVIDE YOUR EMAIL ADDRESS:</label>
+          </div>
         </div>
-        <div class="reset-success">
-          An email with link to reset password has been sent to your registered email address.
+        <div class="action-wrap">
+          <button class="action" id="actReset" data-loading="Resetting..." data-normal="Reset">Reset</button>
         </div>
+        <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
       </div>
-      <div class="action-wrap">
-        <button class="action" id="actReset" data-loading="Resetting..." data-normal="Reset">Reset</button>
+      <div class="back">
+        <h3 style="margin-top:0;">Reset Successfully</h3>
+        <p>An email with link to reset password has been sent to your registered email address.</p>
       </div>
-      <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
     </section>
   </div>
 
