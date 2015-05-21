@@ -195,7 +195,7 @@ define('template/ApplicationTpl',[''], (function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createComment(" env:dev                                                                                            env:dev:end ");
+      var el3 = dom.createComment(" env:dev                                                                                              env:dev:end ");
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n    ");
       dom.appendChild(el2, el3);
