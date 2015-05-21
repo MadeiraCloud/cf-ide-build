@@ -1,0 +1,32 @@
+
+/* Color for dark background */
+$bg-b: #31333B;
+$bg-b2: #2B2C32;
+
+/* Base brand color*/
+$base-b: #606EC3;
+
+$light-b1: #7F83AE;
+
+$dark-b1: #3C3F4B;
+$dark-b2: #383B47;
+
+/* Primary Link Color, Code Syntax - res, value */
+$blue: #4A90E2; 
+
+/* Color for secondary text, etc */
+$grey: #797E8F;
+$light-grey: lighten($grey,10%);
+
+$text-grey: #dfdfdf;
+
+/* Color for alert, error, etc*/
+$red: #D0021B;
+
+
+/* Color for code syntax */
+
+$mint: #50E3C2; /* rule name, grammar keyword */
+$orange: #F9B42D; /* variable name */
+$green: #7ED321; /* variable value, function parameter */
+$yellow: #F8E71C; /* function name */
