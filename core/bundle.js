@@ -8,6 +8,50 @@ define('template/ApplicationTpl',[''], (function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("header");
+        dom.setAttribute(el1,"id","CFHeader");
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createUnsafeMorphAt(dom.childAt(fragment, [0]),0,0);
+        content(env, morph0, context, "App.info.message");
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("i");
         dom.setAttribute(el1,"class","fa fa-home");
         dom.appendChild(el0, el1);
@@ -38,7 +82,7 @@ define('template/ApplicationTpl',[''], (function() {
       }
     };
   }());
-  var child1 = (function() {
+  var child2 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -77,7 +121,7 @@ define('template/ApplicationTpl',[''], (function() {
       }
     };
   }());
-  var child2 = (function() {
+  var child3 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -116,7 +160,7 @@ define('template/ApplicationTpl',[''], (function() {
       }
     };
   }());
-  var child3 = (function() {
+  var child4 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -163,6 +207,8 @@ define('template/ApplicationTpl',[''], (function() {
     hasRendered: false,
     build: function build(dom) {
       var el0 = dom.createDocumentFragment();
+      var el1 = dom.createComment("");
+      dom.appendChild(el0, el1);
       var el1 = dom.createElement("aside");
       dom.setAttribute(el1,"id","CFSidebar");
       var el2 = dom.createTextNode("\n    ");
@@ -206,14 +252,21 @@ define('template/ApplicationTpl',[''], (function() {
       dom.setAttribute(el2,"class","user");
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createElement("i");
-      dom.setAttribute(el3,"class","logout fa fa-power-off");
-      dom.setAttribute(el3,"data-tooltip","Log out");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("img");
-      dom.setAttribute(el3,"class","avatar");
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","info");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("i");
+      dom.setAttribute(el4,"class","logout fa fa-sign-out");
+      dom.setAttribute(el4,"data-tooltip","Log out");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("img");
+      dom.setAttribute(el4,"class","avatar");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
@@ -264,13 +317,20 @@ define('template/ApplicationTpl',[''], (function() {
       dom.appendChild(el0, el1);
       var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
-      var el1 = dom.createComment("");
+      var el1 = dom.createElement("article");
+      dom.setAttribute(el1,"id","CFWorkarea");
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
       dom.appendChild(el0, el1);
       return el0;
     },
     render: function render(context, env, contextualElement) {
       var dom = env.dom;
-      var hooks = env.hooks, block = hooks.block, element = hooks.element, get = hooks.get, subexpr = hooks.subexpr, concat = hooks.concat, attribute = hooks.attribute, content = hooks.content;
+      var hooks = env.hooks, get = hooks.get, block = hooks.block, element = hooks.element, subexpr = hooks.subexpr, concat = hooks.concat, attribute = hooks.attribute, content = hooks.content;
       dom.detectNamespace(contextualElement);
       var fragment;
       if (env.useFragmentCache && dom.canClone) {
@@ -288,29 +348,35 @@ define('template/ApplicationTpl',[''], (function() {
       } else {
         fragment = this.build(dom);
       }
-      var element0 = dom.childAt(fragment, [0]);
+      var element0 = dom.childAt(fragment, [1]);
       var element1 = dom.childAt(element0, [3]);
       var element2 = dom.childAt(element0, [5]);
       var element3 = dom.childAt(element2, [1]);
-      var element4 = dom.childAt(element2, [3]);
-      var morph0 = dom.createMorphAt(element1,1,1);
-      var morph1 = dom.createMorphAt(element1,3,3);
-      var morph2 = dom.createMorphAt(element1,5,5);
-      var morph3 = dom.createMorphAt(element1,7,7);
-      var attrMorph0 = dom.createAttrMorph(element4, 'src');
-      var morph4 = dom.createMorphAt(dom.childAt(element2, [5]),0,0);
-      var morph5 = dom.createMorphAt(dom.childAt(element2, [7]),0,0);
-      var morph6 = dom.createMorphAt(fragment,2,2,contextualElement);
-      dom.insertBoundary(fragment, null);
-      block(env, morph0, context, "link-to", ["dashboard"], {}, child0, null);
-      block(env, morph1, context, "link-to", ["ruleManager"], {}, child1, null);
-      block(env, morph2, context, "link-to", ["scanLogPage"], {}, child2, null);
-      block(env, morph3, context, "link-to", ["settings"], {}, child3, null);
-      element(env, element3, context, "action", ["logout"], {});
-      attribute(env, attrMorph0, element4, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "App.user.email")], {})]));
-      content(env, morph4, context, "App.user.username");
-      content(env, morph5, context, "App.user.email");
-      content(env, morph6, context, "outlet");
+      var element4 = dom.childAt(element3, [1]);
+      var element5 = dom.childAt(element3, [3]);
+      var element6 = dom.childAt(fragment, [3]);
+      var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+      var morph1 = dom.createMorphAt(element1,1,1);
+      var morph2 = dom.createMorphAt(element1,3,3);
+      var morph3 = dom.createMorphAt(element1,5,5);
+      var morph4 = dom.createMorphAt(element1,7,7);
+      var attrMorph0 = dom.createAttrMorph(element5, 'src');
+      var morph5 = dom.createMorphAt(dom.childAt(element2, [3]),0,0);
+      var morph6 = dom.createMorphAt(dom.childAt(element2, [5]),0,0);
+      var morph7 = dom.createMorphAt(element6,1,1);
+      dom.insertBoundary(fragment, 0);
+      block(env, morph0, context, "if", [get(env, context, "App.info")], {}, child0, null);
+      element(env, element0, context, "bind-attr", [], {"class": "App.info:has-info"});
+      block(env, morph1, context, "link-to", ["dashboard"], {}, child1, null);
+      block(env, morph2, context, "link-to", ["ruleManager"], {}, child2, null);
+      block(env, morph3, context, "link-to", ["scanLogPage"], {}, child3, null);
+      block(env, morph4, context, "link-to", ["settings"], {}, child4, null);
+      element(env, element4, context, "action", ["logout"], {});
+      attribute(env, attrMorph0, element5, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "App.user.email")], {})]));
+      content(env, morph5, context, "App.user.username");
+      content(env, morph6, context, "App.user.email");
+      element(env, element6, context, "bind-attr", [], {"class": "App.info:has-info"});
+      content(env, morph7, context, "outlet");
       return fragment;
     }
   };
@@ -2125,6 +2191,57 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("li");
+        dom.setAttribute(el1,"class","");
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-clock-o");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("Next scan in ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode(" min");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 2]),0,0);
+        content(env, morph0, context, "nextScanTime");
+        return fragment;
+      }
+    };
+  }());
+  var child3 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
         var el1 = dom.createTextNode("            ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
@@ -2164,7 +2281,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child3 = (function() {
+  var child4 = (function() {
     var child0 = (function() {
       return {
         isHTMLBars: true,
@@ -2293,7 +2410,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child4 = (function() {
+  var child5 = (function() {
     var child0 = (function() {
       return {
         isHTMLBars: true,
@@ -2454,7 +2571,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child5 = (function() {
+  var child6 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -2589,19 +2706,7 @@ TEMPLATE.dashboard=(function() {
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                    ");
       dom.appendChild(el4, el5);
-      var el5 = dom.createElement("li");
-      dom.setAttribute(el5,"class","");
-      var el6 = dom.createElement("i");
-      dom.setAttribute(el6,"class","fa fa-clock-o");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("Next scan in ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("a");
-      var el7 = dom.createComment("");
-      dom.appendChild(el6, el7);
-      var el7 = dom.createTextNode(" min");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
+      var el5 = dom.createComment("");
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                ");
       dom.appendChild(el4, el5);
@@ -2695,7 +2800,7 @@ TEMPLATE.dashboard=(function() {
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
       var morph1 = dom.createMorphAt(element6,0,0);
       var morph2 = dom.createMorphAt(dom.childAt(element7, [3]),1,1);
-      var morph3 = dom.createMorphAt(dom.childAt(element7, [5, 2]),0,0);
+      var morph3 = dom.createMorphAt(element7,5,5);
       var morph4 = dom.createMorphAt(dom.childAt(fragment, [4]),3,3);
       var morph5 = dom.createMorphAt(dom.childAt(element8, [1, 2]),1,1);
       var morph6 = dom.createMorphAt(element8,3,3);
@@ -2704,10 +2809,10 @@ TEMPLATE.dashboard=(function() {
       element(env, element6, context, "bind-attr", [], {"class": ":circle violationCount:error"});
       content(env, morph1, context, "violationCount");
       block(env, morph2, context, "link-to", ["ruleList"], {}, child1, null);
-      content(env, morph3, context, "nextScanTime");
-      block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child2, child3);
+      block(env, morph3, context, "if", [get(env, context, "hasCredential")], {}, child2, null);
+      block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child3, child4);
       inline(env, morph5, context, "dateFromNow", [get(env, context, "vioDateFromNow")], {});
-      block(env, morph6, context, "if", [get(env, context, "model.violationRules.length")], {}, child4, child5);
+      block(env, morph6, context, "if", [get(env, context, "model.violationRules.length")], {}, child5, child6);
       return fragment;
     }
   };
@@ -2763,13 +2868,26 @@ define('view/DashboardView',["template/DashboardTpl"], function(DashboardTemplat
   Ember.TEMPLATES["dashboard/loading"] = DashboardTemplate.loading;
   return Ember.View.extend({
     template: DashboardTemplate.dashboard,
-    classNames: ["dashboard", "workarea"]
+    classNames: ["dashboard", "workarea"],
+    didInsertElement: function() {
+      var hasCredential;
+      hasCredential = App.user.get("profile").get("awsAccount");
+      if (!hasCredential) {
+        return App.setMsg({
+          type: "",
+          message: "You need to setup aws credential."
+        });
+      }
+    }
   });
 });
 
 define('controller/DashboardController',[], function() {
   return Ember.Controller.extend({
     needs: ["application", "ruleList"],
+    hasCredential: (function() {
+      return !!App.user.get("profile").get("awsAccount");
+    }).property(),
     nextScanTime: (function() {
       var nextScanTime;
       nextScanTime = Math.round((this.model.get("nextScannedTime") * 1000 - new Date()) / 1000 / 60);
@@ -2780,14 +2898,6 @@ define('controller/DashboardController',[], function() {
       rules = this.model.get("rules");
       return rules.filterBy("enabled", true).get("length");
     }).property("rules.@each.enabled"),
-    actions: {
-      initResources: function() {
-        return this.store.get("resource");
-      },
-      showViolation: function(violation) {
-        return console.log(violation.toJSON());
-      }
-    },
     violationCount: (function() {
       var count;
       count = 0;
@@ -2800,9 +2910,7 @@ define('controller/DashboardController',[], function() {
       return App.violationTimestamp;
     }).property(),
     resourceModel: (function() {
-      console.log("initialized");
       console.log(this.store.get("resource"));
-      console.log("---------------");
       return this.store.get("resource");
     }).property("resources")
   });
@@ -4461,6 +4569,12 @@ TEMPLATE.rule_audit_log=(function() {
         var el3 = dom.createComment("");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("td");
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n    ");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
@@ -4470,7 +4584,7 @@ TEMPLATE.rule_audit_log=(function() {
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, inline = hooks.inline, content = hooks.content, block = hooks.block;
+        var hooks = env.hooks, content = hooks.content, get = hooks.get, inline = hooks.inline, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -4492,9 +4606,11 @@ TEMPLATE.rule_audit_log=(function() {
         var morph0 = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
         var morph1 = dom.createMorphAt(dom.childAt(element1, [3]),0,0);
         var morph2 = dom.createMorphAt(dom.childAt(element1, [5]),0,0);
-        inline(env, morph0, context, "interval", [get(env, context, "model.timestamp")], {});
-        content(env, morph1, context, "model.event");
-        block(env, morph2, context, "if", [get(env, context, "model.hasDetail")], {}, child0, null);
+        var morph3 = dom.createMorphAt(dom.childAt(element1, [7]),0,0);
+        content(env, morph0, context, "model.rule_version");
+        inline(env, morph1, context, "interval", [get(env, context, "model.timestamp")], {});
+        content(env, morph2, context, "model.event");
+        block(env, morph3, context, "if", [get(env, context, "model.hasDetail")], {}, child0, null);
         return fragment;
       }
     };
@@ -4511,6 +4627,12 @@ TEMPLATE.rule_audit_log=(function() {
       var el2 = dom.createTextNode("\n    ");
       dom.appendChild(el1, el2);
       var el2 = dom.createElement("tr");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("th");
+      var el4 = dom.createTextNode("VERSION");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
       var el3 = dom.createElement("th");
@@ -4900,6 +5022,13 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
   Models = {
     DashboardAdapter: DS.Adapter.extend({
       find: function() {
+        var defer, profile;
+        profile = App.user.get("profile");
+        if (!profile.get("awsAccount")) {
+          defer = Q.defer();
+          defer.resolve([]);
+          return defer.promise;
+        }
         return Q.all([
           ApiRequest("scheduler_list", {
             profile_ids: [App.user.get("profile").id]
@@ -7832,6 +7961,20 @@ define('core/Application',["view/ApplicationView", "core/Router", "core/Store", 
   window.App = Ember.Application.extend({
     LOG_TRANSITIONS: true,
     rootElement: "body",
+    info: {
+      "type": "abc",
+      "message": "You are looking at a sample dashboard. <a {{action 'setup'}}>Set up cloud account</a> to get started with policy enforcement right away"
+    },
+    setMsg: function(info) {
+      if (!info) {
+        return this.set("info", null);
+      } else {
+        return this.set("info", {
+          type: info.type,
+          message: info.message
+        });
+      }
+    },
     logout: function() {
       App.session.destroyRecord().then(function() {
         var cValue, ckey, _ref;

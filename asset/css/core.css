@@ -125,7 +125,7 @@
   display: none; }
 .dashboard .overview {
   margin: 0 auto;
-  width: 700px;
+  width: 575px;
   overflow: auto;
   position: relative; }
 .dashboard .violation {
@@ -172,7 +172,6 @@
     .dashboard .info-list li .fa {
       margin-right: 10px; }
 .dashboard .dashboard-resources {
-  height: 273px;
   overflow: auto; }
   .dashboard .dashboard-resources li {
     display: block;
@@ -2261,8 +2260,7 @@ table.table.rule-log-list {
   font-size: 14px; }
   .violation-list .item {
     padding: 25px;
-    border-bottom: 1px dashed #454545;
-    cursor: pointer; }
+    border-bottom: 1px dashed #454545; }
     .violation-list .item:hover .head .filter {
       display: block; }
     .violation-list .item .head {
@@ -2986,26 +2984,23 @@ body:not(.mac) *::-webkit-scrollbar-corner {
 
 /* Sidebar Navigation */
 #CFHeader {
-  height: 0;
-  background-color: #383B47;
+  height: 55px;
   border-bottom: 1px #242424 solid;
-  position: relative; }
-  #CFHeader .message {
-    text-align: center;
-    line-height: 0;
-    font-weight: bold;
-    z-index: 0;
-    opacity: 0.8;
-    position: absolute;
-    left: 220px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    color: white;
-    background-color: #004427;
-    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-size: 40px 40px; }
+  text-align: center;
+  line-height: 55px;
+  font-weight: bold;
+  z-index: 1;
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  color: white;
+  background-color: #004427;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px; }
 
 #CFSidebar {
   width: 220px;
@@ -3015,6 +3010,8 @@ body:not(.mac) *::-webkit-scrollbar-corner {
   top: 0;
   bottom: 0;
   border-right: 1px #242424 solid; }
+  #CFSidebar.has-info {
+    top: 55px; }
   #CFSidebar .logo {
     text-align: center;
     z-index: 1;
@@ -3029,29 +3026,50 @@ body:not(.mac) *::-webkit-scrollbar-corner {
       text-align: center;
       width: 30px; }
     #CFSidebar .logo img {
-      margin-top: 16px;
+      margin-top: 14px;
       width: 135px; }
   #CFSidebar .user {
     position: absolute;
-    bottom: 110px;
+    bottom: 130px;
     text-align: center;
     width: 100%;
     font-size: 12px; }
+    #CFSidebar .user .info {
+      margin: 0 auto;
+      margin-bottom: 10px;
+      width: 50px;
+      height: 50px;
+      overflow: hidden; }
+      #CFSidebar .user .info:hover .logout {
+        background-color: black;
+        opacity: 0.6; }
+      #CFSidebar .user .info .avatar {
+        width: 50px;
+        background-color: white;
+        -webkit-border-radius: 50px;
+                border-radius: 50px;
+        border: 0; }
+      #CFSidebar .user .info .logout {
+        -webkit-transition: opacity 0.2s ease-in-out;
+                transition: opacity 0.2s ease-in-out;
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+        text-align: center;
+        cursor: pointer;
+        position: absolute;
+        -webkit-border-radius: 52px;
+                border-radius: 52px;
+        margin-top: -1px;
+        margin-left: -1px;
+        opacity: 0;
+        line-height: 52px; }
+    #CFSidebar .user .name {
+      font-size: 14px; }
     #CFSidebar .user .mail {
-      color: #646464; }
-    #CFSidebar .user .avatar {
-      width: 40px;
-      height: 40px;
-      -webkit-border-radius: 40px;
-              border-radius: 40px;
-      margin: 10px;
-      background-color: white; }
-    #CFSidebar .user .logout {
-      font-size: 20px;
-      margin: 22px;
-      cursor: pointer;
-      position: absolute;
-      margin-left: 22px; }
+      color: #646464;
+      margin-top: 3px;
+      font-style: italic; }
   #CFSidebar .tool {
     position: absolute;
     bottom: 0;
@@ -3108,40 +3126,15 @@ body:not(.mac) *::-webkit-scrollbar-corner {
       margin-top: 10px;
       width: 30px; }
 
-/* Section Header */
-.workarea-header {
-  width: 100%;
-  height: 0;
-  line-height: -5px;
-  padding: 5px 20px;
-  position: absolute;
-  top: 0;
-  left: 0; }
-  .workarea-header .fa {
-    float: left;
-    margin-top: 18px;
-    font-size: 24px;
-    margin-right: 15px; }
-  .workarea-header .header-title {
-    font-weight: 400; }
-  .workarea-header .header-user {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    background: yellow;
-    font-size: 13px; }
-    .workarea-header .header-user .user-menu {
-      display: inline-block;
-      width: 120px; }
-
-.workarea {
+#CFWorkarea {
   overflow: auto;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
   left: 220px; }
+  #CFWorkarea.has-info {
+    top: 55px; }
 
 .date-interval {
   color: #797E8F; }
@@ -3192,7 +3185,7 @@ body:not(.mac) *::-webkit-scrollbar-corner {
 .rule-list {
   width: 299px;
   background: #383b47;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   top: 0; }
   .rule-list a.create-rule {
@@ -3341,7 +3334,7 @@ a.create-rule {
       .rule-manager-content .rule-view .rule-content .rule-editor {
         border-top: 1px solid #242424;
         position: absolute;
-        top: 54px;
+        top: 116px;
         right: 0;
         left: 300px;
         bottom: 0; }
