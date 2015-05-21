@@ -563,6 +563,9 @@ define('core/Router',[], function() {
     this.route("settings", {
       path: "/settings"
     }, function() {});
+    this.route("invalidSession", {
+      path: "/sessionexpired"
+    }, function() {});
     this.resource("scanLog", {
       path: "/logs/"
     }, function() {
@@ -596,38 +599,38 @@ define('core/Store',[], function() {
 });
 
 define('route/ApplicationRoute',[], function() {
-  return Ember.Route.extend({
-    afterModel: function() {
-      console.log("App is Ready");
-      return $("#GlobalLoading").remove();
-    },
-    actions: {
-      error: function() {
-        console.log("Global error route is activated, make sure it's not because any unhandled error from the substate of application.", arguments);
-        debugger;
-        return this.logout();
+  return {
+    ApplicationRoute: Ember.Route.extend({
+      afterModel: function() {
+        console.log("App is Ready");
+        return $("#GlobalLoading").remove();
       },
-      logout: function() {
-        var cValue, ckey, _ref;
-        _ref = $.cookie();
-        for (ckey in _ref) {
-          cValue = _ref[ckey];
-          $.removeCookie(ckey, {
-            "path": "/"
-          });
-        }
-        return window.location.href = "/login";
-      }
-    }
-  });
-});
+      actions: {
+        error: function() {
+          console.info("Global error route is activated, make sure it's not because any unhandled error from the substate of application.", arguments);
 
-define('route/IndexRoute',[], function() {
-  return Ember.Route.extend({
-    redirect: function() {
-      return this.transitionTo('dashboard');
-    }
-  });
+          /* env:dev                                         env:dev:end */
+          return this.logout();
+        },
+        logout: function() {
+          var cValue, ckey, _ref;
+          _ref = $.cookie();
+          for (ckey in _ref) {
+            cValue = _ref[ckey];
+            $.removeCookie(ckey, {
+              "path": "/"
+            });
+          }
+          return window.location.href = "/login";
+        }
+      }
+    }),
+    IndexRoute: Ember.Route.extend({
+      redirect: function() {
+        return this.transitionTo('dashboard');
+      }
+    })
+  };
 });
 
 define('route/DashboardRoute',[], function() {
@@ -744,6 +747,92 @@ define('route/RuleManagerRoute',[], function() {
           };
         }
         return this._super(model, params);
+      }
+    })
+  };
+});
+
+define('template/InvalidSessionTpl',[''], (function() {
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("section");
+      dom.setAttribute(el1,"class","session-dialog");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("p");
+      var el3 = dom.createTextNode("Your session has expired.");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("p");
+      var el3 = dom.createTextNode("Please log in again.");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("a");
+      dom.setAttribute(el2,"class","action");
+      var el3 = dom.createTextNode("Ok, go to login page");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      var hooks = env.hooks, element = hooks.element;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      var element0 = dom.childAt(fragment, [0, 4]);
+      element(env, element0, context, "action", ["gotoLoginPage"], {});
+      return fragment;
+    }
+  };
+}()));
+define('route/InvalidSessionRoute',["template/InvalidSessionTpl"], function(template) {
+  return {
+    InvalidSessionRoute: Ember.Route.extend({
+      deactivate: function() {
+        this.send("gotoLoginPage");
+      },
+      actions: {
+        gotoLoginPage: function() {
+          App.gotoLoginPage();
+        }
+      }
+    }),
+    InvalidSessionIndexRoute: Ember.Route.extend({
+      model: function() {
+        return Q.defer().promise;
+      }
+    }),
+    InvalidSessionLoadingView: Ember.View.extend({
+      template: template,
+      elementId: "InvalidSession",
+      didInsertElement: function() {
+        return $("body").append(this.element);
       }
     })
   };
@@ -1781,7 +1870,7 @@ define('view/SettingsView',["template/SettingsTpl", "ui/UI.bubblepopup"], functi
   return {
     SettingsView: Ember.View.extend({
       template: SettingsTemplate,
-      classNames: ["settings", "workarea"],
+      classNames: ["settings"],
       clearError: function() {
         this.set("errorFirstName", "");
         this.set("errorLastName", "");
@@ -2191,19 +2280,7 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("li");
-        dom.setAttribute(el1,"class","");
-        var el2 = dom.createElement("i");
-        dom.setAttribute(el2,"class","fa fa-clock-o");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("Next scan in ");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createElement("a");
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode(" min");
-        dom.appendChild(el2, el3);
-        dom.appendChild(el1, el2);
+        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         return el0;
       },
@@ -2227,13 +2304,51 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 2]),0,0);
+        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, null);
+        dom.insertBoundary(fragment, 0);
         content(env, morph0, context, "nextScanTime");
         return fragment;
       }
     };
   }());
   var child3 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("NaN");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  var child4 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -2281,7 +2396,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child4 = (function() {
+  var child5 = (function() {
     var child0 = (function() {
       return {
         isHTMLBars: true,
@@ -2410,7 +2525,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child5 = (function() {
+  var child6 = (function() {
     var child0 = (function() {
       return {
         isHTMLBars: true,
@@ -2571,7 +2686,7 @@ TEMPLATE.dashboard=(function() {
       }
     };
   }());
-  var child6 = (function() {
+  var child7 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -2706,7 +2821,19 @@ TEMPLATE.dashboard=(function() {
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                    ");
       dom.appendChild(el4, el5);
-      var el5 = dom.createComment("");
+      var el5 = dom.createElement("li");
+      dom.setAttribute(el5,"class","");
+      var el6 = dom.createElement("i");
+      dom.setAttribute(el6,"class","fa fa-clock-o");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createTextNode("Next scan in ");
+      dom.appendChild(el5, el6);
+      var el6 = dom.createElement("a");
+      var el7 = dom.createComment("");
+      dom.appendChild(el6, el7);
+      var el7 = dom.createTextNode(" min");
+      dom.appendChild(el6, el7);
+      dom.appendChild(el5, el6);
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                ");
       dom.appendChild(el4, el5);
@@ -2800,7 +2927,7 @@ TEMPLATE.dashboard=(function() {
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
       var morph1 = dom.createMorphAt(element6,0,0);
       var morph2 = dom.createMorphAt(dom.childAt(element7, [3]),1,1);
-      var morph3 = dom.createMorphAt(element7,5,5);
+      var morph3 = dom.createMorphAt(dom.childAt(element7, [5, 2]),0,0);
       var morph4 = dom.createMorphAt(dom.childAt(fragment, [4]),3,3);
       var morph5 = dom.createMorphAt(dom.childAt(element8, [1, 2]),1,1);
       var morph6 = dom.createMorphAt(element8,3,3);
@@ -2809,10 +2936,10 @@ TEMPLATE.dashboard=(function() {
       element(env, element6, context, "bind-attr", [], {"class": ":circle violationCount:error"});
       content(env, morph1, context, "violationCount");
       block(env, morph2, context, "link-to", ["ruleList"], {}, child1, null);
-      block(env, morph3, context, "if", [get(env, context, "hasCredential")], {}, child2, null);
-      block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child3, child4);
+      block(env, morph3, context, "if", [get(env, context, "hasCredential")], {}, child2, child3);
+      block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child4, child5);
       inline(env, morph5, context, "dateFromNow", [get(env, context, "vioDateFromNow")], {});
-      block(env, morph6, context, "if", [get(env, context, "model.violationRules.length")], {}, child5, child6);
+      block(env, morph6, context, "if", [get(env, context, "model.violationRules.length")], {}, child6, child7);
       return fragment;
     }
   };
@@ -2868,17 +2995,7 @@ define('view/DashboardView',["template/DashboardTpl"], function(DashboardTemplat
   Ember.TEMPLATES["dashboard/loading"] = DashboardTemplate.loading;
   return Ember.View.extend({
     template: DashboardTemplate.dashboard,
-    classNames: ["dashboard", "workarea"],
-    didInsertElement: function() {
-      var hasCredential;
-      hasCredential = App.user.get("profile").get("awsAccount");
-      if (!hasCredential) {
-        return App.setMsg({
-          type: "",
-          message: "You need to setup aws credential."
-        });
-      }
-    }
+    classNames: ["dashboard"]
   });
 });
 
@@ -3959,7 +4076,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": true, "version": get(env, context, "version"), "isAudit": true});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": get(env, context, "isLoadingAudit"), "version": get(env, context, "version"), "isAudit": get(env, context, "isAudit")});
           return fragment;
         }
       };
@@ -4002,7 +4119,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": true});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": get(env, context, "isLoadingViolation")});
           return fragment;
         }
       };
@@ -4298,6 +4415,88 @@ TEMPLATE.rule_content=(function() {
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, element = hooks.element;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var element1 = dom.childAt(fragment, [0]);
+        element(env, element1, context, "action", ["saveRule"], {});
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("button");
+        dom.setAttribute(el1,"class","btn btn-blue");
+        dom.setAttribute(el1,"disabled","disabled");
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-floppy-o");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("Save");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  var child2 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("button");
         dom.setAttribute(el1,"class","btn btn-blue");
         var el2 = dom.createElement("i");
@@ -4331,14 +4530,12 @@ TEMPLATE.rule_content=(function() {
           fragment = this.build(dom);
         }
         var element0 = dom.childAt(fragment, [0]);
-        var element1 = dom.childAt(fragment, [2]);
-        element(env, element0, context, "action", ["saveRule"], {});
-        element(env, element1, context, "action", ["validRule"], {});
+        element(env, element0, context, "action", ["validRule"], {});
         return fragment;
       }
     };
   }());
-  var child1 = (function() {
+  var child3 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -4347,17 +4544,6 @@ TEMPLATE.rule_content=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("button");
-        dom.setAttribute(el1,"class","btn btn-blue");
-        dom.setAttribute(el1,"disabled","disabled");
-        var el2 = dom.createElement("i");
-        dom.setAttribute(el2,"class","fa fa-floppy-o");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("Save");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
         var el1 = dom.createElement("button");
         dom.setAttribute(el1,"class","btn btn-blue");
         dom.setAttribute(el1,"disabled","disabled");
@@ -4394,6 +4580,86 @@ TEMPLATE.rule_content=(function() {
       }
     };
   }());
+  var child4 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("span");
+        var el2 = dom.createTextNode("Not change yet.");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  var child5 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("span");
+        dom.setAttribute(el1,"class","rule-error");
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
+        content(env, morph0, context, "displayError");
+        return fragment;
+      }
+    };
+  }());
   return {
     isHTMLBars: true,
     revision: "Ember@1.11.3",
@@ -4408,9 +4674,17 @@ TEMPLATE.rule_content=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createComment("");
       dom.appendChild(el1, el2);
-      var el2 = dom.createElement("span");
-      var el3 = dom.createTextNode("Not change yet.");
-      dom.appendChild(el2, el3);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createComment("");
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
@@ -4441,11 +4715,18 @@ TEMPLATE.rule_content=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),1,1);
-      var morph1 = dom.createMorphAt(fragment,2,2,contextualElement);
+      var element2 = dom.childAt(fragment, [0]);
+      var morph0 = dom.createMorphAt(element2,1,1);
+      var morph1 = dom.createMorphAt(element2,3,3);
+      var morph2 = dom.createMorphAt(element2,5,5);
+      var morph3 = dom.createMorphAt(element2,7,7);
+      var morph4 = dom.createMorphAt(fragment,2,2,contextualElement);
       dom.insertBoundary(fragment, null);
-      block(env, morph0, context, "if", [get(env, context, "model.isDirty")], {}, child0, child1);
-      inline(env, morph1, context, "rule-editor", [], {"content": get(env, context, "model.content")});
+      block(env, morph0, context, "if", [get(env, context, "enableSave")], {}, child0, child1);
+      block(env, morph1, context, "if", [get(env, context, "model.content")], {}, child2, child3);
+      block(env, morph2, context, "unless", [get(env, context, "model.isDirty")], {}, child4, null);
+      block(env, morph3, context, "if", [get(env, context, "displayError")], {}, child5, null);
+      inline(env, morph4, context, "rule-editor", [], {"content": get(env, context, "model.content"), "localError": get(env, context, "localError"), "serverError": get(env, context, "serverError")});
       return fragment;
     }
   };
@@ -4701,7 +4982,7 @@ define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup"], function(RuleT
   return {
     RuleManagerView: Ember.View.extend({
       template: RuleTpl.manager,
-      classNames: ["rule-manager", "workarea"]
+      classNames: ["rule-manager"]
     }),
     RuleListView: Ember.View.extend({
       template: RuleTpl.list,
@@ -4775,6 +5056,17 @@ define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup"], function(RuleT
     })
   };
 });
+
+var wrapEditorError;
+
+wrapEditorError = function(error) {
+  return {
+    row: error.row - 1,
+    column: error.column,
+    text: error.message,
+    type: 'error'
+  };
+};
 
 define('controller/RuleManagerC',[], function() {
   return {
@@ -4874,7 +5166,11 @@ define('controller/RuleManagerC',[], function() {
           var self;
           self = this;
           return _.delay(function() {
-            return self.set('showDetailPanel', false);
+            self.set("isLoadingViolation", false);
+            self.set("showDetailPanel", false);
+            self.set("isLoadingAudit", false);
+            self.set("isAudit", false);
+            return self.set("version", null);
           }, 300);
         }
       }
@@ -4882,6 +5178,20 @@ define('controller/RuleManagerC',[], function() {
     RuleIndexController: Ember.Controller.extend({
       needs: ["application"],
       currentTab: 'content',
+      localError: false,
+      serverError: false,
+      displayError: (function() {
+        var serverError;
+        serverError = this.get('serverError');
+        if (_.isString(serverError)) {
+          return serverError;
+        } else {
+          return false;
+        }
+      }).property('serverError'),
+      enableSave: (function() {
+        return this.get('model.isDirty') && this.get('model.content') && !this.get('localError');
+      }).property('model.content', 'localError'),
       tabContent: (function() {
         return this.get('currentTab') === 'content';
       }).property('currentTab'),
@@ -4906,11 +5216,20 @@ define('controller/RuleManagerC',[], function() {
             if (isNew && self.get("controllers.application.currentRouteName") === "rule.index" && currentModel === self.model) {
               self.replaceRoute("rule", currentModel.id);
             }
+          }, function(error) {
+            var errorBody;
+            errorBody = error.result;
+            if (errorBody.row && errorBody.column) {
+              return self.set('serverError', wrapEditorError(errorBody));
+            } else {
+              return self.set('serverError', errorBody.message);
+            }
           });
         },
         validRule: function() {
-          this.controllerFor("rule").set('showDetailPanel', true);
-          return this.controllerFor("rule").set('isAudit', false);
+          this.controllerFor("rule").set("isLoadingViolation", true);
+          this.controllerFor("rule").set('isAudit', false);
+          return this.controllerFor("rule").set('showDetailPanel', true);
         },
         toggleTab: function(tab) {
           return this.set('currentTab', tab);
@@ -5305,6 +5624,7 @@ define('controller/LogController',[], function() {
       }
     }),
     ScanLogListController: Ember.ArrayController.extend({
+      needs: ['rule'],
       itemController: 'scanLogItem',
       showDetailPanel: false,
       hasLog: (function() {
@@ -5401,16 +5721,17 @@ define('controller/LogController',[], function() {
     RuleAuditItemLogController: Ember.Controller.extend({
       actions: {
         showAuditLog: function(log) {
-          var rule, ruleController;
+          var ruleController;
           ruleController = this.controllerFor("rule");
           console.log(log);
           if (ruleController.get("showDetailPanel")) {
             ruleController.set("showDetailPanel", false);
-            return ruleController.set("isAudit", false);
+            ruleController.set("isLoadingAudit", false);
+            ruleController.set("isAudit", false);
+            return ruleController.set("version", null);
           } else {
-            rule = ruleController.store.getById("rule", log.rule_id);
             ruleController.set("version", log.rule_version);
-            ruleController.set("vioDetailRule", rule);
+            ruleController.set("isLoadingAudit", true);
             ruleController.set("isAudit", true);
             return ruleController.set("showDetailPanel", true);
           }
@@ -6214,6 +6535,11 @@ TEMPLATE.scan_log=(function() {
         dom.setAttribute(el1,"class","log-empty");
         var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-inbox");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
+        dom.appendChild(el1, el2);
         var el2 = dom.createElement("div");
         var el3 = dom.createTextNode("There is no log yet.");
         dom.appendChild(el2, el3);
@@ -6356,7 +6682,7 @@ define('view/LogView',["template/LogTpl"], function(template) {
   return {
     ScanLogPageView: Ember.View.extend({
       template: template.index,
-      classNames: ["log-viewer", "workarea"]
+      classNames: ["log-viewer"]
     }),
     ScanLogListView: Ember.View.extend({
       template: template.scan_log
@@ -6811,23 +7137,45 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
       });
       return count;
     }).property(),
-    didInsertElement: function() {
+    isLoadingViolation: (function(key, value) {
       var self;
-      _.delay((function(_this) {
+      self = this;
+      if (value === true) {
+        _.delay(function() {
+          return self.checkLoadingState(true);
+        });
+      }
+      return value;
+    }).property(),
+    isLoadingAudit: (function(key, value) {
+      var self;
+      self = this;
+      if (value === true) {
+        _.delay(function() {
+          return self.checkLoadingState(null, true);
+        });
+      }
+      return value;
+    }).property(),
+    didInsertElement: function() {
+      return _.delay((function(_this) {
         return function() {
           return $(_this.element).find(".panel").addClass("show");
         };
       })(this));
+    },
+    checkLoadingState: function(loadingViolation, loadingAudit) {
+      var self;
       self = this;
-      if (this.get("isLoadingAudit")) {
+      if (this.get("isLoadingAudit") || loadingAudit) {
         return ApiRequest("rule_version", {
-          rule_id: self.get("rule").id,
+          rule_id: this.get("rule").id,
           rule_version: self.get("version")
         }).then(function(result) {
           self.set("content", result.content);
           return self.set("isLoadingAudit", false);
         });
-      } else if (this.get("isLoadingViolation")) {
+      } else if (this.get("isLoadingViolation") || loadingViolation) {
         return ApiRequest("rule_filter", {
           profile_id: App.user.get("profile").id,
           content: this.get("rule").get("content")
@@ -6894,6 +7242,31 @@ define('component/RuleEditorComponent',["./template/RuleEditorTpl", "lib/ace/edi
   RuleEditorComponent = Ember.Component.extend({
     template: template.index,
     classNames: ["rule-editor"],
+    localError: (function(key, val) {
+      if (arguments.length === 1) {
+        if (!this.editor) {
+          return false;
+        }
+        return !!this.editor.getSession().getAnnotations().length;
+      }
+      return false;
+    }).property(),
+    serverError: (function(key, val) {
+      if (!this.editor) {
+        return null;
+      }
+      if (arguments.length === 1) {
+        return null;
+      }
+      if (_.isString(val)) {
+        return val;
+      }
+      if (_.isObject(val) && !_.isArray(val)) {
+        val = [val];
+      }
+      this.editor.getSession().setAnnotations(val);
+      return val;
+    }).property('content'),
     content: (function(key, val) {
       var cursor;
       if (!this.editor) {
@@ -6945,6 +7318,9 @@ define('component/RuleEditorComponent',["./template/RuleEditorTpl", "lib/ace/edi
       that = this;
       editor.on('change', function() {
         return that.notifyPropertyChange('content');
+      });
+      editor.getSession().on("changeAnnotation", function() {
+        return that.notifyPropertyChange('localError');
       });
       if (this.preset) {
         this.set('content', this.preset);
@@ -7957,7 +8333,7 @@ define('core/Helper',[], function() {
   Application acts as namespace in Ember. We store our component defination(a.k.a Class)
   in Application, so that Ember will find the component and wire them up.
  */
-define('core/Application',["view/ApplicationView", "core/Router", "core/Store", "route/ApplicationRoute", "route/IndexRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "./Helper"], function(ApplicationView, Router, Store, ApplicationRoute, IndexRoute, DashboardRoute, LogRoute, RuleManagerRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent) {
+define('core/Application',["view/ApplicationView", "core/Router", "core/Store", "route/ApplicationRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/InvalidSessionRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "./Helper"], function(ApplicationView, Router, Store, ApplicationRoute, DashboardRoute, LogRoute, RuleManagerRoute, InvalidSessionRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent) {
   window.App = Ember.Application.extend({
     LOG_TRANSITIONS: true,
     rootElement: "body",
@@ -7977,16 +8353,19 @@ define('core/Application',["view/ApplicationView", "core/Router", "core/Store", 
     },
     logout: function() {
       App.session.destroyRecord().then(function() {
-        var cValue, ckey, _ref;
-        _ref = $.cookie();
-        for (ckey in _ref) {
-          cValue = _ref[ckey];
-          $.removeCookie(ckey, {
-            "path": "/"
-          });
-        }
-        window.location.href = "/login";
+        return App.gotoLoginPage();
       });
+    },
+    gotoLoginPage: function() {
+      var cValue, ckey, _ref;
+      _ref = $.cookie();
+      for (ckey in _ref) {
+        cValue = _ref[ckey];
+        $.removeCookie(ckey, {
+          "path": "/"
+        });
+      }
+      return window.location.href = "/login";
     }
   }).create();
   App.refreshCSS = function() {
@@ -8033,8 +8412,8 @@ define('core/Application',["view/ApplicationView", "core/Router", "core/Store", 
    */
   App.Store = Store;
   App.ApplicationView = ApplicationView;
-  App.ApplicationRoute = ApplicationRoute;
-  App.IndexRoute = IndexRoute;
+  Ember.mixin(App, ApplicationRoute);
+  Ember.mixin(App, InvalidSessionRoute);
   App.DashboardIndexRoute = DashboardRoute;
   App.DashboardIndexView = DashboardView;
   App.DashboardIndexController = DashboardController;

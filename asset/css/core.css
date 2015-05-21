@@ -246,8 +246,12 @@ table.table.rule-log-list {
 
 .log-empty {
   text-align: center;
-  color: #dfdfdf;
-  font-size: 14px; }
+  font-size: 14px;
+  margin-top: 300px; }
+  .log-empty .fa {
+    font-size: 32px; }
+  .log-empty div {
+    margin-top: 10px; }
 
 .awsicon {
   display: inline-block;
@@ -2444,9 +2448,9 @@ table.table.rule-log-list {
     border-color: transparent transparent #fff transparent; }
   #bubble-box.bubble-popup {
     color: #dfdfdf;
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    border: 1px solid #000;
+    -webkit-box-shadow: 0 0 5px rgba(52, 52, 52, 0.8);
+            box-shadow: 0 0 5px rgba(52, 52, 52, 0.8);
+    border: 1px solid #222;
     background: #31333B;
     font-size: 14px; }
     #bubble-box.bubble-popup .arrow {
@@ -2537,7 +2541,6 @@ table.table.rule-log-list {
 
 /* Table */
 .table {
-  background-color: #2e2e2e;
   border-collapse: collapse;
   border-spacing: 0;
   color: #ccc;
@@ -2642,6 +2645,7 @@ table.table.rule-log-list {
 .sortable.active:after {
   opacity: 1; }
 
+/* Bar Background */
 /**
 * CSS themes for simplePagination.js
 * Author: Flavius Matis - http://flaviusmatis.github.com/
@@ -2834,18 +2838,6 @@ ul.simple-pagination {
   content: "\f054";
   margin: 0 8px; }
 
-/* TEMP: icon placeholder */
-[class^="icon-"]:before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  display: inline-block;
-  background: #ccc;
-  margin-right: 8px;
-  vertical-align: middle; }
-
 /* Global */
 html,
 body {
@@ -2861,12 +2853,7 @@ body {
     -webkit-box-sizing: border-box;
             box-sizing: border-box; }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   margin: 0; }
 
 ul {
@@ -2878,8 +2865,7 @@ a {
   color: #4A90E2;
   cursor: pointer; }
 
-button,
-.btn {
+button, .btn {
   -webkit-appearance: none;
   border: none;
   color: #fff;
@@ -2890,36 +2876,26 @@ button,
   padding: 8px 15px;
   cursor: pointer;
   line-height: 12px; }
-  button.btn-blue,
-  .btn.btn-blue {
+  button.btn-blue, .btn.btn-blue {
     background: #4A90E2; }
-    button.btn-blue:hover,
-    .btn.btn-blue:hover {
+    button.btn-blue:hover, .btn.btn-blue:hover {
       background: #3885df; }
-  button.btn-green,
-  .btn.btn-green {
+  button.btn-green, .btn.btn-green {
     background: #009D79; }
-    button.btn-green:hover,
-    .btn.btn-green:hover {
+    button.btn-green:hover, .btn.btn-green:hover {
       background: #008969; }
-  button.btn-red,
-  .btn.btn-red {
+  button.btn-red, .btn.btn-red {
     background: #D0021B; }
-    button.btn-red:hover,
-    .btn.btn-red:hover {
+    button.btn-red:hover, .btn.btn-red:hover {
       background: #bc0218; }
-  button.btn-dark,
-  .btn.btn-dark {
+  button.btn-dark, .btn.btn-dark {
     background: #3C3F4B; }
-    button.btn-dark:hover,
-    .btn.btn-dark:hover {
+    button.btn-dark:hover, .btn.btn-dark:hover {
       background: #333540; }
-  button .fa,
-  .btn .fa {
-    font-size: 14px;
+  button .fa, .btn .fa {
+    font-size: 12px;
     margin: 0 5px; }
-  button[disabled],
-  .btn[disabled] {
+  button[disabled], .btn[disabled] {
     cursor: default;
     background: #797E8F !important;
     color: #494949; }
@@ -2932,7 +2908,7 @@ ul {
 .hidden {
   display: none; }
 
-/* custom scrollbar */
+/* Custom Scrollbar */
 body:not(.mac) *::-webkit-scrollbar {
   width: 8px;
   height: 8px; }
@@ -2965,10 +2941,9 @@ body:not(.mac) *::-webkit-scrollbar-corner {
     display: block;
     width: 100%;
     height: 100%;
-    background-image: -webkit-linear-gradient(315deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-size: 40px 40px;
-    background-repeat: repeat;
     color: transparent;
     -webkit-animation: loading-stripes 2s linear infinite; }
 
@@ -3140,18 +3115,19 @@ body:not(.mac) *::-webkit-scrollbar-corner {
   color: #797E8F; }
 
 .rule-warning {
-  background: #f8d95c;
-  color: #8b734c;
+  color: white;
   text-align: center;
-  -webkit-border-radius: 2px;
-          border-radius: 2px;
   position: absolute;
   font-size: 12px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: 5px;
-  z-index: 100; }
+  z-index: 100;
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+  background-color: #904700; }
   .rule-warning + nav {
     padding-bottom: 62px; }
 
@@ -3185,16 +3161,16 @@ body:not(.mac) *::-webkit-scrollbar-corner {
 .rule-list {
   width: 299px;
   background: #383b47;
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  top: 0; }
+  top: 55px; }
   .rule-list a.create-rule {
     font-size: 12px;
     float: right;
     margin-top: 13px; }
   .rule-list .rule-list-control {
     background: #515467;
-    padding: 5px 10px 5px 8px; }
+    padding: 6px 6px 6px 8px; }
     .rule-list .rule-list-control .rule-cond {
       margin-top: 0; }
     .rule-list .rule-list-control .rule-select {
@@ -3227,29 +3203,31 @@ body:not(.mac) *::-webkit-scrollbar-corner {
     color: #8790a9; }
   .rule-list .rule-cond {
     float: right;
-    width: 14px;
-    height: 28px;
-    background: #000;
-    -webkit-border-radius: 2px;
-            border-radius: 2px;
+    width: 28px;
+    height: 14px;
+    background: #272727;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
     position: relative;
-    margin-top: 7px;
+    margin-top: 14px;
     cursor: pointer;
     padding: 0; }
     .rule-list .rule-cond:after {
       content: " ";
       display: block;
       width: 10px;
-      height: 12px;
+      height: 10px;
       position: absolute;
       bottom: 2px;
       left: 2px;
-      -webkit-border-radius: 1px;
-              border-radius: 1px;
-      background: #bbb; }
+      -webkit-border-radius: 10px;
+              border-radius: 10px;
+      background: #5C5C5C; }
     .rule-list .rule-cond.enabled:after {
       bottom: auto;
+      right: 2px;
       top: 2px;
+      left: inherit;
       background: #50E3C2; }
   .rule-list .content {
     float: left; }
@@ -3263,10 +3241,11 @@ body:not(.mac) *::-webkit-scrollbar-corner {
     float: left;
     width: 14px;
     height: 14px;
-    -webkit-border-radius: 2px;
-            border-radius: 2px;
+    -webkit-border-radius: 0;
+            border-radius: 0;
     margin-top: 13px;
-    margin-right: 8px;
+    margin-right: 12px;
+    margin-left: 3px;
     border: 1px solid #777E98;
     background: transparent;
     padding: 0;
@@ -3324,6 +3303,9 @@ a.create-rule {
     height: 2.2em;
     display: inline-block;
     padding: 0 1em; }
+
+.rule-manager {
+  height: 100%; }
 
 .rule-manager-content {
   height: 100%; }
@@ -3588,3 +3570,36 @@ hr.through {
   border-bottom: 1px solid #2B2C32;
   padding: 10px 0;
   margin: 0 -10px 20px -10px; }
+
+#InvalidSession {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7); }
+  #InvalidSession .session-dialog {
+    position: absolute;
+    top: 50%;
+    margin: 0 auto;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    width: 350px;
+    background: #EFF0F6;
+    padding: 20px 0 0;
+    color: #5C5B5C; }
+  #InvalidSession p {
+    margin: 0.5em 20px; }
+  #InvalidSession a.action {
+    display: block;
+    width: 100%;
+    background: #606EC3;
+    margin-top: 30px;
+    text-align: center;
+    padding: 15px;
+    color: #fff; }
+    #InvalidSession a.action:hover {
+      background: #4656b9; }

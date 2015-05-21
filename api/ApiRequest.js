@@ -182,7 +182,14 @@ define('api/ApiRequestDefs',[], function() {
     MissingDataInServer: -5,
     OperationFailure: -6,
     Network404: -404,
-    Network500: -500
+    Network500: -500,
+    InvalidSession: 120
+  };
+  ApiRequestDefs.GlobalHandlers = {};
+  ApiRequestDefs.GlobalHandlers[ApiRequestDefs.Errors.InvalidSession] = function() {
+    var container;
+    container = App.__container__;
+    container.lookup("route:" + container.lookup("controller:application").get("currentRouteName")).transitionTo("invalidSession");
   };
   ApiRequestDefs.AutoFill = function(paramter_name) {
     switch (paramter_name) {
@@ -219,10 +226,13 @@ define('api/ApiRequest',["api/ApiRequestDefs"], function(ApiDefination) {
    *         to be send with the api.
    */
   AjaxSuccessHandler = function(data, textStatus, jqXHR) {
+    var handler;
     if (!data || !data.result || data.result.length !== 2) {
       throw CreateError(ApiDefination.Errors.InvalidRpcReturn, "Invalid JsonRpc Return Data");
     }
     if (data.result[0] !== 0) {
+      handler = ApiDefination.GlobalHandlers[data.result[0]];
+      handler && handler(data);
       throw CreateError(data.result[0], "Service Error", data.result[1]);
     }
     return data.result[1];
