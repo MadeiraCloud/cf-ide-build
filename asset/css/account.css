@@ -38,6 +38,23 @@ h1 {
 .bd-reset .form-wrap.reset {
   display: block !important; }
 
+.bd-reset-token .form-wrap.reset .reset-card {
+  display: none; }
+.bd-reset-token .form-wrap.reset .reset-loading {
+  display: block !important; }
+
+.bd-reset-invalid .form-wrap.reset .reset-card-email {
+  display: block; }
+.bd-reset-invalid .form-wrap.reset .reset-loading {
+  display: none !important; }
+.bd-reset-invalid .form-wrap.reset .reset-card-password {
+  display: none !important; }
+
+.bd-reset-checked .form-wrap.reset .reset-loading {
+  display: none !important; }
+.bd-reset-checked .form-wrap.reset .reset-card-password {
+  display: block !important; }
+
 .form-wrap {
   height: 100%;
   width: 100%;
@@ -164,12 +181,18 @@ section.form {
 
 .form .back {
   position: absolute;
-  top: 40px;
+  top: 0;
   background: #EFF0F6;
   padding: 25px;
   color: #5C5B5C; }
 
-#actLaunch {
+.signup-card .back {
+  top: 70px; }
+
+.reset-card-email .back {
+  top: 40px; }
+
+.get-started {
   display: inline-block;
   background: #606EC3;
   font-size: 20px;
@@ -180,5 +203,51 @@ section.form {
   text-decoration: none;
   margin: 50px 0 25px;
   padding: 0 25px; }
-  #actLaunch:hover {
+  .get-started:hover {
     background: #5261BB; }
+
+.reset-loading {
+  background: #EFF0F6;
+  height: 200px;
+  display: none; }
+
+.reset-card-password {
+  display: none; }
+
+.reset-token-notice {
+  color: #FF5E5E;
+  display: none; }
+  .bd-reset-invalid .reset-token-notice {
+    display: block; }
+
+.loading {
+  border: 5px solid transparent;
+  border-bottom-color: #19A5DF;
+  border-top-color: #19A5DF;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  -webkit-animation: rotate 1.5s linear 0s infinite;
+  animation: rotate 1.5s linear 0s infinite; }
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg); } }
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg); } }

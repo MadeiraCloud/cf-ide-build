@@ -10,10 +10,11 @@
 <body>
   <h1><img src="/asset/image/logo.png" /></h1>
   <div class="form-wrap reset" style="display:none;">
-    <section class="form reset-card">
+    <section class="form reset-card reset-card-email">
       <div class="front">
         <header>Reset password<span>Already a member? <a href="/login/">Log In</a></span></header>
         <div class="form-content">
+          <p class="reset-token-notice">Your reset password link has expired. Please request a new one.</p>
           <div class="input-wrap">
             <input type="text" required="required" id="iptReset">
             <label>PLEASE PROVIDE YOUR EMAIL ADDRESS:</label>
@@ -25,8 +26,34 @@
         <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
       </div>
       <div class="back">
-        <h3 style="margin-top:0;">Reset Successfully</h3>
+        <h3 style="margin-top:0;">Reset Email Sent</h3>
         <p>An email with link to reset password has been sent to your registered email address.</p>
+      </div>
+    </section>
+
+    <section class="form reset-loading"> <div class="loading"></div> </section>
+
+    <section class="form reset-card reset-card-password">
+      <div class="front">
+        <div class="form-content">
+          <div class="input-wrap">
+            <input type="password" required="required" id="iptResetPass">
+            <label>PLEASE PROVIDE A NEW PASSWORD</label>
+          </div>
+          <div class="input-wrap">
+            <input type="password" required="required" id="iptResetPass2">
+            <label>CONFIRM THE PASSWORD</label>
+          </div>
+        </div>
+        <div class="action-wrap">
+          <button class="action" id="actResetPass" data-loading="Resetting..." data-normal="Reset">Reset</button>
+        </div>
+        <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+      </div>
+      <div class="back">
+        <h3 style="margin-top:0;">Reset Successfully</h3>
+        You can now login with your new password.
+        <div style="text-align:center"> <a href="/login/" class="get-started">Ok, go to login page</a> </div>
       </div>
     </section>
   </div>
@@ -91,7 +118,7 @@
     <div class="back">
       <h3 style="margin-top:0;">Registered Successfully</h3>
       Thanks for registering and enjoy using CloudFielder.
-      <div style="text-align:center"> <button id="actLaunch">Get Started</button> </div>
+      <div style="text-align:center"> <button class="get-started" id="actLaunch">Get Started</button> </div>
     </div>
     </section>
   </div>

@@ -38,7 +38,7 @@ define('template/ApplicationTpl',[''], (function() {
           fragment = this.build(dom);
         }
         var morph0 = dom.createUnsafeMorphAt(dom.childAt(fragment, [0]),0,0);
-        content(env, morph0, context, "App.info.message");
+        content(env, morph0, context, "info.message");
         return fragment;
       }
     };
@@ -365,17 +365,17 @@ define('template/ApplicationTpl',[''], (function() {
       var morph6 = dom.createMorphAt(dom.childAt(element2, [5]),0,0);
       var morph7 = dom.createMorphAt(element6,1,1);
       dom.insertBoundary(fragment, 0);
-      block(env, morph0, context, "if", [get(env, context, "App.info")], {}, child0, null);
-      element(env, element0, context, "bind-attr", [], {"class": "App.info:has-info"});
+      block(env, morph0, context, "if", [get(env, context, "info")], {}, child0, null);
+      element(env, element0, context, "bind-attr", [], {"class": "info:has-info"});
       block(env, morph1, context, "link-to", ["dashboard"], {}, child1, null);
       block(env, morph2, context, "link-to", ["ruleManager"], {}, child2, null);
       block(env, morph3, context, "link-to", ["scanLogPage"], {}, child3, null);
       block(env, morph4, context, "link-to", ["settings"], {}, child4, null);
       element(env, element4, context, "action", ["logout"], {});
-      attribute(env, attrMorph0, element5, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "App.user.email")], {})]));
-      content(env, morph5, context, "App.user.username");
-      content(env, morph6, context, "App.user.email");
-      element(env, element6, context, "bind-attr", [], {"class": "App.info:has-info"});
+      attribute(env, attrMorph0, element5, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "user.email")], {})]));
+      content(env, morph5, context, "user.username");
+      content(env, morph6, context, "user.email");
+      element(env, element6, context, "bind-attr", [], {"class": "info:has-info"});
       content(env, morph7, context, "outlet");
       return fragment;
     }
@@ -552,6 +552,17 @@ define('view/ApplicationView',["template/ApplicationTpl", "ui/UI.tooltip", "ui/U
   return Ember.View.extend({
     template: AppTpl,
     classNames: ["cloudfielder"]
+  });
+});
+
+define('controller/ApplicationController',[], function() {
+  return Ember.Controller.extend({
+    user: (function() {
+      return App.user;
+    }).property(),
+    info: (function() {
+      return App.info;
+    }).property()
   });
 });
 
@@ -747,6 +758,19 @@ define('route/RuleManagerRoute',[], function() {
           };
         }
         return this._super(model, params);
+      },
+      actions: {
+        willTransition: function(transition) {
+          var model;
+          model = this.controller.model;
+          if (!model.get('isNew') && model.get('isDirty') && !model.get('isSaving')) {
+            this.store.createRecord('ruleUnsaved', {
+              id: model.id,
+              content: model.get('content')
+            });
+            return model.rollback();
+          }
+        }
       }
     })
   };
@@ -2783,7 +2807,7 @@ TEMPLATE.dashboard=(function() {
       var el6 = dom.createElement("i");
       dom.setAttribute(el6,"class","fa fa-exclamation-triangle");
       dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("Violation");
+      var el6 = dom.createTextNode("Last Violation");
       dom.appendChild(el5, el6);
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                ");
@@ -3371,7 +3395,17 @@ define('model/RuleModel',["api/ApiRequest"], function(ApiRequest) {
           }
           reloadRuleLog(that.store, rules);
         });
+      },
+      didUpdate: function() {
+        var unsavedRule;
+        unsavedRule = this.store.getById('ruleUnsaved', this.id);
+        return unsavedRule != null ? unsavedRule.deleteRecord() : void 0;
       }
+    }),
+    RuleUnsavedModel: DS.Model.extend({
+      content: DS.attr("string", {
+        defaultValue: ""
+      })
     })
   };
 });
@@ -4437,8 +4471,8 @@ TEMPLATE.rule_content=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element1 = dom.childAt(fragment, [0]);
-        element(env, element1, context, "action", ["saveRule"], {});
+        var element4 = dom.childAt(fragment, [0]);
+        element(env, element4, context, "action", ["saveRule"], {});
         return fragment;
       }
     };
@@ -4529,8 +4563,8 @@ TEMPLATE.rule_content=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element0 = dom.childAt(fragment, [0]);
-        element(env, element0, context, "action", ["validRule"], {});
+        var element3 = dom.childAt(fragment, [0]);
+        element(env, element3, context, "action", ["validRule"], {});
         return fragment;
       }
     };
@@ -4590,44 +4624,6 @@ TEMPLATE.rule_content=(function() {
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("span");
-        var el2 = dom.createTextNode("Not change yet.");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        return fragment;
-      }
-    };
-  }());
-  var child5 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createElement("span");
         dom.setAttribute(el1,"class","rule-error");
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
@@ -4660,6 +4656,65 @@ TEMPLATE.rule_content=(function() {
       }
     };
   }());
+  var child5 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","rule-unsaved");
+        var el2 = dom.createTextNode("\n  You have unsaved edits. ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        var el3 = dom.createTextNode("Restore edits");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode(" or ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        var el3 = dom.createTextNode("Discard");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode(".\n");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, element = hooks.element;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var element0 = dom.childAt(fragment, [0]);
+        var element1 = dom.childAt(element0, [1]);
+        var element2 = dom.childAt(element0, [3]);
+        element(env, element1, context, "action", ["restoreUnsaved"], {});
+        element(env, element2, context, "action", ["discardUnsaved"], {});
+        return fragment;
+      }
+    };
+  }());
   return {
     isHTMLBars: true,
     revision: "Ember@1.11.3",
@@ -4684,10 +4739,10 @@ TEMPLATE.rule_content=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
-      var el2 = dom.createComment("");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n");
-      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      var el1 = dom.createTextNode("\n\n");
+      dom.appendChild(el0, el1);
+      var el1 = dom.createComment("");
       dom.appendChild(el0, el1);
       var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
@@ -4715,17 +4770,17 @@ TEMPLATE.rule_content=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element2 = dom.childAt(fragment, [0]);
-      var morph0 = dom.createMorphAt(element2,1,1);
-      var morph1 = dom.createMorphAt(element2,3,3);
-      var morph2 = dom.createMorphAt(element2,5,5);
-      var morph3 = dom.createMorphAt(element2,7,7);
-      var morph4 = dom.createMorphAt(fragment,2,2,contextualElement);
+      var element5 = dom.childAt(fragment, [0]);
+      var morph0 = dom.createMorphAt(element5,1,1);
+      var morph1 = dom.createMorphAt(element5,3,3);
+      var morph2 = dom.createMorphAt(element5,5,5);
+      var morph3 = dom.createMorphAt(fragment,2,2,contextualElement);
+      var morph4 = dom.createMorphAt(fragment,4,4,contextualElement);
       dom.insertBoundary(fragment, null);
       block(env, morph0, context, "if", [get(env, context, "enableSave")], {}, child0, child1);
       block(env, morph1, context, "if", [get(env, context, "model.content")], {}, child2, child3);
-      block(env, morph2, context, "unless", [get(env, context, "model.isDirty")], {}, child4, null);
-      block(env, morph3, context, "if", [get(env, context, "displayError")], {}, child5, null);
+      block(env, morph2, context, "if", [get(env, context, "displayError")], {}, child4, null);
+      block(env, morph3, context, "if", [get(env, context, "unsaved")], {}, child5, null);
       inline(env, morph4, context, "rule-editor", [], {"content": get(env, context, "model.content"), "localError": get(env, context, "localError"), "serverError": get(env, context, "serverError")});
       return fragment;
     }
@@ -5176,22 +5231,35 @@ define('controller/RuleManagerC',[], function() {
       }
     }),
     RuleIndexController: Ember.Controller.extend({
-      needs: ["application"],
+      needs: ["application", "rule"],
       currentTab: 'content',
       localError: false,
       serverError: false,
+      networkError: false,
       displayError: (function() {
-        var serverError;
+        var error, networkError, serverError;
+        error = null;
         serverError = this.get('serverError');
+        networkError = this.get('networkError');
         if (_.isString(serverError)) {
-          return serverError;
+          error = serverError;
         } else {
-          return false;
+          error = false;
         }
-      }).property('serverError'),
+        if (_.isObject(serverError)) {
+          error = serverError.text;
+        }
+        if (networkError) {
+          error = networkError;
+        }
+        return error;
+      }).property('serverError', 'networkError'),
       enableSave: (function() {
-        return this.get('model.isDirty') && this.get('model.content') && !this.get('localError');
-      }).property('model.content', 'localError'),
+        return this.get('model.isDirty') && !this.get('model.isSaving') && this.get('model.content') && !this.get('localError');
+      }).property('model.content', 'model.isSaving', 'model.isDirty', 'localError'),
+      unsaved: (function() {
+        return this.store.getById('ruleUnsaved', this.get('model.id'));
+      }).property('model.isDirty'),
       tabContent: (function() {
         return this.get('currentTab') === 'content';
       }).property('currentTab'),
@@ -5207,29 +5275,55 @@ define('controller/RuleManagerC',[], function() {
         }
       }).observes("model.isDeleted"),
       actions: {
+        restoreUnsaved: function() {
+          var unsaved;
+          unsaved = this.get('unsaved');
+          if (!unsaved) {
+            return;
+          }
+          this.model.set('content', unsaved.get('content'));
+          unsaved.deleteRecord();
+          return this.notifyPropertyChange('unsaved');
+        },
+        discardUnsaved: function() {
+          var unsaved;
+          unsaved = this.get('unsaved');
+          if (!unsaved) {
+            return;
+          }
+          unsaved.deleteRecord();
+          return this.notifyPropertyChange('unsaved');
+        },
         saveRule: function() {
           var currentModel, isNew, self;
           self = this;
           currentModel = this.model;
           isNew = !this.model.id;
+          this.set('networkError', false);
           return currentModel.save().then(function(res) {
             if (isNew && self.get("controllers.application.currentRouteName") === "rule.index" && currentModel === self.model) {
               self.replaceRoute("rule", currentModel.id);
             }
           }, function(error) {
             var errorBody;
-            errorBody = error.result;
-            if (errorBody.row && errorBody.column) {
-              return self.set('serverError', wrapEditorError(errorBody));
+            if (error.error === 255) {
+              errorBody = error.result;
+              if (errorBody.row && errorBody.column) {
+                return self.set('serverError', wrapEditorError(errorBody));
+              } else {
+                return self.set('serverError', errorBody.message);
+              }
             } else {
-              return self.set('serverError', errorBody.message);
+              return self.set('networkError', error.errorMsg);
             }
           });
         },
         validRule: function() {
-          this.controllerFor("rule").set("isLoadingViolation", true);
-          this.controllerFor("rule").set('isAudit', false);
-          return this.controllerFor("rule").set('showDetailPanel', true);
+          var ruleController;
+          ruleController = this.get("controllers.rule");
+          ruleController.set("isLoadingViolation", true);
+          ruleController.set('isAudit', false);
+          return ruleController.set('showDetailPanel', true);
         },
         toggleTab: function(tab) {
           return this.set('currentTab', tab);
@@ -5719,11 +5813,11 @@ define('controller/LogController',[], function() {
       }).property()
     }),
     RuleAuditItemLogController: Ember.Controller.extend({
+      needs: ["rule"],
       actions: {
         showAuditLog: function(log) {
           var ruleController;
-          ruleController = this.controllerFor("rule");
-          console.log(log);
+          ruleController = this.get("controllers.rule");
           if (ruleController.get("showDetailPanel")) {
             ruleController.set("showDetailPanel", false);
             ruleController.set("isLoadingAudit", false);
@@ -7110,7 +7204,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
     });
   };
   ViolationDetailComponent = Ember.Component.extend({
-    template: template.index,
+    layout: template.index,
     classNames: ["violation-detail"],
     nodes: (function() {
       if (this.get("log")) {
@@ -7240,7 +7334,7 @@ return TEMPLATE; });
 define('component/RuleEditorComponent',["./template/RuleEditorTpl", "lib/ace/editor"], function(template) {
   var RuleEditorComponent;
   RuleEditorComponent = Ember.Component.extend({
-    template: template.index,
+    layout: template.index,
     classNames: ["rule-editor"],
     localError: (function(key, val) {
       if (arguments.length === 1) {
@@ -8012,16 +8106,20 @@ TEMPLATE.index=(function() {
 }());
 
 return TEMPLATE; });
+var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
 define('component/ViolationComponent',["./template/ViolationTpl"], function(template) {
+  var ResourceAttrFilterArray;
+  ResourceAttrFilterArray = ["blockDeviceMapping", "tagSet", "regionName", "type", "id", "count", "eachArray", "resource", "vpcId", "subnetId", "name", "attachmentSet", "VPCZoneIdentifier", "LaunchConfigurationName", "networkInterfaceSet", "attachment", "networkInterfaceId"];
   return Ember.Component.extend({
-    template: template.index,
+    layout: template.index,
     nodes: (function(key, value) {
       return _.map(value, function(node) {
         var _key, _value;
         node.eachArray = [];
         for (_key in node) {
           _value = node[_key];
-          if (_key !== window.ResourceIDMap[node.type] && _key !== "tagSet" && _key !== "regionName" && _key !== "type" && _key !== "id" && _key !== "count" && _key !== "eachArray" && _key !== "resource" && _key !== "vpcId" && _key !== "subnetId" && _key !== "name") {
+          if (__indexOf.call(ResourceAttrFilterArray.concat([window.ResourceIDMap[node.type]]), _key) < 0) {
             if (_.isArray(_value) || _.isObject(_value)) {
               _value = JSON.stringify(_value);
             }
@@ -8288,7 +8386,6 @@ define('core/Helper',[], function() {
     var date, dateInterval;
     date = Number(value);
     dateInterval = intervalDate(date);
-    console.log(dateInterval);
     return new Ember.Handlebars.SafeString(dateInterval);
   });
   Ember.Handlebars.helper('gravatar', function(email) {
@@ -8333,7 +8430,7 @@ define('core/Helper',[], function() {
   Application acts as namespace in Ember. We store our component defination(a.k.a Class)
   in Application, so that Ember will find the component and wire them up.
  */
-define('core/Application',["view/ApplicationView", "core/Router", "core/Store", "route/ApplicationRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/InvalidSessionRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "./Helper"], function(ApplicationView, Router, Store, ApplicationRoute, DashboardRoute, LogRoute, RuleManagerRoute, InvalidSessionRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent) {
+define('core/Application',["view/ApplicationView", "controller/ApplicationController", "core/Router", "core/Store", "route/ApplicationRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/InvalidSessionRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "./Helper"], function(ApplicationView, ApplicationController, Router, Store, ApplicationRoute, DashboardRoute, LogRoute, RuleManagerRoute, InvalidSessionRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent) {
   window.App = Ember.Application.extend({
     LOG_TRANSITIONS: true,
     rootElement: "body",
@@ -8412,6 +8509,7 @@ define('core/Application',["view/ApplicationView", "core/Router", "core/Store", 
    */
   App.Store = Store;
   App.ApplicationView = ApplicationView;
+  App.ApplicationController = ApplicationController;
   Ember.mixin(App, ApplicationRoute);
   Ember.mixin(App, InvalidSessionRoute);
   App.DashboardIndexRoute = DashboardRoute;
