@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html><head>
+	<title>CloudFielder</title>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<link rel="shortcut icon" href="/asset/image/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/asset/css/core.css"/>
+  <!-- <script type="text/javascript" src='/lib/require.js' data-main='/core/config.js?0.2.1202' defer async="true"></script> -->
+</head>
+
+<body>
+	<aside id="CFSidebar">
+	  <div class="logo">CloudFielder</div>
+	  	<a href="./panel.html" class="icon-dash">Panel<span class="alert-count">99+</span></a>
+	  	<a href="" class="icon-rule active">Violations</a>
+	  	<a href="" class="icon-log">Log</a>
+	  	<a href="" class="icon-config">Configuration</a>
+	</aside>
+	<section id="CFWorkArea">
+		<header class="workarea-header">
+			<h2 class="header-title">%Section Header%</h2>
+			<div class="header-user">
+				<a href="" class="icon-support">Support</a>
+				<div class="user-menu truncate dropdown">%FirstName% %LastName%</div>
+				<!-- <ul class="dropdown-menu">
+					<li>Account Settings</li>
+					<li>Documentaion</li>
+					<li>Log Out</li>
+				</ul> -->
+			</div>
+		</header>
+		<section class="clearfix workarea-content">
+			<section class="panel">
+				<ul class="panel-title tab">
+					<li class="active">%Panel Title-1% <span class="count">32</span></li>
+					<li>%Panel Title-2%</li>
+				</ul>
+				<div class="panel-content">
+					<ul class="vio-rule vio-rule-summary">
+						<li class="vio-rule-item">
+							<div>Rule <span class="rule-name">no-idle-eip</span> has <span class="vio-count">2</span> violations.</div>
+							<ul class="vio-res">
+								<li class="vio-res-item">
+									<dl>
+										<dt>VPC</dt>
+										<dd>vpc-3jf3nsd</dd>
+										<dt>INSTANCE</dt>
+										<dd>i-dfjienfd<span class="res-name">(web-server-1)</span></dd>
+										<dt>SUBNET</dt>
+										<dd>subnet-34jdfad</dd>
+										<dt>ROUTE TABLE</dt>
+										<dd>rtb-a34ndfe</dd>
+									</dl>
+									<a href="" class="btn-vio-detail icon-detail"></a>
+								</li>
+								<li class="vio-res-item">
+									<dl>
+										<dt>VPC</dt>
+										<dd>vpc-3jf3nsd</dd>
+										<dt>INSTANCE</dt>
+										<dd>i-dfjienfd<span class="res-name">(web-server-1)</span></dd>
+										<dt>SUBNET</dt>
+										<dd>subnet-34jdfad</dd>
+										<dt>ROUTE TABLE</dt>
+										<dd>rtb-a34ndfe</dd>
+									</dl>
+									<a href="" class="btn-vio-detail icon-detail"></a>
+								</li>
+								<li class="vio-res-item">
+									<dl>
+										<dt>VPC</dt>
+										<dd>vpc-3jf3nsd(myvpc)</dd>
+										<dt>INSTANCE</dt>
+										<dd>i-dfjienfd<span class="res-name">(web-server-1)</span></dd>
+										<dt>SUBNET</dt>
+										<dd>subnet-34jdfad</dd>
+										<dt>ROUTE TABLE</dt>
+										<dd>rtb-a34ndfe</dd>
+									</dl>
+									<a href="" class="btn-vio-detail icon-detail"></a>
+								</li>
+								
+							</ul>
+						</li>
+						<li class="vio-rule-item">
+							<div>Rule <span class="rule-name">no-idle-eip</span> has <span class="vio-count">2</span> violations.</div>
+							<ul class="vio-res">
+								<li class="vio-res-item">
+									<dl>
+										<dt>VPC</dt>
+										<dd>vpc-3jf3nsd</dd>
+										<dt>INSTANCE</dt>
+										<dd>i-dfjienfd<span class="res-name">(web-server-1)</span></dd>
+										<dt>SUBNET</dt>
+										<dd>subnet-34jdfad</dd>
+										<dt>ROUTE TABLE</dt>
+										<dd>rtb-a34ndfe</dd>
+									</dl>
+									<a href="" class="btn-vio-detail icon-detail"></a>
+								</li>							
+							</ul>
+						</li>					
+					</ul>
+				</div>
+			</section>
+			<section class="panel panel-half">
+				<header class="panel-title">Violation Details</header>
+				<div class="panel-content">
+					<ul class="vio-res vio-detail">
+						<li class="vio-res-item">
+							<dl>
+								<dt>VPC</dt>
+								<dd>vpc-3jf3nsd</dd>
+							</dl>
+							<dl>
+								<dt>INSTANCE</dt>
+								<dd>i-dfjienfd<span class="res-name">(web-server-1)
+								</span>
+								</dd>
+								<div class="vio-res-filter">
+									<p><span class="var-name">tags["type"]</span> = <span class="var-value">private"</span>,</p>
+									<p><span class="func-name">hasSGRule(</span><span class="var-value">in,22</span><span class="func-name">)</span></p> 
+								</div>
+							</dl>
+							<dl class="active">
+								<dt>SUBNET</dt>
+								<dd>subnet-34jdfad</dd>
+							</dl>
+							<dl>
+								<dt>ROUTE TABLE</dt>
+								<dd>rtb-a34ndfe</dd>
+							</dl>
+						</li>							
+					</ul>
+				</div>
+			</section>
+		</section>
+	</section>
+
+</body>
+</html>

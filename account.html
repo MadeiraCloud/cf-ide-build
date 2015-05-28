@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html><head>
+	<title>CloudFielder</title>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<link rel="shortcut icon" href="/asset/image/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/asset/css/account.css"/>
+</head>
+
+<body>
+  <h1><img src="/asset/image/logo.png" /></h1>
+  <div class="form-wrap reset" style="display:none;">
+    <section class="form reset-card reset-card-email">
+      <div class="front">
+        <header>Reset password<span>Already a member? <a href="/login/">Log In</a></span></header>
+        <div class="form-content">
+          <p class="reset-token-notice">Your reset password link has expired. Please request a new one.</p>
+          <div class="input-wrap">
+            <input type="text" required="required" id="iptReset">
+            <label>PLEASE PROVIDE YOUR EMAIL ADDRESS:</label>
+          </div>
+        </div>
+        <div class="action-wrap">
+          <button class="action" id="actReset" data-loading="Resetting..." data-normal="Reset">Reset</button>
+        </div>
+        <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+      </div>
+      <div class="back">
+        <h3 style="margin-top:0;">Reset Email Sent</h3>
+        <p>An email with link to reset password has been sent to your registered email address. <a href="/login/">Log In</a></p>
+      </div>
+    </section>
+
+    <section class="form reset-loading"> <div class="loading"></div> </section>
+
+    <section class="form reset-card reset-card-password">
+      <div class="front">
+        <div class="form-content">
+          <div class="input-wrap">
+            <input type="password" required="required" id="iptResetPass">
+            <label>PLEASE PROVIDE A NEW PASSWORD</label>
+          </div>
+          <div class="input-wrap">
+            <input type="password" required="required" id="iptResetPass2">
+            <label>CONFIRM THE PASSWORD</label>
+          </div>
+        </div>
+        <div class="action-wrap">
+          <button class="action" id="actResetPass" data-loading="Resetting..." data-normal="Reset">Reset</button>
+        </div>
+        <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+      </div>
+      <div class="back">
+        <h3 style="margin-top:0;">Reset Successfully</h3>
+        You can now login with your new password.
+        <div style="text-align:center"> <a href="/login/" class="get-started">Ok, go to login page</a> </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="form-wrap login" style="display:none;">
+    <section class="form">
+      <header>Log In <span>New to CloudFielder? <a href="/register/">Sign Up</a></span></header>
+      <div class="form-content">
+        <div class="input-wrap">
+          <input type="text" required="required" id="iptLoginName">
+          <label>USERNAME OR EMAIL ADDRESS:</label>
+        </div>
+        <div class="input-wrap">
+          <input type="password" required="required" id="iptLoginPass">
+          <label>PASSWORD:</label>
+        </div>
+      </div>
+      <div class="action-wrap">
+        <a href="/reset/">FORGET PASSWORD?</a>
+        <button class="action" id="actLogin" data-loading="Logging In..." data-normal="Log In">Log In</button>
+      </div>
+      <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+    </section>
+  </div>
+
+  <div class="form-wrap signup" style="display:none;">
+    <section class="form signup-card">
+    <div class="front">
+      <header>Sign Up <span>Already a member? <a href="/login/">Log In</a></span></header>
+      <div class="form-content">
+        <div class="input-wrap left">
+          <input type="text" required="required" id="iptRegisterFN">
+          <label>FIRST NAME</label>
+        </div>
+        <div class="input-wrap right">
+          <input type="text" required="required" id="iptRegisterLN">
+          <label>LAST NAME</label>
+        </div>
+        <div class="input-wrap">
+          <input type="text" required="required" id="iptRegisterName">
+          <label>USERNAME</label>
+        </div>
+        <div class="input-wrap">
+          <input type="text" required="required" id="iptRegisterEmail">
+          <label>EMAIL ADDRESS</label>
+        </div>
+        <div class="input-wrap left">
+          <input type="password" required="required" id="iptRegisterPass">
+          <label>PASSWORD</label>
+        </div>
+        <div class="input-wrap right">
+          <input type="password" required="required" id="iptRegisterPass2">
+          <label>CONFIRM PASSWORD</label>
+        </div>
+      </div>
+      <div class="action-wrap">
+        <button class="action" id="actRegister" data-loading="Signing Up..." data-normal="Sign Up">Sign Up</button>
+        <div>By clicking the create account button, you agree to our <a href="http://cloudfielder.com/" target="_blank">Terms of Service</a>.</div>
+      </div>
+      <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+    </div>
+    <div class="back">
+      <h3 style="margin-top:0;">Registered Successfully</h3>
+      Thanks for registering and enjoy using CloudFielder.
+      <div style="text-align:center"> <button class="get-started" id="actLaunch">Get Started</button> </div>
+    </div>
+    </section>
+  </div>
+
+  <footer>
+	<p>1st Floor, 795 Folsom Street, San Francisco, CA., USA 94107</p>
+	<p>© MadeiraCloud 2015. <a href="http://cloudfielder.com/" target="_blank">Terms, Conditions and Privacy Policy.</a></p>
+  </footer>
+
+  <script type="text/javascript">window.define=function(){}</script>
+  <script type="text/javascript" src='/lib/jquery.js'></script>
+  <script type="text/javascript" src='/lib/jquery-cookie.js'></script>
+  <script type="text/javascript" src='/account/account.js'></script>
+</body>
+</html>
