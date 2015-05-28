@@ -1,4 +1,6 @@
-define('template/ApplicationTpl',[''], (function() {
+define('template/ApplicationTpl',[], function(){ var TEMPLATE={};
+
+TEMPLATE.index=(function() {
   var child0 = (function() {
     return {
       isHTMLBars: true,
@@ -10,7 +12,13 @@ define('template/ApplicationTpl',[''], (function() {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("header");
         dom.setAttribute(el1,"id","CFHeader");
-        var el2 = dom.createComment("");
+        var el2 = dom.createTextNode("In order to monitor your cloud infrastructure, ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("a");
+        var el3 = dom.createTextNode("Set Up Cloud Account");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode(" to get started with policy enforcement right away");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -19,7 +27,7 @@ define('template/ApplicationTpl',[''], (function() {
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, content = hooks.content;
+        var hooks = env.hooks, element = hooks.element;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -37,8 +45,8 @@ define('template/ApplicationTpl',[''], (function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createUnsafeMorphAt(dom.childAt(fragment, [0]),0,0);
-        content(env, morph0, context, "info.message");
+        var element0 = dom.childAt(fragment, [0, 1]);
+        element(env, element0, context, "action", ["setupCredential"], {});
         return fragment;
       }
     };
@@ -241,7 +249,7 @@ define('template/ApplicationTpl',[''], (function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createComment(" env:dev                                                                                              env:dev:end ");
+      var el3 = dom.createComment(" env:dev                                                                                            env:dev:end ");
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n    ");
       dom.appendChild(el2, el3);
@@ -274,6 +282,10 @@ define('template/ApplicationTpl',[''], (function() {
       dom.setAttribute(el3,"class","name");
       var el4 = dom.createComment("");
       dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode(" ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createComment("");
+      dom.appendChild(el3, el4);
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
@@ -293,6 +305,7 @@ define('template/ApplicationTpl',[''], (function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createElement("a");
       dom.setAttribute(el3,"class","support");
+      dom.setAttribute(el3,"href","mailto:support@visualops.io");
       var el4 = dom.createElement("i");
       dom.setAttribute(el4,"class","fa fa-comments");
       dom.appendChild(el3, el4);
@@ -303,6 +316,8 @@ define('template/ApplicationTpl',[''], (function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createElement("a");
       dom.setAttribute(el3,"class","documentation");
+      dom.setAttribute(el3,"href","http://cloudfielder.com/");
+      dom.setAttribute(el3,"target","_blank");
       var el4 = dom.createElement("i");
       dom.setAttribute(el4,"class","fa fa-question-circle");
       dom.appendChild(el3, el4);
@@ -348,39 +363,164 @@ define('template/ApplicationTpl',[''], (function() {
       } else {
         fragment = this.build(dom);
       }
-      var element0 = dom.childAt(fragment, [1]);
-      var element1 = dom.childAt(element0, [3]);
-      var element2 = dom.childAt(element0, [5]);
-      var element3 = dom.childAt(element2, [1]);
+      var element1 = dom.childAt(fragment, [1]);
+      var element2 = dom.childAt(element1, [3]);
+      var element3 = dom.childAt(element1, [5]);
       var element4 = dom.childAt(element3, [1]);
-      var element5 = dom.childAt(element3, [3]);
-      var element6 = dom.childAt(fragment, [3]);
+      var element5 = dom.childAt(element4, [1]);
+      var element6 = dom.childAt(element4, [3]);
+      var element7 = dom.childAt(element3, [3]);
+      var element8 = dom.childAt(fragment, [3]);
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-      var morph1 = dom.createMorphAt(element1,1,1);
-      var morph2 = dom.createMorphAt(element1,3,3);
-      var morph3 = dom.createMorphAt(element1,5,5);
-      var morph4 = dom.createMorphAt(element1,7,7);
-      var attrMorph0 = dom.createAttrMorph(element5, 'src');
-      var morph5 = dom.createMorphAt(dom.childAt(element2, [3]),0,0);
-      var morph6 = dom.createMorphAt(dom.childAt(element2, [5]),0,0);
-      var morph7 = dom.createMorphAt(element6,1,1);
+      var morph1 = dom.createMorphAt(element2,1,1);
+      var morph2 = dom.createMorphAt(element2,3,3);
+      var morph3 = dom.createMorphAt(element2,5,5);
+      var morph4 = dom.createMorphAt(element2,7,7);
+      var attrMorph0 = dom.createAttrMorph(element6, 'src');
+      var morph5 = dom.createMorphAt(element7,0,0);
+      var morph6 = dom.createMorphAt(element7,2,2);
+      var morph7 = dom.createMorphAt(dom.childAt(element3, [5]),0,0);
+      var morph8 = dom.createMorphAt(element8,1,1);
       dom.insertBoundary(fragment, 0);
-      block(env, morph0, context, "if", [get(env, context, "info")], {}, child0, null);
-      element(env, element0, context, "bind-attr", [], {"class": "info:has-info"});
+      block(env, morph0, context, "if", [get(env, context, "noCredential")], {}, child0, null);
+      element(env, element1, context, "bind-attr", [], {"class": "noCredential:has-info"});
       block(env, morph1, context, "link-to", ["dashboard"], {}, child1, null);
       block(env, morph2, context, "link-to", ["ruleManager"], {}, child2, null);
-      block(env, morph3, context, "link-to", ["scanLogPage"], {}, child3, null);
+      block(env, morph3, context, "link-to", ["scanLogPage", 1], {}, child3, null);
       block(env, morph4, context, "link-to", ["settings"], {}, child4, null);
-      element(env, element4, context, "action", ["logout"], {});
-      attribute(env, attrMorph0, element5, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "user.email")], {})]));
-      content(env, morph5, context, "user.username");
-      content(env, morph6, context, "user.email");
-      element(env, element6, context, "bind-attr", [], {"class": "info:has-info"});
-      content(env, morph7, context, "outlet");
+      element(env, element5, context, "action", ["logout"], {});
+      attribute(env, attrMorph0, element6, "src", concat(env, [subexpr(env, context, "gravatar", [get(env, context, "user.email")], {})]));
+      content(env, morph5, context, "user.firstName");
+      content(env, morph6, context, "user.lastName");
+      content(env, morph7, context, "user.email");
+      element(env, element8, context, "bind-attr", [], {"class": "noCredential:has-info"});
+      content(env, morph8, context, "outlet");
       return fragment;
     }
   };
-}()));
+}());
+
+TEMPLATE.error=(function() {
+  var child0 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, null);
+        dom.insertBoundary(fragment, 0);
+        content(env, morph0, context, "result");
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("Sorry, we are suffering from some technical issue, please try again later");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","error global-error");
+      var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      var hooks = env.hooks, get = hooks.get, block = hooks.block;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
+      block(env, morph0, context, "if", [get(env, context, "result")], {}, child0, child1);
+      return fragment;
+    }
+  };
+}());
+
+return TEMPLATE; });
 define('ui/UI.tooltip',[], function() {
   var tooltip;
   tooltip = function(event) {
@@ -549,8 +689,9 @@ define('ui/UI.table',[], function() {
 });
 
 define('view/ApplicationView',["template/ApplicationTpl", "ui/UI.tooltip", "ui/UI.table"], function(AppTpl) {
+  Ember.TEMPLATES["error"] = AppTpl.error;
   return Ember.View.extend({
-    template: AppTpl,
+    template: AppTpl.index,
     classNames: ["cloudfielder"]
   });
 });
@@ -562,7 +703,19 @@ define('controller/ApplicationController',[], function() {
     }).property(),
     info: (function() {
       return App.info;
-    }).property()
+    }).property(),
+    noCredential: (function() {
+      return !this.get('user.profile.awsAccount');
+    }).property('user.profile.awsAccount'),
+    actions: {
+      setupCredential: function() {
+        return this.transitionToRoute('settings').then(function(settingsRoute) {
+          var controller;
+          controller = App.__container__.lookup("controller:settings");
+          return controller.send('editCredential');
+        });
+      }
+    }
   });
 });
 
@@ -619,9 +772,7 @@ define('route/ApplicationRoute',[], function() {
       actions: {
         error: function() {
           console.info("Global error route is activated, make sure it's not because any unhandled error from the substate of application.", arguments);
-
-          /* env:dev                                         env:dev:end */
-          return this.logout();
+          return true;
         },
         logout: function() {
           var cValue, ckey, _ref;
@@ -654,12 +805,20 @@ define('route/DashboardRoute',[], function() {
 
 define('route/LogRoute',[], function() {
   return {
-    ScanLogRoute: Ember.Route.extend({
+    ScanLogIndexRoute: Ember.Route.extend({
       beforeModel: function() {
         return this.transitionTo('scanLogPage', 1);
       }
     }),
     ScanLogPageRoute: Ember.Route.extend({
+      queryParams: {
+        startTime: {
+          refreshModel: true
+        },
+        endTime: {
+          refreshModel: true
+        }
+      },
       model: function(params, transition) {
         return this.store.find('scanLogPage', transition.params.scanLogPage.pageId);
       },
@@ -707,7 +866,7 @@ define('route/RuleManagerRoute',[], function() {
         error: function(e) {
           console.error(e);
           this.transitionTo('ruleList');
-          return false;
+          return true;
         }
       }
     }),
@@ -852,6 +1011,7 @@ define('route/InvalidSessionRoute',["template/InvalidSessionTpl"], function(temp
         return Q.defer().promise;
       }
     }),
+    InvalidSessionLoadingRoute: Ember.Route.extend(),
     InvalidSessionLoadingView: Ember.View.extend({
       template: template,
       elementId: "InvalidSession",
@@ -990,7 +1150,7 @@ define('template/SettingsTpl',[''], (function() {
         var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
         var el2 = dom.createElement("p");
-        var el3 = dom.createTextNode("In order to monitor your cloud infrastructure with CloudField, you have to provide an cloud account.");
+        var el3 = dom.createTextNode("In order to monitor your cloud infrastructure with CloudFielder, you have to provide an cloud account.");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n        ");
@@ -1049,7 +1209,8 @@ define('template/SettingsTpl',[''], (function() {
         var el3 = dom.createTextNode("Go to ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("a");
-        dom.setAttribute(el3,"href","http://console.aws.com");
+        dom.setAttribute(el3,"href","https://console.aws.amazon.com/iam/home#users");
+        dom.setAttribute(el3,"target","_blank");
         var el4 = dom.createTextNode("AWS console > Security Credentials > Users");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
@@ -2263,13 +2424,29 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createComment("");
+        var el1 = dom.createTextNode("                    ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n                    ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","label");
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-exclamation-triangle");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("Last Violation");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
         dom.appendChild(el0, el1);
         return el0;
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, content = hooks.content;
+        var hooks = env.hooks, element = hooks.element, content = hooks.content;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -2287,10 +2464,10 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-        dom.insertBoundary(fragment, null);
-        dom.insertBoundary(fragment, 0);
-        content(env, morph0, context, "activeRules");
+        var element6 = dom.childAt(fragment, [1]);
+        var morph0 = dom.createMorphAt(element6,0,0);
+        element(env, element6, context, "bind-attr", [], {"class": ":circle model.violationCount:error"});
+        content(env, morph0, context, "model.violationCount");
         return fragment;
       }
     };
@@ -2331,12 +2508,89 @@ TEMPLATE.dashboard=(function() {
         var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
         dom.insertBoundary(fragment, null);
         dom.insertBoundary(fragment, 0);
-        content(env, morph0, context, "nextScanTime");
+        content(env, morph0, context, "activeRules");
         return fragment;
       }
     };
   }());
   var child3 = (function() {
+    var child0 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.11.3",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createComment("");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          var hooks = env.hooks, content = hooks.content;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+          dom.insertBoundary(fragment, null);
+          dom.insertBoundary(fragment, 0);
+          content(env, morph0, context, "nextScanTime");
+          return fragment;
+        }
+      };
+    }());
+    var child1 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.11.3",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("NaN");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          return fragment;
+        }
+      };
+    }());
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -2345,12 +2599,15 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("NaN");
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode(" min");
         dom.appendChild(el0, el1);
         return el0;
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
+        var hooks = env.hooks, get = hooks.get, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -2368,6 +2625,9 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
+        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, 0);
+        block(env, morph0, context, "if", [get(env, context, "hasCredential")], {}, child0, child1);
         return fragment;
       }
     };
@@ -2478,16 +2738,16 @@ TEMPLATE.dashboard=(function() {
           } else {
             fragment = this.build(dom);
           }
-          var element2 = dom.childAt(fragment, [1]);
-          var element3 = dom.childAt(element2, [1]);
-          var element4 = dom.childAt(element2, [5]);
-          var attrMorph0 = dom.createAttrMorph(element3, 'class');
-          var morph0 = dom.createMorphAt(dom.childAt(element2, [3]),0,0);
-          var morph1 = dom.createMorphAt(element4,0,0);
-          var attrMorph1 = dom.createAttrMorph(element4, 'title');
-          attribute(env, attrMorph0, element3, "class", concat(env, ["awsicon awsicon-", get(env, context, "resource.icon")]));
+          var element3 = dom.childAt(fragment, [1]);
+          var element4 = dom.childAt(element3, [1]);
+          var element5 = dom.childAt(element3, [5]);
+          var attrMorph0 = dom.createAttrMorph(element4, 'class');
+          var morph0 = dom.createMorphAt(dom.childAt(element3, [3]),0,0);
+          var morph1 = dom.createMorphAt(element5,0,0);
+          var attrMorph1 = dom.createAttrMorph(element5, 'title');
+          attribute(env, attrMorph0, element4, "class", concat(env, ["awsicon awsicon-", get(env, context, "resource.icon")]));
           content(env, morph0, context, "resource.count");
-          attribute(env, attrMorph1, element4, "title", concat(env, [get(env, context, "resource.name")]));
+          attribute(env, attrMorph1, element5, "title", concat(env, [get(env, context, "resource.name")]));
           content(env, morph1, context, "resource.name");
           return fragment;
         }
@@ -2551,6 +2811,110 @@ TEMPLATE.dashboard=(function() {
   }());
   var child6 = (function() {
     var child0 = (function() {
+      var child0 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("                        ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("li");
+            dom.setAttribute(el1,"class","item expand");
+            var el2 = dom.createTextNode("\n                            ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("div");
+            dom.setAttribute(el2,"class","head");
+            var el3 = dom.createTextNode("\n                                ");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createElement("div");
+            dom.setAttribute(el3,"class","info");
+            var el4 = dom.createTextNode("\n                                    ");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createElement("i");
+            dom.setAttribute(el4,"class","fa fa-chevron-right");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createTextNode("Rule ");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createElement("span");
+            dom.setAttribute(el4,"class","name");
+            var el5 = dom.createTextNode(" ");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createComment("");
+            dom.appendChild(el4, el5);
+            dom.appendChild(el3, el4);
+            var el4 = dom.createTextNode(" has ");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createElement("span");
+            dom.setAttribute(el4,"class","count");
+            var el5 = dom.createTextNode(" ");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createComment("");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createTextNode(" ");
+            dom.appendChild(el4, el5);
+            dom.appendChild(el3, el4);
+            var el4 = dom.createTextNode(" violations\n                                ");
+            dom.appendChild(el3, el4);
+            dom.appendChild(el2, el3);
+            var el3 = dom.createTextNode("\n                                ");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createElement("div");
+            dom.setAttribute(el3,"class","toggle-detail tooltip");
+            dom.setAttribute(el3,"data-tooltip","Expand all violation");
+            var el4 = dom.createElement("i");
+            dom.setAttribute(el4,"class","fa fa-list");
+            dom.appendChild(el3, el4);
+            dom.appendChild(el2, el3);
+            var el3 = dom.createTextNode("\n                            ");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                            ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                        ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, content = hooks.content, get = hooks.get, inline = hooks.inline;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var element0 = dom.childAt(fragment, [1]);
+            var element1 = dom.childAt(element0, [1, 1]);
+            var morph0 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
+            var morph1 = dom.createMorphAt(dom.childAt(element1, [5]),1,1);
+            var morph2 = dom.createMorphAt(element0,3,3);
+            content(env, morph0, context, "rule.name");
+            content(env, morph1, context, "rule.count");
+            inline(env, morph2, context, "violation-node", [], {"nodes": get(env, context, "rule.nodes")});
+            return fragment;
+          }
+        };
+      }());
       return {
         isHTMLBars: true,
         revision: "Ember@1.11.3",
@@ -2559,63 +2923,22 @@ TEMPLATE.dashboard=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                        ");
+          var el1 = dom.createTextNode("            ");
           dom.appendChild(el0, el1);
-          var el1 = dom.createElement("li");
-          dom.setAttribute(el1,"class","item expand");
-          var el2 = dom.createTextNode("\n                            ");
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1,"class","panel-content");
+          var el2 = dom.createTextNode("\n                ");
           dom.appendChild(el1, el2);
-          var el2 = dom.createElement("div");
-          dom.setAttribute(el2,"class","head");
-          var el3 = dom.createTextNode("\n                                ");
+          var el2 = dom.createElement("ul");
+          dom.setAttribute(el2,"class","violation-list");
+          var el3 = dom.createTextNode("\n");
           dom.appendChild(el2, el3);
-          var el3 = dom.createElement("div");
-          dom.setAttribute(el3,"class","info");
-          var el4 = dom.createTextNode("\n                                    ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("i");
-          dom.setAttribute(el4,"class","fa fa-chevron-right");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("Rule ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("span");
-          dom.setAttribute(el4,"class","name");
-          var el5 = dom.createTextNode(" ");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createComment("");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode(" has ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("span");
-          dom.setAttribute(el4,"class","count");
-          var el5 = dom.createTextNode(" ");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createComment("");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode(" ");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode(" violations\n                                ");
-          dom.appendChild(el3, el4);
+          var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n                                ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("div");
-          dom.setAttribute(el3,"class","toggle-detail tooltip");
-          dom.setAttribute(el3,"data-tooltip","Expand all violation");
-          var el4 = dom.createElement("i");
-          dom.setAttribute(el4,"class","fa fa-list");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n                            ");
+          var el3 = dom.createTextNode("                ");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                            ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                        ");
+          var el2 = dom.createTextNode("\n            ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -2624,7 +2947,7 @@ TEMPLATE.dashboard=(function() {
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content, get = hooks.get, inline = hooks.inline;
+          var hooks = env.hooks, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -2642,14 +2965,56 @@ TEMPLATE.dashboard=(function() {
           } else {
             fragment = this.build(dom);
           }
-          var element0 = dom.childAt(fragment, [1]);
-          var element1 = dom.childAt(element0, [1, 1]);
-          var morph0 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
-          var morph1 = dom.createMorphAt(dom.childAt(element1, [5]),1,1);
-          var morph2 = dom.createMorphAt(element0,3,3);
-          content(env, morph0, context, "rule.name");
-          content(env, morph1, context, "rule.count");
-          inline(env, morph2, context, "violation-node", [], {"nodes": get(env, context, "rule.nodes")});
+          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),1,1);
+          block(env, morph0, context, "each", [get(env, context, "model.violationRules")], {"keyword": "rule"}, child0, null);
+          return fragment;
+        }
+      };
+    }());
+    var child1 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.11.3",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("            ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1,"class","panel-content blank");
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("i");
+          dom.setAttribute(el2,"class","fa fa-smile-o");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n                Good News! There is no violations.\n            ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
           return fragment;
         }
       };
@@ -2662,22 +3027,34 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
+        var el1 = dom.createTextNode("    ");
         dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","panel-content");
-        var el2 = dom.createTextNode("\n                ");
+        var el1 = dom.createElement("section");
+        dom.setAttribute(el1,"class","panel");
+        var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("ul");
-        dom.setAttribute(el2,"class","violation-list");
-        var el3 = dom.createTextNode("\n");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"class","panel-title");
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-exclamation-triangle");
         dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
+        var el3 = dom.createTextNode("VIOLATION ");
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("                ");
+        var el3 = dom.createElement("span");
+        dom.setAttribute(el3,"class","time");
+        var el4 = dom.createTextNode(" (");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createComment("");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode(")");
+        dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
+        var el2 = dom.createTextNode("\n\n");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("    ");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -2686,7 +3063,7 @@ TEMPLATE.dashboard=(function() {
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
-        var hooks = env.hooks, get = hooks.get, block = hooks.block;
+        var hooks = env.hooks, get = hooks.get, inline = hooks.inline, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -2704,8 +3081,11 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),1,1);
-        block(env, morph0, context, "each", [get(env, context, "model.violationRules")], {"keyword": "rule"}, child0, null);
+        var element2 = dom.childAt(fragment, [1]);
+        var morph0 = dom.createMorphAt(dom.childAt(element2, [1, 2]),1,1);
+        var morph1 = dom.createMorphAt(element2,3,3);
+        inline(env, morph0, context, "dateFromNow", [get(env, context, "vioDateFromNow")], {});
+        block(env, morph1, context, "if", [get(env, context, "model.violationRules.length")], {}, child0, child1);
         return fragment;
       }
     };
@@ -2719,16 +3099,28 @@ TEMPLATE.dashboard=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
+        var el1 = dom.createTextNode("        ");
         dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","panel-content blank");
-        var el2 = dom.createTextNode("\n                ");
+        var el1 = dom.createElement("section");
+        dom.setAttribute(el1,"class","panel dashboard-chart");
+        var el2 = dom.createTextNode("\n            ");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("i");
-        dom.setAttribute(el2,"class","fa fa-smile-o");
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"class","panel-title");
+        var el3 = dom.createElement("i");
+        dom.setAttribute(el3,"class","fa fa-area-chart");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("VIOLATION CHART");
+        dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n                Good News! There is no violations.\n            ");
+        var el2 = dom.createTextNode("\n            ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("div");
+        dom.setAttribute(el2,"class","panel-content");
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n        ");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -2737,6 +3129,7 @@ TEMPLATE.dashboard=(function() {
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
+        var hooks = env.hooks, inline = hooks.inline;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -2754,6 +3147,8 @@ TEMPLATE.dashboard=(function() {
         } else {
           fragment = this.build(dom);
         }
+        var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 3]),0,0);
+        inline(env, morph0, context, "violation-chart", [], {"currentControllerBinding": "controller"});
         return fragment;
       }
     };
@@ -2790,47 +3185,14 @@ TEMPLATE.dashboard=(function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createElement("div");
       dom.setAttribute(el3,"class","overview");
-      var el4 = dom.createTextNode("\n                ");
+      var el4 = dom.createTextNode("\n");
       dom.appendChild(el3, el4);
-      var el4 = dom.createElement("div");
-      dom.setAttribute(el4,"class","violation");
-      var el5 = dom.createTextNode("\n                    ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("div");
-      var el6 = dom.createComment("");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n                    ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("div");
-      dom.setAttribute(el5,"class","label");
-      var el6 = dom.createElement("i");
-      dom.setAttribute(el6,"class","fa fa-exclamation-triangle");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("Last Violation");
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
-      var el5 = dom.createTextNode("\n                ");
-      dom.appendChild(el4, el5);
+      var el4 = dom.createComment("");
       dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("\n                ");
+      var el4 = dom.createTextNode("                ");
       dom.appendChild(el3, el4);
       var el4 = dom.createElement("ul");
       dom.setAttribute(el4,"class","info-list");
-      var el5 = dom.createTextNode("\n                    ");
-      dom.appendChild(el4, el5);
-      var el5 = dom.createElement("li");
-      dom.setAttribute(el5,"class","");
-      var el6 = dom.createElement("i");
-      dom.setAttribute(el6,"class","fa fa-heartbeat");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createTextNode("Scanner is ");
-      dom.appendChild(el5, el6);
-      var el6 = dom.createElement("a");
-      var el7 = dom.createTextNode("Healthy");
-      dom.appendChild(el6, el7);
-      dom.appendChild(el5, el6);
-      dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                    ");
       dom.appendChild(el4, el5);
       var el5 = dom.createElement("li");
@@ -2852,11 +3214,7 @@ TEMPLATE.dashboard=(function() {
       dom.appendChild(el5, el6);
       var el6 = dom.createTextNode("Next scan in ");
       dom.appendChild(el5, el6);
-      var el6 = dom.createElement("a");
-      var el7 = dom.createComment("");
-      dom.appendChild(el6, el7);
-      var el7 = dom.createTextNode(" min");
-      dom.appendChild(el6, el7);
+      var el6 = dom.createComment("");
       dom.appendChild(el5, el6);
       dom.appendChild(el4, el5);
       var el5 = dom.createTextNode("\n                ");
@@ -2892,41 +3250,15 @@ TEMPLATE.dashboard=(function() {
       var el2 = dom.createTextNode("    ");
       dom.appendChild(el1, el2);
       dom.appendChild(el0, el1);
-      var el1 = dom.createTextNode("\n    ");
+      var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
-      var el1 = dom.createElement("section");
-      dom.setAttribute(el1,"class","panel");
-      var el2 = dom.createTextNode("\n        ");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createElement("div");
-      dom.setAttribute(el2,"class","panel-title");
-      var el3 = dom.createElement("i");
-      dom.setAttribute(el3,"class","fa fa-exclamation-triangle");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("VIOLATION ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("span");
-      dom.setAttribute(el3,"class","time");
-      var el4 = dom.createTextNode(" (");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createComment("");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode(")");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("\n\n");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createComment("");
-      dom.appendChild(el1, el2);
-      var el2 = dom.createTextNode("    ");
-      dom.appendChild(el1, el2);
+      var el1 = dom.createComment("");
       dom.appendChild(el0, el1);
       return el0;
     },
     render: function render(context, env, contextualElement) {
       var dom = env.dom;
-      var hooks = env.hooks, get = hooks.get, block = hooks.block, element = hooks.element, content = hooks.content, inline = hooks.inline;
+      var hooks = env.hooks, get = hooks.get, block = hooks.block;
       dom.detectNamespace(contextualElement);
       var fragment;
       if (env.useFragmentCache && dom.canClone) {
@@ -2944,26 +3276,22 @@ TEMPLATE.dashboard=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element5 = dom.childAt(fragment, [2, 3, 1]);
-      var element6 = dom.childAt(element5, [1, 1]);
-      var element7 = dom.childAt(element5, [3]);
-      var element8 = dom.childAt(fragment, [6]);
+      var element7 = dom.childAt(fragment, [2, 3, 1]);
+      var element8 = dom.childAt(element7, [3]);
       var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-      var morph1 = dom.createMorphAt(element6,0,0);
-      var morph2 = dom.createMorphAt(dom.childAt(element7, [3]),1,1);
-      var morph3 = dom.createMorphAt(dom.childAt(element7, [5, 2]),0,0);
+      var morph1 = dom.createMorphAt(element7,1,1);
+      var morph2 = dom.createMorphAt(dom.childAt(element8, [1]),1,1);
+      var morph3 = dom.createMorphAt(dom.childAt(element8, [3]),2,2);
       var morph4 = dom.createMorphAt(dom.childAt(fragment, [4]),3,3);
-      var morph5 = dom.createMorphAt(dom.childAt(element8, [1, 2]),1,1);
-      var morph6 = dom.createMorphAt(element8,3,3);
+      var morph5 = dom.createMorphAt(fragment,6,6,contextualElement);
+      dom.insertBoundary(fragment, null);
       dom.insertBoundary(fragment, 0);
       block(env, morph0, context, "unless", [get(env, context, "model.resources.length")], {}, child0, null);
-      element(env, element6, context, "bind-attr", [], {"class": ":circle violationCount:error"});
-      content(env, morph1, context, "violationCount");
-      block(env, morph2, context, "link-to", ["ruleList"], {}, child1, null);
-      block(env, morph3, context, "if", [get(env, context, "hasCredential")], {}, child2, child3);
+      block(env, morph1, context, "link-to", ["scanLog"], {"class": "violation"}, child1, null);
+      block(env, morph2, context, "link-to", ["ruleList"], {}, child2, null);
+      block(env, morph3, context, "link-to", ["settings"], {}, child3, null);
       block(env, morph4, context, "unless", [get(env, context, "model.resources.length")], {}, child4, child5);
-      inline(env, morph5, context, "dateFromNow", [get(env, context, "vioDateFromNow")], {});
-      block(env, morph6, context, "if", [get(env, context, "model.violationRules.length")], {}, child6, child7);
+      block(env, morph5, context, "if", [false], {}, child6, child7);
       return fragment;
     }
   };
@@ -3039,14 +3367,6 @@ define('controller/DashboardController',[], function() {
       rules = this.model.get("rules");
       return rules.filterBy("enabled", true).get("length");
     }).property("rules.@each.enabled"),
-    violationCount: (function() {
-      var count;
-      count = 0;
-      this.model.get("violationRules").toArray().forEach(function(rule) {
-        return count += rule.get("count");
-      });
-      return count;
-    }).property("violationRules"),
     vioDateFromNow: (function() {
       return App.violationTimestamp;
     }).property(),
@@ -3868,8 +4188,11 @@ TEMPLATE.list=(function() {
         block(env, morph1, context, "link-to", ["rule", "new"], {"classNames": "btn btn-green create-rule"}, child0, null);
         element(env, element6, context, "bind-attr", [], {"class": ":rule-select :fa allRuleSelected:fa-check hasRuleSelected:partial-selected"});
         element(env, element6, context, "action", ["toggleSelect"], {});
+        element(env, element8, context, "bind-attr", [], {"disabled": "noRuleSelected"});
         element(env, element8, context, "action", ["deleteRules"], {"target": "view"});
+        element(env, element9, context, "bind-attr", [], {"disabled": "noRuleSelected"});
         element(env, element9, context, "action", ["enableSelectedRules"], {});
+        element(env, element10, context, "bind-attr", [], {"disabled": "noRuleSelected"});
         element(env, element10, context, "action", ["disableSelectedRules"], {"target": "view"});
         block(env, morph2, context, "unless", [get(env, context, "hasEnabledRule")], {}, child1, null);
         block(env, morph3, context, "each", [get(env, context, "wrappedModel")], {"keyword": "item"}, child2, null);
@@ -3944,7 +4267,15 @@ TEMPLATE.list=(function() {
         var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("p");
-        var el4 = dom.createTextNode("Check out the document, if you're not familiar with them.");
+        var el4 = dom.createTextNode("Check out the ");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createElement("a");
+        dom.setAttribute(el4,"href","http://cloudfielder.com/");
+        dom.setAttribute(el4,"target","_blank");
+        var el5 = dom.createTextNode("document");
+        dom.appendChild(el4, el5);
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode(", if you're not familiar with them.");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n  ");
@@ -4625,6 +4956,9 @@ TEMPLATE.rule_content=(function() {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("span");
         dom.setAttribute(el1,"class","rule-error");
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-exclamation-triangle");
+        dom.appendChild(el1, el2);
         var el2 = dom.createComment("");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
@@ -4650,7 +4984,7 @@ TEMPLATE.rule_content=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
+        var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),1,1);
         content(env, morph0, context, "displayError");
         return fragment;
       }
@@ -4736,6 +5070,14 @@ TEMPLATE.rule_content=(function() {
       var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
       var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n\n");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("a");
+      dom.setAttribute(el2,"class","rule-help fa fa-question-circle");
+      dom.setAttribute(el2,"href","http://cloudfielder.com/");
+      dom.setAttribute(el2,"target","_blank");
+      dom.setAttribute(el2,"data-tooltip","Syntax Help");
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
@@ -4840,7 +5182,7 @@ TEMPLATE.rule_audit_log=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createElement("span");
+          var el1 = dom.createElement("a");
           dom.setAttribute(el1,"class","detail");
           var el2 = dom.createTextNode("Detail ");
           dom.appendChild(el1, el2);
@@ -5137,6 +5479,9 @@ define('controller/RuleManagerC',[], function() {
       hasRuleSelected: (function() {
         return this.get("wrappedModel").filterBy("isSelected", true).length > 0;
       }).property("wrappedModel.@each.isSelected"),
+      noRuleSelected: (function() {
+        return !this.get("hasRuleSelected");
+      }).property("hasRuleSelected"),
       allRuleSelected: (function() {
         return this.get("wrappedModel").filterBy("isSelected", false).length === 0;
       }).property("wrappedModel.@each.isSelected"),
@@ -5396,6 +5741,33 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
     "optionGroup": "optionGroupName",
     "lc": "LaunchConfigurationARN"
   };
+  window.ResourceLinkMap = {
+    "region": "",
+    "az": "",
+    "instance": "#Instances:search=",
+    "kp": "",
+    "sg": "#securityGroups:filter=",
+    "eip": "#eips:filter=",
+    "ami": "",
+    "vol": "#Volumes:search=",
+    "snap": "",
+    "elb": "#LoadBalancers:search=",
+    "vpc": "#vpcs:filter=",
+    "subnet": "#subnets:filter=",
+    "igw": "#igws:filter=",
+    "rtb": "#routetables:filter=",
+    "vgw": "#vgws:filter=",
+    "cgw": "#cgws:filter=",
+    "eni": "#NIC:search=",
+    "dhcp": "",
+    "vpn": "#vpns:filter=",
+    "acl": "#acls:filter=",
+    'asg': "#AutoScalingGroups:filter=",
+    "dbinstance": "#dbinstances:",
+    "subnetgroup": "#db-subnet-groups:",
+    "optionGroup": "",
+    "lc": "#LaunchConfigurations:filter="
+  };
   resourceLoop = function(aArray, count) {
     var anotherArray;
     anotherArray = _.map(aArray, function(value) {
@@ -5445,10 +5817,11 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
         return Q.all([
           ApiRequest("scheduler_list", {
             profile_ids: [App.user.get("profile").id]
-          }), App.user.store.findAll("rule"), App.user.store.findAll("resource"), App.user.store.findAll("violationRule")
+          }), App.user.store.findAll("rule"), App.user.store.findAll("resource")
         ]).spread(function(result, rules, resources, violationRules) {
-          var id, nextScannedTime, _ref;
+          var id, nextScannedTime, violationCount, _ref, _ref1;
           nextScannedTime = (_ref = result[0]) != null ? _ref.next_run_time_utc : void 0;
+          violationCount = (_ref1 = result[0]) != null ? _ref1.last_violation_num : void 0;
           rules = rules.toArray().map(function(a) {
             return a.id;
           });
@@ -5456,21 +5829,22 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
           resources = resources.toArray().map(function(resource) {
             return resource.id;
           });
-          violationRules = violationRules.toArray().map(function(violationRule) {
-            return violationRule.id;
-          });
           return {
             id: id,
             nextScannedTime: nextScannedTime,
             rules: rules,
             resources: resources,
-            violationRules: violationRules
+            violationRules: violationRules,
+            violationCount: violationCount
           };
         });
       }
     }),
     Dashboard: DS.Model.extend({
       nextScannedTime: DS.attr("number", {
+        defaultValue: 0
+      }),
+      violationCount: DS.attr("number", {
         defaultValue: 0
       }),
       rules: DS.hasMany("rule", {
@@ -5586,36 +5960,48 @@ define('model/LogModel',["api/ApiRequest"], function(ApiRequest) {
         return this.find();
       },
       find: function(store, type, pageId, snapshot) {
+        var filter, timeArray;
         if (pageId == null) {
           pageId = 1;
         }
-        pageId = +pageId;
+        if (pageId.indexOf('-') !== -1) {
+          timeArray = pageId.split('-');
+          timeArray = _.map(timeArray, function(time) {
+            if (time.length === 13) {
+              time = Math.floor(time / 1000);
+            }
+            return time;
+          });
+          filter = {
+            startTime: +timeArray[0],
+            endTime: +timeArray[1]
+          };
+        } else {
+          pageId = +pageId;
+          filter = {
+            perPageNum: defaultPerPageNum,
+            returnPage: pageId
+          };
+        }
         return Q.all([
           store.findAll("rule"), ApiRequest("log_filter_log", {
-            filter: {
-              perPageNum: defaultPerPageNum,
-              returnPage: pageId
-            }
+            filter: filter
           })
         ]).spread(function(rules, data) {
           data.id = pageId;
-          data.result = _.map(data.result, function(r) {
-            var newLog, originLog;
-            originLog = r.log;
-            newLog = [];
-            _.each(originLog, function(ruleLog, ruleId) {
-              var rule;
-              ruleLog.id = ruleId;
+          data.result = _.map(data.result, function(oneScan) {
+            var newScan;
+            newScan = [];
+            _.each(oneScan, function(ruleLog) {
+              var rule, ruleId;
+              ruleId = ruleLog.rule_id;
               rule = store.getById('rule', ruleId);
               if (rule) {
-                if (rule) {
-                  ruleLog.name = rule.get('name');
-                }
-                return newLog.push(ruleLog);
+                ruleLog.name = rule.get('name');
               }
+              return newScan.push(ruleLog);
             });
-            r.log = newLog;
-            return r;
+            return newScan;
           });
           return data;
         });
@@ -5623,21 +6009,19 @@ define('model/LogModel',["api/ApiRequest"], function(ApiRequest) {
     }),
     RuleScanLogAdapter: DS.Adapter.extend({
       find: function(store, type, ruleId, snapshot) {
+        var rule;
+        rule = store.getById('rule', ruleId);
         return ApiRequest('log_list', {
           rule_id: ruleId,
           log_type: ['rule']
         }).then(function(data) {
           var result;
           result = data.rule_log;
-          result = _.map(result, function(r) {
-            r.log = _.map(r.log, function(ruleLog, ruleId) {
-              var rule;
-              ruleLog.id = ruleId;
-              rule = store.getById('rule', ruleId);
-              ruleLog.name = rule.get('name');
-              return ruleLog;
+          result = _.map(result, function(oneScan) {
+            _.each(oneScan, function(ruleLog) {
+              return ruleLog.name = rule.get('name');
             });
-            return r;
+            return oneScan;
           });
           return {
             id: ruleId,
@@ -5671,6 +6055,8 @@ define('model/LogModel',["api/ApiRequest"], function(ApiRequest) {
       curPageNum: DS.attr('number'),
       totalNum: DS.attr('number'),
       totalPageNum: DS.attr('number'),
+      start_timestamp: DS.attr('number'),
+      end_timestamp: DS.attr('number'),
       result: DS.attr()
     }),
     RuleScanLogModel: DS.Model.extend({
@@ -5702,6 +6088,37 @@ define('controller/LogController',[], function() {
   };
   return {
     ScanLogPageController: Ember.Controller.extend({
+      startTime: (function(key, value) {
+        if (arguments.length === 1) {
+          return this.get('model.start_timestamp');
+        } else if (arguments.length === 2) {
+          Ember.run.once(this, 'reloadModel');
+          return value;
+        }
+      }).property('model.start_timestamp'),
+      endTime: (function(key, value) {
+        if (arguments.length === 1) {
+          return this.get('model.end_timestamp');
+        } else if (arguments.length === 2) {
+          Ember.run.once(this, 'reloadModel');
+          return value;
+        }
+      }).property('model.end_timestamp'),
+      reloadModel: function() {
+        var controller, endTime, id, startTime;
+        controller = this;
+        startTime = controller.get('startTime');
+        endTime = controller.get('endTime');
+        if (startTime && endTime) {
+          id = startTime + '-' + endTime;
+          return this.transitionToRoute('scanLogPage', id);
+        } else {
+          return this.transitionToRoute('scanLogPage', 1);
+        }
+      },
+      period: null,
+      statType: null,
+      timeRange: null,
       needs: ['application', 'scanLogList'],
       hasLog: (function() {
         var result;
@@ -5710,10 +6127,16 @@ define('controller/LogController',[], function() {
       }).property(),
       showPagination: (function() {
         return this.model.get('totalPageNum') > 1;
-      }).property(),
+      }).property('model.totalPageNum'),
       actions: {
         turnPage: function(pageNumber) {
           return this.transitionToRoute('scanLogPage', pageNumber);
+        },
+        closeFilter: function() {
+          return this.setProperties({
+            startTime: 0,
+            endTime: 0
+          });
         }
       }
     }),
@@ -5722,14 +6145,16 @@ define('controller/LogController',[], function() {
       itemController: 'scanLogItem',
       showDetailPanel: false,
       hasLog: (function() {
-        return this.get('model').length;
+        return _.some(this.get('model'), function(oneScan) {
+          return !!oneScan.length;
+        });
       }).property(),
       toggleViolationDetail: function(log) {
         var rule;
         if (this.get("showDetailPanel")) {
           return this.set("showDetailPanel", false);
         } else {
-          rule = this.store.getById("rule", log.id);
+          rule = this.store.getById("rule", log.rule_id);
           this.set("vioDetailRule", rule);
           this.set("vioDetailLog", log);
           return this.set("showDetailPanel", true);
@@ -5754,8 +6179,8 @@ define('controller/LogController',[], function() {
           if (this.get("showDetailPanel")) {
             return this.set("showDetailPanel", false);
           } else {
-            log = scanLog.log[0];
-            rule = this.store.getById("rule", log.id);
+            log = scanLog;
+            rule = this.store.getById("rule", log.rule_id);
             this.set("vioDetailRule", rule);
             this.set("vioDetailLog", log);
             return this.set("showDetailPanel", true);
@@ -5767,18 +6192,35 @@ define('controller/LogController',[], function() {
       needs: ['application'],
       hide: true,
       isSingleRule: Ember.computed.alias("parentController.isSingleRule"),
+      empty: (function() {
+        if (this.get('isSingleRule')) {
+          return false;
+        }
+        return !this.get('model').length;
+      }).property(),
+      timestamp: (function() {
+        if (this.get('isSingleRule')) {
+          return this.get('model').timestamp;
+        } else {
+          return this.get('model')[0].timestamp;
+        }
+      }).property('model.timestamp'),
       violationCount: (function() {
-        var count, model;
+        var count, model, _ref, _ref1;
         model = this.get('model');
-        count = _.reduce(model.log, function(memo, logItem) {
-          var violationList, _ref;
-          violationList = logItem != null ? (_ref = logItem.filter_result) != null ? _ref.resource : void 0 : void 0;
-          if (violationList) {
-            return memo + countViolation(violationList);
-          } else {
-            return memo;
-          }
-        }, 0);
+        if (this.get('isSingleRule')) {
+          count = countViolation(model != null ? (_ref = model.log) != null ? (_ref1 = _ref.filter_result) != null ? _ref1.resource : void 0 : void 0 : void 0);
+        } else {
+          count = _.reduce(model, function(memo, logItem) {
+            var violationList, _ref2, _ref3;
+            violationList = logItem != null ? (_ref2 = logItem.log) != null ? (_ref3 = _ref2.filter_result) != null ? _ref3.resource : void 0 : void 0 : void 0;
+            if (violationList) {
+              return memo + countViolation(violationList);
+            } else {
+              return memo;
+            }
+          }, 0);
+        }
         return count || 'N/A';
       }).property(),
       singleRuleVersion: (function() {
@@ -5804,9 +6246,9 @@ define('controller/LogController',[], function() {
     ScanLogRuleController: Ember.Controller.extend({
       hide: Ember.computed.alias("parentController.hide"),
       violationCount: (function() {
-        var model, _ref;
+        var model, _ref, _ref1;
         model = this.get('model');
-        return countViolation(model != null ? (_ref = model.filter_result) != null ? _ref.resource : void 0 : void 0);
+        return countViolation(model != null ? (_ref = model.log) != null ? (_ref1 = _ref.filter_result) != null ? _ref1.resource : void 0 : void 0 : void 0);
       }).property(),
       hasViolation: (function() {
         return this.get('violationCount') > 0;
@@ -5847,7 +6289,72 @@ TEMPLATE.index=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("    ");
+        var el1 = dom.createTextNode("            ");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createElement("div");
+        dom.setAttribute(el1,"class","log-filter");
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode(" ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("span");
+        dom.setAttribute(el2,"class","to");
+        var el3 = dom.createTextNode("to");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode(" ");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createComment("");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-close");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, get = hooks.get, inline = hooks.inline, element = hooks.element;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var element0 = dom.childAt(fragment, [1]);
+        var element1 = dom.childAt(element0, [5]);
+        var morph0 = dom.createMorphAt(element0,0,0);
+        var morph1 = dom.createMorphAt(element0,4,4);
+        inline(env, morph0, context, "interval", [get(env, context, "startTime"), true], {});
+        inline(env, morph1, context, "interval", [get(env, context, "endTime"), true], {});
+        element(env, element1, context, "action", ["closeFilter"], {});
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("            ");
         dom.appendChild(el0, el1);
         var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
@@ -5889,11 +6396,67 @@ TEMPLATE.index=(function() {
     hasRendered: false,
     build: function build(dom) {
       var el0 = dom.createDocumentFragment();
-      var el1 = dom.createComment("");
+      var el1 = dom.createElement("section");
+      dom.setAttribute(el1,"class","panel");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-title");
+      var el3 = dom.createElement("i");
+      dom.setAttribute(el3,"class","fa fa-area-chart");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("VIOLATION CHART");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-content");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createComment("");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
       dom.appendChild(el0, el1);
-      var el1 = dom.createTextNode("\n\n");
+      var el1 = dom.createTextNode("\n");
       dom.appendChild(el0, el1);
-      var el1 = dom.createComment("");
+      var el1 = dom.createElement("section");
+      dom.setAttribute(el1,"class","panel log-viewer-list");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-title");
+      var el3 = dom.createElement("i");
+      dom.setAttribute(el3,"class","fa fa-clock-o");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("HISTORY LOG");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","panel-content");
+      var el3 = dom.createTextNode("\n");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createComment("");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createComment("");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createComment("");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
       dom.appendChild(el0, el1);
       return el0;
     },
@@ -5917,12 +6480,15 @@ TEMPLATE.index=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-      var morph1 = dom.createMorphAt(fragment,2,2,contextualElement);
-      dom.insertBoundary(fragment, null);
-      dom.insertBoundary(fragment, 0);
-      inline(env, morph0, context, "view", ["scanLogList"], {"controller": get(env, context, "controllers.scanLogList"), "model": get(env, context, "result")});
-      block(env, morph1, context, "if", [get(env, context, "showPagination")], {}, child0, null);
+      var element2 = dom.childAt(fragment, [2, 3]);
+      var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 3]),1,1);
+      var morph1 = dom.createMorphAt(element2,1,1);
+      var morph2 = dom.createMorphAt(element2,3,3);
+      var morph3 = dom.createMorphAt(element2,5,5);
+      inline(env, morph0, context, "violation-chart", [], {"currentControllerBinding": "controller", "period": get(env, context, "period"), "statType": get(env, context, "statType"), "timeRange": get(env, context, "timeRange")});
+      block(env, morph1, context, "if", [get(env, context, "startTime")], {}, child0, null);
+      inline(env, morph2, context, "view", ["scanLogList"], {"controller": get(env, context, "controllers.scanLogList"), "model": get(env, context, "result")});
+      block(env, morph3, context, "if", [get(env, context, "showPagination")], {}, child1, null);
       return fragment;
     }
   };
@@ -5968,6 +6534,126 @@ TEMPLATE.loading=(function() {
       } else {
         fragment = this.build(dom);
       }
+      return fragment;
+    }
+  };
+}());
+
+TEMPLATE.error=(function() {
+  var child0 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createComment("");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        var hooks = env.hooks, content = hooks.content;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+        dom.insertBoundary(fragment, null);
+        dom.insertBoundary(fragment, 0);
+        content(env, morph0, context, "result");
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
+        var el1 = dom.createTextNode("Sorry, we are suffering from some technical issue, please try again later");
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","error log-error");
+      var el2 = dom.createComment("");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      var hooks = env.hooks, get = hooks.get, block = hooks.block;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
+      block(env, morph0, context, "if", [get(env, context, "result")], {}, child0, child1);
       return fragment;
     }
   };
@@ -6059,48 +6745,6 @@ TEMPLATE.scan_log=(function() {
     }());
     var child1 = (function() {
       var child0 = (function() {
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createElement("td");
-            dom.setAttribute(el1,"class","version");
-            var el2 = dom.createComment("");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, content = hooks.content;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
-            content(env, morph0, context, "singleRuleVersion");
-            return fragment;
-          }
-        };
-      }());
-      var child1 = (function() {
         var child0 = (function() {
           return {
             isHTMLBars: true,
@@ -6110,23 +6754,16 @@ TEMPLATE.scan_log=(function() {
             hasRendered: false,
             build: function build(dom) {
               var el0 = dom.createDocumentFragment();
-              var el1 = dom.createTextNode("\n                            ");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createElement("span");
-              dom.setAttribute(el1,"class","detail");
-              var el2 = dom.createTextNode("Detail ");
+              var el1 = dom.createElement("td");
+              dom.setAttribute(el1,"class","version");
+              var el2 = dom.createComment("");
               dom.appendChild(el1, el2);
-              var el2 = dom.createElement("i");
-              dom.setAttribute(el2,"class","fa fa-chevron-right");
-              dom.appendChild(el1, el2);
-              dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode("\n");
               dom.appendChild(el0, el1);
               return el0;
             },
             render: function render(context, env, contextualElement) {
               var dom = env.dom;
-              var hooks = env.hooks, element = hooks.element;
+              var hooks = env.hooks, content = hooks.content;
               dom.detectNamespace(contextualElement);
               var fragment;
               if (env.useFragmentCache && dom.canClone) {
@@ -6144,192 +6781,14 @@ TEMPLATE.scan_log=(function() {
               } else {
                 fragment = this.build(dom);
               }
-              var element6 = dom.childAt(fragment, [1]);
-              element(env, element6, context, "action", ["toggleViolation"], {});
+              var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),0,0);
+              content(env, morph0, context, "singleRuleVersion");
               return fragment;
             }
           };
         }());
         var child1 = (function() {
-          return {
-            isHTMLBars: true,
-            revision: "Ember@1.11.3",
-            blockParams: 0,
-            cachedFragment: null,
-            hasRendered: false,
-            build: function build(dom) {
-              var el0 = dom.createDocumentFragment();
-              var el1 = dom.createTextNode("                            ");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createElement("i");
-              dom.setAttribute(el1,"class","fa fa-list detail");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode("\n");
-              dom.appendChild(el0, el1);
-              return el0;
-            },
-            render: function render(context, env, contextualElement) {
-              var dom = env.dom;
-              var hooks = env.hooks, element = hooks.element;
-              dom.detectNamespace(contextualElement);
-              var fragment;
-              if (env.useFragmentCache && dom.canClone) {
-                if (this.cachedFragment === null) {
-                  fragment = this.build(dom);
-                  if (this.hasRendered) {
-                    this.cachedFragment = fragment;
-                  } else {
-                    this.hasRendered = true;
-                  }
-                }
-                if (this.cachedFragment) {
-                  fragment = dom.cloneNode(this.cachedFragment, true);
-                }
-              } else {
-                fragment = this.build(dom);
-              }
-              var element5 = dom.childAt(fragment, [1]);
-              element(env, element5, context, "action", ["toggleViolation"], {});
-              return fragment;
-            }
-          };
-        }());
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createComment("");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("                        ");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, get = hooks.get, block = hooks.block;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-            block(env, morph0, context, "if", [get(env, context, "isSingleRule")], {}, child0, child1);
-            return fragment;
-          }
-        };
-      }());
-      var child2 = (function() {
-        var child0 = (function() {
           var child0 = (function() {
-            var child0 = (function() {
-              return {
-                isHTMLBars: true,
-                revision: "Ember@1.11.3",
-                blockParams: 0,
-                cachedFragment: null,
-                hasRendered: false,
-                build: function build(dom) {
-                  var el0 = dom.createDocumentFragment();
-                  var el1 = dom.createTextNode("                            ");
-                  dom.appendChild(el0, el1);
-                  var el1 = dom.createElement("li");
-                  var el2 = dom.createTextNode("\n                                ");
-                  dom.appendChild(el1, el2);
-                  var el2 = dom.createElement("div");
-                  dom.setAttribute(el2,"class","vio-rule-info");
-                  var el3 = dom.createTextNode("Rule ");
-                  dom.appendChild(el2, el3);
-                  var el3 = dom.createElement("span");
-                  dom.setAttribute(el3,"class","rule-name");
-                  var el4 = dom.createComment("");
-                  dom.appendChild(el3, el4);
-                  var el4 = dom.createTextNode("(");
-                  dom.appendChild(el3, el4);
-                  var el4 = dom.createComment("");
-                  dom.appendChild(el3, el4);
-                  var el4 = dom.createTextNode(")");
-                  dom.appendChild(el3, el4);
-                  dom.appendChild(el2, el3);
-                  var el3 = dom.createTextNode(" has ");
-                  dom.appendChild(el2, el3);
-                  var el3 = dom.createElement("span");
-                  dom.setAttribute(el3,"class","vio-count");
-                  var el4 = dom.createComment("");
-                  dom.appendChild(el3, el4);
-                  dom.appendChild(el2, el3);
-                  var el3 = dom.createTextNode(" violations.");
-                  dom.appendChild(el2, el3);
-                  dom.appendChild(el1, el2);
-                  var el2 = dom.createTextNode("\n                                ");
-                  dom.appendChild(el1, el2);
-                  var el2 = dom.createElement("span");
-                  dom.setAttribute(el2,"class","detail");
-                  var el3 = dom.createTextNode("Detail ");
-                  dom.appendChild(el2, el3);
-                  var el3 = dom.createElement("i");
-                  dom.setAttribute(el3,"class","fa fa-chevron-right");
-                  dom.appendChild(el2, el3);
-                  dom.appendChild(el1, el2);
-                  var el2 = dom.createTextNode("\n                            ");
-                  dom.appendChild(el1, el2);
-                  dom.appendChild(el0, el1);
-                  var el1 = dom.createTextNode("\n");
-                  dom.appendChild(el0, el1);
-                  return el0;
-                },
-                render: function render(context, env, contextualElement) {
-                  var dom = env.dom;
-                  var hooks = env.hooks, content = hooks.content, get = hooks.get, element = hooks.element;
-                  dom.detectNamespace(contextualElement);
-                  var fragment;
-                  if (env.useFragmentCache && dom.canClone) {
-                    if (this.cachedFragment === null) {
-                      fragment = this.build(dom);
-                      if (this.hasRendered) {
-                        this.cachedFragment = fragment;
-                      } else {
-                        this.hasRendered = true;
-                      }
-                    }
-                    if (this.cachedFragment) {
-                      fragment = dom.cloneNode(this.cachedFragment, true);
-                    }
-                  } else {
-                    fragment = this.build(dom);
-                  }
-                  var element0 = dom.childAt(fragment, [1]);
-                  var element1 = dom.childAt(element0, [1]);
-                  var element2 = dom.childAt(element1, [1]);
-                  var element3 = dom.childAt(element0, [3]);
-                  var morph0 = dom.createMorphAt(element2,0,0);
-                  var morph1 = dom.createMorphAt(element2,2,2);
-                  var morph2 = dom.createMorphAt(dom.childAt(element1, [3]),0,0);
-                  content(env, morph0, context, "model.name");
-                  content(env, morph1, context, "model.rule_version");
-                  content(env, morph2, context, "violationCount");
-                  element(env, element3, context, "action", ["toggleViolationDetail", get(env, context, "model")], {});
-                  return fragment;
-                }
-              };
-            }());
             return {
               isHTMLBars: true,
               revision: "Ember@1.11.3",
@@ -6338,13 +6797,23 @@ TEMPLATE.scan_log=(function() {
               hasRendered: false,
               build: function build(dom) {
                 var el0 = dom.createDocumentFragment();
-                var el1 = dom.createComment("");
+                var el1 = dom.createTextNode("                            ");
+                dom.appendChild(el0, el1);
+                var el1 = dom.createElement("a");
+                dom.setAttribute(el1,"class","detail");
+                var el2 = dom.createTextNode("Detail ");
+                dom.appendChild(el1, el2);
+                var el2 = dom.createElement("i");
+                dom.setAttribute(el2,"class","fa fa-chevron-right");
+                dom.appendChild(el1, el2);
+                dom.appendChild(el0, el1);
+                var el1 = dom.createTextNode("\n");
                 dom.appendChild(el0, el1);
                 return el0;
               },
               render: function render(context, env, contextualElement) {
                 var dom = env.dom;
-                var hooks = env.hooks, get = hooks.get, block = hooks.block;
+                var hooks = env.hooks, element = hooks.element;
                 dom.detectNamespace(contextualElement);
                 var fragment;
                 if (env.useFragmentCache && dom.canClone) {
@@ -6362,10 +6831,52 @@ TEMPLATE.scan_log=(function() {
                 } else {
                   fragment = this.build(dom);
                 }
-                var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-                dom.insertBoundary(fragment, null);
-                dom.insertBoundary(fragment, 0);
-                block(env, morph0, context, "if", [get(env, context, "hasViolation")], {}, child0, null);
+                var element5 = dom.childAt(fragment, [1]);
+                element(env, element5, context, "action", ["toggleViolation"], {});
+                return fragment;
+              }
+            };
+          }());
+          var child1 = (function() {
+            return {
+              isHTMLBars: true,
+              revision: "Ember@1.11.3",
+              blockParams: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              build: function build(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("                            ");
+                dom.appendChild(el0, el1);
+                var el1 = dom.createElement("i");
+                dom.setAttribute(el1,"class","fa fa-list detail");
+                dom.appendChild(el0, el1);
+                var el1 = dom.createTextNode("\n");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              render: function render(context, env, contextualElement) {
+                var dom = env.dom;
+                var hooks = env.hooks, element = hooks.element;
+                dom.detectNamespace(contextualElement);
+                var fragment;
+                if (env.useFragmentCache && dom.canClone) {
+                  if (this.cachedFragment === null) {
+                    fragment = this.build(dom);
+                    if (this.hasRendered) {
+                      this.cachedFragment = fragment;
+                    } else {
+                      this.hasRendered = true;
+                    }
+                  }
+                  if (this.cachedFragment) {
+                    fragment = dom.cloneNode(this.cachedFragment, true);
+                  }
+                } else {
+                  fragment = this.build(dom);
+                }
+                var element4 = dom.childAt(fragment, [1]);
+                element(env, element4, context, "action", ["toggleViolation"], {});
                 return fragment;
               }
             };
@@ -6378,37 +6889,17 @@ TEMPLATE.scan_log=(function() {
             hasRendered: false,
             build: function build(dom) {
               var el0 = dom.createDocumentFragment();
-              var el1 = dom.createTextNode("                ");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createElement("tr");
-              var el2 = dom.createTextNode("\n                ");
-              dom.appendChild(el1, el2);
-              var el2 = dom.createElement("td");
-              dom.setAttribute(el2,"colspan","5");
-              var el3 = dom.createTextNode("\n                    ");
-              dom.appendChild(el2, el3);
-              var el3 = dom.createElement("ul");
-              dom.setAttribute(el3,"class","rule-violation-list table tr-detail");
-              var el4 = dom.createTextNode("\n");
-              dom.appendChild(el3, el4);
-              var el4 = dom.createComment("");
-              dom.appendChild(el3, el4);
-              var el4 = dom.createTextNode("                    ");
-              dom.appendChild(el3, el4);
-              dom.appendChild(el2, el3);
-              var el3 = dom.createTextNode("\n                ");
-              dom.appendChild(el2, el3);
-              dom.appendChild(el1, el2);
-              var el2 = dom.createTextNode("\n                ");
-              dom.appendChild(el1, el2);
-              dom.appendChild(el0, el1);
               var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createComment("");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("                        ");
               dom.appendChild(el0, el1);
               return el0;
             },
             render: function render(context, env, contextualElement) {
               var dom = env.dom;
-              var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block;
+              var hooks = env.hooks, get = hooks.get, block = hooks.block;
               dom.detectNamespace(contextualElement);
               var fragment;
               if (env.useFragmentCache && dom.canClone) {
@@ -6426,10 +6917,375 @@ TEMPLATE.scan_log=(function() {
               } else {
                 fragment = this.build(dom);
               }
-              var element4 = dom.childAt(fragment, [1, 1]);
-              var morph0 = dom.createMorphAt(dom.childAt(element4, [1]),1,1);
-              element(env, element4, context, "bind-attr", [], {"class": ":rule-log-detail hide:hide"});
-              block(env, morph0, context, "each", [get(env, context, "model.log")], {"itemController": "scanLogRule"}, child0, null);
+              var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
+              block(env, morph0, context, "if", [get(env, context, "isSingleRule")], {}, child0, child1);
+              return fragment;
+            }
+          };
+        }());
+        var child2 = (function() {
+          var child0 = (function() {
+            var child0 = (function() {
+              var child0 = (function() {
+                var child0 = (function() {
+                  return {
+                    isHTMLBars: true,
+                    revision: "Ember@1.11.3",
+                    blockParams: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    build: function build(dom) {
+                      var el0 = dom.createDocumentFragment();
+                      var el1 = dom.createComment("");
+                      dom.appendChild(el0, el1);
+                      return el0;
+                    },
+                    render: function render(context, env, contextualElement) {
+                      var dom = env.dom;
+                      var hooks = env.hooks, content = hooks.content;
+                      dom.detectNamespace(contextualElement);
+                      var fragment;
+                      if (env.useFragmentCache && dom.canClone) {
+                        if (this.cachedFragment === null) {
+                          fragment = this.build(dom);
+                          if (this.hasRendered) {
+                            this.cachedFragment = fragment;
+                          } else {
+                            this.hasRendered = true;
+                          }
+                        }
+                        if (this.cachedFragment) {
+                          fragment = dom.cloneNode(this.cachedFragment, true);
+                        }
+                      } else {
+                        fragment = this.build(dom);
+                      }
+                      var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+                      dom.insertBoundary(fragment, null);
+                      dom.insertBoundary(fragment, 0);
+                      content(env, morph0, context, "model.name");
+                      return fragment;
+                    }
+                  };
+                }());
+                var child1 = (function() {
+                  return {
+                    isHTMLBars: true,
+                    revision: "Ember@1.11.3",
+                    blockParams: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    build: function build(dom) {
+                      var el0 = dom.createDocumentFragment();
+                      var el1 = dom.createComment("");
+                      dom.appendChild(el0, el1);
+                      return el0;
+                    },
+                    render: function render(context, env, contextualElement) {
+                      var dom = env.dom;
+                      var hooks = env.hooks, content = hooks.content;
+                      dom.detectNamespace(contextualElement);
+                      var fragment;
+                      if (env.useFragmentCache && dom.canClone) {
+                        if (this.cachedFragment === null) {
+                          fragment = this.build(dom);
+                          if (this.hasRendered) {
+                            this.cachedFragment = fragment;
+                          } else {
+                            this.hasRendered = true;
+                          }
+                        }
+                        if (this.cachedFragment) {
+                          fragment = dom.cloneNode(this.cachedFragment, true);
+                        }
+                      } else {
+                        fragment = this.build(dom);
+                      }
+                      var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+                      dom.insertBoundary(fragment, null);
+                      dom.insertBoundary(fragment, 0);
+                      content(env, morph0, context, "model.rule_id");
+                      return fragment;
+                    }
+                  };
+                }());
+                var child2 = (function() {
+                  return {
+                    isHTMLBars: true,
+                    revision: "Ember@1.11.3",
+                    blockParams: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    build: function build(dom) {
+                      var el0 = dom.createDocumentFragment();
+                      var el1 = dom.createTextNode("                                ");
+                      dom.appendChild(el0, el1);
+                      var el1 = dom.createElement("a");
+                      dom.setAttribute(el1,"class","detail");
+                      var el2 = dom.createTextNode("Detail ");
+                      dom.appendChild(el1, el2);
+                      var el2 = dom.createElement("i");
+                      dom.setAttribute(el2,"class","fa fa-chevron-right");
+                      dom.appendChild(el1, el2);
+                      dom.appendChild(el0, el1);
+                      var el1 = dom.createTextNode("\n");
+                      dom.appendChild(el0, el1);
+                      return el0;
+                    },
+                    render: function render(context, env, contextualElement) {
+                      var dom = env.dom;
+                      var hooks = env.hooks, get = hooks.get, element = hooks.element;
+                      dom.detectNamespace(contextualElement);
+                      var fragment;
+                      if (env.useFragmentCache && dom.canClone) {
+                        if (this.cachedFragment === null) {
+                          fragment = this.build(dom);
+                          if (this.hasRendered) {
+                            this.cachedFragment = fragment;
+                          } else {
+                            this.hasRendered = true;
+                          }
+                        }
+                        if (this.cachedFragment) {
+                          fragment = dom.cloneNode(this.cachedFragment, true);
+                        }
+                      } else {
+                        fragment = this.build(dom);
+                      }
+                      var element0 = dom.childAt(fragment, [1]);
+                      element(env, element0, context, "action", ["toggleViolationDetail", get(env, context, "model")], {});
+                      return fragment;
+                    }
+                  };
+                }());
+                return {
+                  isHTMLBars: true,
+                  revision: "Ember@1.11.3",
+                  blockParams: 0,
+                  cachedFragment: null,
+                  hasRendered: false,
+                  build: function build(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode("                            ");
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createElement("li");
+                    var el2 = dom.createTextNode("\n                                ");
+                    dom.appendChild(el1, el2);
+                    var el2 = dom.createElement("div");
+                    dom.setAttribute(el2,"class","vio-rule-info");
+                    var el3 = dom.createTextNode("\n                                    Rule ");
+                    dom.appendChild(el2, el3);
+                    var el3 = dom.createElement("span");
+                    dom.setAttribute(el3,"class","rule-name");
+                    var el4 = dom.createComment("");
+                    dom.appendChild(el3, el4);
+                    var el4 = dom.createTextNode(" ");
+                    dom.appendChild(el3, el4);
+                    dom.appendChild(el2, el3);
+                    var el3 = dom.createElement("span");
+                    dom.setAttribute(el3,"class","rule-version");
+                    var el4 = dom.createTextNode(" (");
+                    dom.appendChild(el3, el4);
+                    var el4 = dom.createComment("");
+                    dom.appendChild(el3, el4);
+                    var el4 = dom.createTextNode(")");
+                    dom.appendChild(el3, el4);
+                    dom.appendChild(el2, el3);
+                    var el3 = dom.createTextNode(" has ");
+                    dom.appendChild(el2, el3);
+                    var el3 = dom.createElement("span");
+                    dom.setAttribute(el3,"class","rule-count");
+                    var el4 = dom.createComment("");
+                    dom.appendChild(el3, el4);
+                    dom.appendChild(el2, el3);
+                    var el3 = dom.createTextNode(" violations.\n                                ");
+                    dom.appendChild(el2, el3);
+                    dom.appendChild(el1, el2);
+                    var el2 = dom.createTextNode("\n");
+                    dom.appendChild(el1, el2);
+                    var el2 = dom.createComment("");
+                    dom.appendChild(el1, el2);
+                    var el2 = dom.createTextNode("                            ");
+                    dom.appendChild(el1, el2);
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode("\n");
+                    dom.appendChild(el0, el1);
+                    return el0;
+                  },
+                  render: function render(context, env, contextualElement) {
+                    var dom = env.dom;
+                    var hooks = env.hooks, get = hooks.get, block = hooks.block, content = hooks.content;
+                    dom.detectNamespace(contextualElement);
+                    var fragment;
+                    if (env.useFragmentCache && dom.canClone) {
+                      if (this.cachedFragment === null) {
+                        fragment = this.build(dom);
+                        if (this.hasRendered) {
+                          this.cachedFragment = fragment;
+                        } else {
+                          this.hasRendered = true;
+                        }
+                      }
+                      if (this.cachedFragment) {
+                        fragment = dom.cloneNode(this.cachedFragment, true);
+                      }
+                    } else {
+                      fragment = this.build(dom);
+                    }
+                    var element1 = dom.childAt(fragment, [1]);
+                    var element2 = dom.childAt(element1, [1]);
+                    var morph0 = dom.createMorphAt(dom.childAt(element2, [1]),0,0);
+                    var morph1 = dom.createMorphAt(dom.childAt(element2, [2]),1,1);
+                    var morph2 = dom.createMorphAt(dom.childAt(element2, [4]),0,0);
+                    var morph3 = dom.createMorphAt(element1,3,3);
+                    block(env, morph0, context, "if", [get(env, context, "model.name")], {}, child0, child1);
+                    content(env, morph1, context, "model.rule_version");
+                    content(env, morph2, context, "violationCount");
+                    block(env, morph3, context, "if", [get(env, context, "model.name")], {}, child2, null);
+                    return fragment;
+                  }
+                };
+              }());
+              return {
+                isHTMLBars: true,
+                revision: "Ember@1.11.3",
+                blockParams: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                build: function build(dom) {
+                  var el0 = dom.createDocumentFragment();
+                  var el1 = dom.createComment("");
+                  dom.appendChild(el0, el1);
+                  return el0;
+                },
+                render: function render(context, env, contextualElement) {
+                  var dom = env.dom;
+                  var hooks = env.hooks, get = hooks.get, block = hooks.block;
+                  dom.detectNamespace(contextualElement);
+                  var fragment;
+                  if (env.useFragmentCache && dom.canClone) {
+                    if (this.cachedFragment === null) {
+                      fragment = this.build(dom);
+                      if (this.hasRendered) {
+                        this.cachedFragment = fragment;
+                      } else {
+                        this.hasRendered = true;
+                      }
+                    }
+                    if (this.cachedFragment) {
+                      fragment = dom.cloneNode(this.cachedFragment, true);
+                    }
+                  } else {
+                    fragment = this.build(dom);
+                  }
+                  var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+                  dom.insertBoundary(fragment, null);
+                  dom.insertBoundary(fragment, 0);
+                  block(env, morph0, context, "if", [get(env, context, "hasViolation")], {}, child0, null);
+                  return fragment;
+                }
+              };
+            }());
+            return {
+              isHTMLBars: true,
+              revision: "Ember@1.11.3",
+              blockParams: 0,
+              cachedFragment: null,
+              hasRendered: false,
+              build: function build(dom) {
+                var el0 = dom.createDocumentFragment();
+                var el1 = dom.createTextNode("                ");
+                dom.appendChild(el0, el1);
+                var el1 = dom.createElement("tr");
+                var el2 = dom.createTextNode("\n                ");
+                dom.appendChild(el1, el2);
+                var el2 = dom.createElement("td");
+                dom.setAttribute(el2,"colspan","5");
+                var el3 = dom.createTextNode("\n                    ");
+                dom.appendChild(el2, el3);
+                var el3 = dom.createElement("ul");
+                dom.setAttribute(el3,"class","rule-violation-list table tr-detail");
+                var el4 = dom.createTextNode("\n");
+                dom.appendChild(el3, el4);
+                var el4 = dom.createComment("");
+                dom.appendChild(el3, el4);
+                var el4 = dom.createTextNode("                    ");
+                dom.appendChild(el3, el4);
+                dom.appendChild(el2, el3);
+                var el3 = dom.createTextNode("\n                ");
+                dom.appendChild(el2, el3);
+                dom.appendChild(el1, el2);
+                var el2 = dom.createTextNode("\n                ");
+                dom.appendChild(el1, el2);
+                dom.appendChild(el0, el1);
+                var el1 = dom.createTextNode("\n");
+                dom.appendChild(el0, el1);
+                return el0;
+              },
+              render: function render(context, env, contextualElement) {
+                var dom = env.dom;
+                var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block;
+                dom.detectNamespace(contextualElement);
+                var fragment;
+                if (env.useFragmentCache && dom.canClone) {
+                  if (this.cachedFragment === null) {
+                    fragment = this.build(dom);
+                    if (this.hasRendered) {
+                      this.cachedFragment = fragment;
+                    } else {
+                      this.hasRendered = true;
+                    }
+                  }
+                  if (this.cachedFragment) {
+                    fragment = dom.cloneNode(this.cachedFragment, true);
+                  }
+                } else {
+                  fragment = this.build(dom);
+                }
+                var element3 = dom.childAt(fragment, [1, 1]);
+                var morph0 = dom.createMorphAt(dom.childAt(element3, [1]),1,1);
+                element(env, element3, context, "bind-attr", [], {"class": ":rule-log-detail hide:hide"});
+                block(env, morph0, context, "each", [get(env, context, "model")], {"itemController": "scanLogRule"}, child0, null);
+                return fragment;
+              }
+            };
+          }());
+          return {
+            isHTMLBars: true,
+            revision: "Ember@1.11.3",
+            blockParams: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            build: function build(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createComment("");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            render: function render(context, env, contextualElement) {
+              var dom = env.dom;
+              var hooks = env.hooks, get = hooks.get, block = hooks.block;
+              dom.detectNamespace(contextualElement);
+              var fragment;
+              if (env.useFragmentCache && dom.canClone) {
+                if (this.cachedFragment === null) {
+                  fragment = this.build(dom);
+                  if (this.hasRendered) {
+                    this.cachedFragment = fragment;
+                  } else {
+                    this.hasRendered = true;
+                  }
+                }
+                if (this.cachedFragment) {
+                  fragment = dom.cloneNode(this.cachedFragment, true);
+                }
+              } else {
+                fragment = this.build(dom);
+              }
+              var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+              dom.insertBoundary(fragment, null);
+              dom.insertBoundary(fragment, 0);
+              block(env, morph0, context, "unless", [get(env, context, "isSingleRule")], {}, child0, null);
               return fragment;
             }
           };
@@ -6442,13 +7298,50 @@ TEMPLATE.scan_log=(function() {
           hasRendered: false,
           build: function build(dom) {
             var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("                ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("tr");
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("td");
+            var el3 = dom.createElement("i");
+            dom.setAttribute(el3,"class","fa fa-circle-o");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("td");
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("td");
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("td");
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
             var el1 = dom.createComment("");
             dom.appendChild(el0, el1);
             return el0;
           },
           render: function render(context, env, contextualElement) {
             var dom = env.dom;
-            var hooks = env.hooks, get = hooks.get, block = hooks.block;
+            var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block, inline = hooks.inline, content = hooks.content;
             dom.detectNamespace(contextualElement);
             var fragment;
             if (env.useFragmentCache && dom.canClone) {
@@ -6466,10 +7359,20 @@ TEMPLATE.scan_log=(function() {
             } else {
               fragment = this.build(dom);
             }
-            var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+            var element6 = dom.childAt(fragment, [1]);
+            var element7 = dom.childAt(element6, [1]);
+            var morph0 = dom.createMorphAt(element6,3,3);
+            var morph1 = dom.createMorphAt(dom.childAt(element6, [5]),0,0);
+            var morph2 = dom.createMorphAt(dom.childAt(element6, [7]),0,0);
+            var morph3 = dom.createMorphAt(dom.childAt(element6, [9]),0,0);
+            var morph4 = dom.createMorphAt(fragment,3,3,contextualElement);
             dom.insertBoundary(fragment, null);
-            dom.insertBoundary(fragment, 0);
-            block(env, morph0, context, "unless", [get(env, context, "isSingleRule")], {}, child0, null);
+            element(env, element7, context, "bind-attr", [], {"class": ":status hasViolation:error"});
+            block(env, morph0, context, "if", [get(env, context, "isSingleRule")], {}, child0, null);
+            inline(env, morph1, context, "interval", [get(env, context, "timestamp")], {});
+            content(env, morph2, context, "violationCount");
+            block(env, morph3, context, "if", [get(env, context, "hasViolation")], {}, child1, null);
+            block(env, morph4, context, "if", [get(env, context, "hasViolation")], {}, child2, null);
             return fragment;
           }
         };
@@ -6482,50 +7385,13 @@ TEMPLATE.scan_log=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("tr");
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("td");
-          var el3 = dom.createElement("i");
-          dom.setAttribute(el3,"class","fa fa-circle-o");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("td");
-          var el3 = dom.createComment("");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("td");
-          var el3 = dom.createComment("");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("td");
-          var el3 = dom.createComment("");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                ");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
-          dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
           return el0;
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
-          var hooks = env.hooks, element = hooks.element, get = hooks.get, block = hooks.block, inline = hooks.inline, content = hooks.content;
+          var hooks = env.hooks, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -6543,20 +7409,10 @@ TEMPLATE.scan_log=(function() {
           } else {
             fragment = this.build(dom);
           }
-          var element7 = dom.childAt(fragment, [1]);
-          var element8 = dom.childAt(element7, [1]);
-          var morph0 = dom.createMorphAt(element7,3,3);
-          var morph1 = dom.createMorphAt(dom.childAt(element7, [5]),0,0);
-          var morph2 = dom.createMorphAt(dom.childAt(element7, [7]),0,0);
-          var morph3 = dom.createMorphAt(dom.childAt(element7, [9]),0,0);
-          var morph4 = dom.createMorphAt(fragment,3,3,contextualElement);
+          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
           dom.insertBoundary(fragment, null);
-          element(env, element8, context, "bind-attr", [], {"class": ":status hasViolation:error"});
-          block(env, morph0, context, "if", [get(env, context, "isSingleRule")], {}, child0, null);
-          inline(env, morph1, context, "interval", [get(env, context, "model.timestamp")], {});
-          content(env, morph2, context, "violationCount");
-          block(env, morph3, context, "if", [get(env, context, "hasViolation")], {}, child1, null);
-          block(env, morph4, context, "if", [get(env, context, "hasViolation")], {}, child2, null);
+          dom.insertBoundary(fragment, 0);
+          block(env, morph0, context, "unless", [get(env, context, "empty")], {}, child0, null);
           return fragment;
         }
       };
@@ -6605,9 +7461,9 @@ TEMPLATE.scan_log=(function() {
         } else {
           fragment = this.build(dom);
         }
-        var element9 = dom.childAt(fragment, [1]);
-        var morph0 = dom.createMorphAt(element9,1,1);
-        var morph1 = dom.createMorphAt(element9,2,2);
+        var element8 = dom.childAt(fragment, [1]);
+        var morph0 = dom.createMorphAt(element8,1,1);
+        var morph1 = dom.createMorphAt(element8,2,2);
         block(env, morph0, context, "if", [get(env, context, "showDetailPanel")], {}, child0, null);
         block(env, morph1, context, "each", [], {}, child1, null);
         return fragment;
@@ -6757,9 +7613,9 @@ TEMPLATE.scan_log=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element10 = dom.childAt(fragment, [0]);
-      var morph0 = dom.createMorphAt(dom.childAt(element10, [1, 1]),3,3);
-      var morph1 = dom.createMorphAt(element10,3,3);
+      var element9 = dom.childAt(fragment, [0]);
+      var morph0 = dom.createMorphAt(dom.childAt(element9, [1, 1]),3,3);
+      var morph1 = dom.createMorphAt(element9,3,3);
       var morph2 = dom.createMorphAt(fragment,2,2,contextualElement);
       dom.insertBoundary(fragment, null);
       block(env, morph0, context, "if", [get(env, context, "isSingleRule")], {}, child0, null);
@@ -6773,6 +7629,7 @@ TEMPLATE.scan_log=(function() {
 return TEMPLATE; });
 define('view/LogView',["template/LogTpl"], function(template) {
   Ember.TEMPLATES["scanLog/loading"] = template.loading;
+  Ember.TEMPLATES["scanLog/error"] = template.error;
   return {
     ScanLogPageView: Ember.View.extend({
       template: template.index,
@@ -6884,6 +7741,83 @@ TEMPLATE.index=(function() {
   }());
   var child2 = (function() {
     var child0 = (function() {
+      var child0 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createComment("");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, content = hooks.content;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+            dom.insertBoundary(fragment, null);
+            dom.insertBoundary(fragment, 0);
+            content(env, morph0, context, "error.result");
+            return fragment;
+          }
+        };
+      }());
+      var child1 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("Sorry, we are suffering from some technical issue, please try again later");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            return fragment;
+          }
+        };
+      }());
       return {
         isHTMLBars: true,
         revision: "Ember@1.11.3",
@@ -6892,16 +7826,11 @@ TEMPLATE.index=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                ");
+          var el1 = dom.createTextNode("            ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("div");
-          dom.setAttribute(el1,"class","violation-loading");
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("div");
-          dom.setAttribute(el2,"class","workarea-loading");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                ");
+          dom.setAttribute(el1,"class","error violation-error");
+          var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -6910,6 +7839,7 @@ TEMPLATE.index=(function() {
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
+          var hooks = env.hooks, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -6927,11 +7857,172 @@ TEMPLATE.index=(function() {
           } else {
             fragment = this.build(dom);
           }
+          var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
+          block(env, morph0, context, "if", [get(env, context, "error.result")], {}, child0, child1);
           return fragment;
         }
       };
     }());
     var child1 = (function() {
+      var child0 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("                ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("div");
+            dom.setAttribute(el1,"class","violation-loading");
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("div");
+            dom.setAttribute(el2,"class","workarea-loading");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            return fragment;
+          }
+        };
+      }());
+      var child1 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("                ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("ul");
+            dom.setAttribute(el1,"class","violation-list");
+            var el2 = dom.createTextNode("\n                    ");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createElement("li");
+            dom.setAttribute(el2,"class","item expand");
+            var el3 = dom.createTextNode("\n                        ");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createElement("div");
+            dom.setAttribute(el3,"class","head");
+            var el4 = dom.createTextNode("\n                            ");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createElement("div");
+            dom.setAttribute(el4,"class","info");
+            var el5 = dom.createTextNode("\n                                ");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createElement("i");
+            dom.setAttribute(el5,"class","fa fa-chevron-right");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createTextNode("Rule ");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createElement("span");
+            dom.setAttribute(el5,"class","name");
+            var el6 = dom.createTextNode(" ");
+            dom.appendChild(el5, el6);
+            var el6 = dom.createComment("");
+            dom.appendChild(el5, el6);
+            dom.appendChild(el4, el5);
+            var el5 = dom.createTextNode(" has ");
+            dom.appendChild(el4, el5);
+            var el5 = dom.createElement("span");
+            dom.setAttribute(el5,"class","count");
+            var el6 = dom.createTextNode(" ");
+            dom.appendChild(el5, el6);
+            var el6 = dom.createComment("");
+            dom.appendChild(el5, el6);
+            var el6 = dom.createTextNode(" ");
+            dom.appendChild(el5, el6);
+            dom.appendChild(el4, el5);
+            var el5 = dom.createTextNode(" violations\n                            ");
+            dom.appendChild(el4, el5);
+            dom.appendChild(el3, el4);
+            var el4 = dom.createTextNode("\n                            ");
+            dom.appendChild(el3, el4);
+            var el4 = dom.createElement("div");
+            dom.setAttribute(el4,"class","toggle-detail tooltip");
+            dom.setAttribute(el4,"data-tooltip","Expand all violation");
+            var el5 = dom.createElement("i");
+            dom.setAttribute(el5,"class","fa fa-list");
+            dom.appendChild(el4, el5);
+            dom.appendChild(el3, el4);
+            var el4 = dom.createTextNode("\n                        ");
+            dom.appendChild(el3, el4);
+            dom.appendChild(el2, el3);
+            var el3 = dom.createTextNode("\n                        ");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            var el3 = dom.createTextNode("\n                    ");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n                ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, content = hooks.content, get = hooks.get, inline = hooks.inline;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var element0 = dom.childAt(fragment, [1, 1]);
+            var element1 = dom.childAt(element0, [1, 1]);
+            var morph0 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
+            var morph1 = dom.createMorphAt(dom.childAt(element1, [5]),1,1);
+            var morph2 = dom.createMorphAt(element0,3,3);
+            content(env, morph0, context, "rule.name");
+            content(env, morph1, context, "violationCount");
+            inline(env, morph2, context, "violation-node", [], {"nodes": get(env, context, "nodes")});
+            return fragment;
+          }
+        };
+      }());
       return {
         isHTMLBars: true,
         revision: "Ember@1.11.3",
@@ -6940,79 +8031,13 @@ TEMPLATE.index=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("                ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("ul");
-          dom.setAttribute(el1,"class","violation-list");
-          var el2 = dom.createTextNode("\n                    ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createElement("li");
-          dom.setAttribute(el2,"class","item expand");
-          var el3 = dom.createTextNode("\n                        ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createElement("div");
-          dom.setAttribute(el3,"class","head");
-          var el4 = dom.createTextNode("\n                            ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("div");
-          dom.setAttribute(el4,"class","info");
-          var el5 = dom.createTextNode("\n                                ");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createElement("i");
-          dom.setAttribute(el5,"class","fa fa-chevron-right");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode("Rule ");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createElement("span");
-          dom.setAttribute(el5,"class","name");
-          var el6 = dom.createTextNode(" ");
-          dom.appendChild(el5, el6);
-          var el6 = dom.createComment("");
-          dom.appendChild(el5, el6);
-          dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode(" has ");
-          dom.appendChild(el4, el5);
-          var el5 = dom.createElement("span");
-          dom.setAttribute(el5,"class","count");
-          var el6 = dom.createTextNode(" ");
-          dom.appendChild(el5, el6);
-          var el6 = dom.createComment("");
-          dom.appendChild(el5, el6);
-          var el6 = dom.createTextNode(" ");
-          dom.appendChild(el5, el6);
-          dom.appendChild(el4, el5);
-          var el5 = dom.createTextNode(" violations\n                            ");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("\n                            ");
-          dom.appendChild(el3, el4);
-          var el4 = dom.createElement("div");
-          dom.setAttribute(el4,"class","toggle-detail tooltip");
-          dom.setAttribute(el4,"data-tooltip","Expand all violation");
-          var el5 = dom.createElement("i");
-          dom.setAttribute(el5,"class","fa fa-list");
-          dom.appendChild(el4, el5);
-          dom.appendChild(el3, el4);
-          var el4 = dom.createTextNode("\n                        ");
-          dom.appendChild(el3, el4);
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n                        ");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createComment("");
-          dom.appendChild(el2, el3);
-          var el3 = dom.createTextNode("\n                    ");
-          dom.appendChild(el2, el3);
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n                ");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n");
+          var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
           return el0;
         },
         render: function render(context, env, contextualElement) {
           var dom = env.dom;
-          var hooks = env.hooks, content = hooks.content, get = hooks.get, inline = hooks.inline;
+          var hooks = env.hooks, get = hooks.get, block = hooks.block;
           dom.detectNamespace(contextualElement);
           var fragment;
           if (env.useFragmentCache && dom.canClone) {
@@ -7030,14 +8055,10 @@ TEMPLATE.index=(function() {
           } else {
             fragment = this.build(dom);
           }
-          var element0 = dom.childAt(fragment, [1, 1]);
-          var element1 = dom.childAt(element0, [1, 1]);
-          var morph0 = dom.createMorphAt(dom.childAt(element1, [3]),1,1);
-          var morph1 = dom.createMorphAt(dom.childAt(element1, [5]),1,1);
-          var morph2 = dom.createMorphAt(element0,3,3);
-          content(env, morph0, context, "rule.name");
-          content(env, morph1, context, "violationCount");
-          inline(env, morph2, context, "violation-node", [], {"nodes": get(env, context, "nodes")});
+          var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+          dom.insertBoundary(fragment, null);
+          dom.insertBoundary(fragment, 0);
+          block(env, morph0, context, "if", [get(env, context, "isLoadingViolation")], {}, child0, child1);
           return fragment;
         }
       };
@@ -7088,7 +8109,7 @@ TEMPLATE.index=(function() {
         }
         var morph0 = dom.createMorphAt(fragment,3,3,contextualElement);
         dom.insertBoundary(fragment, null);
-        block(env, morph0, context, "if", [get(env, context, "isLoadingViolation")], {}, child0, child1);
+        block(env, morph0, context, "if", [get(env, context, "error")], {}, child0, child1);
         return fragment;
       }
     };
@@ -7188,7 +8209,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
   var ViolationDetailComponent, resourceLoop;
   resourceLoop = function(aArray, count) {
     return _.map(aArray, function(value) {
-      var _ref;
+      var link, platform, _ref, _ref1;
       value.id = value[window.ResourceIDMap[value.type]];
       value.count = 0;
       console.assert(value.id, "Can't find id attr for " + value.type + " in ResourceIDMap!");
@@ -7200,6 +8221,14 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
       } else {
         value.count = 1;
       }
+      link = window.ResourceLinkMap[value.type];
+      if (link && value.regionName && value.id) {
+        platform = "vpc";
+        if ((_ref1 = value.type) === "instance" || _ref1 === "eni" || _ref1 === "sg" || _ref1 === "eip" || _ref1 === "vol" || _ref1 === "elb") {
+          platform = "ec2/v2";
+        }
+        value.link = "https://" + value.regionName + ".console.aws.amazon.com/" + platform + "/home?region=" + value.regionName + link + value.id;
+      }
       return value;
     });
   };
@@ -7208,7 +8237,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
     classNames: ["violation-detail"],
     nodes: (function() {
       if (this.get("log")) {
-        return resourceLoop(this.get("log").filter_result.resource);
+        return resourceLoop(this.get("log").log.filter_result.resource);
       } else {
         return [];
       }
@@ -7262,20 +8291,37 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
       var self;
       self = this;
       if (this.get("isLoadingAudit") || loadingAudit) {
+        this.set('error', null);
         return ApiRequest("rule_version", {
           rule_id: this.get("rule").id,
           rule_version: self.get("version")
         }).then(function(result) {
           self.set("content", result.content);
           return self.set("isLoadingAudit", false);
+        }, function(err) {
+          return self.set('error', err);
         });
       } else if (this.get("isLoadingViolation") || loadingViolation) {
+        this.set('error', null);
         return ApiRequest("rule_filter", {
           profile_id: App.user.get("profile").id,
           content: this.get("rule").get("content")
         }).then(function(result) {
           self.set("nodes", resourceLoop(result.resource));
           return self.set("isLoadingViolation", false);
+        }, function(err) {
+          var result;
+          if (err.error === 255) {
+            result = err.result.message;
+            if (err.result.row && err.result.column) {
+              result += ". row: " + err.result.row + ", column: " + err.result.column;
+            }
+            return self.set('error', {
+              result: result
+            });
+          } else {
+            return self.set('error', err);
+          }
         });
       }
     },
@@ -7811,6 +8857,8 @@ TEMPLATE.index=(function() {
           hasRendered: false,
           build: function build(dom) {
             var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("        ");
+            dom.appendChild(el0, el1);
             var el1 = dom.createElement("span");
             dom.setAttribute(el1,"class","name");
             var el2 = dom.createTextNode(" ( ");
@@ -7842,7 +8890,7 @@ TEMPLATE.index=(function() {
             } else {
               fragment = this.build(dom);
             }
-            var morph0 = dom.createMorphAt(dom.childAt(fragment, [0]),1,1);
+            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),1,1);
             content(env, morph0, context, "node.name");
             return fragment;
           }
@@ -7864,7 +8912,7 @@ TEMPLATE.index=(function() {
               dom.appendChild(el0, el1);
               var el1 = dom.createComment("");
               dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode("\n");
+              var el1 = dom.createTextNode(" ");
               dom.appendChild(el0, el1);
               return el0;
             },
@@ -7905,11 +8953,21 @@ TEMPLATE.index=(function() {
           hasRendered: false,
           build: function build(dom) {
             var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("\n        ");
+            dom.appendChild(el0, el1);
             var el1 = dom.createElement("pre");
+            var el2 = dom.createTextNode("\n            ");
+            dom.appendChild(el1, el2);
             var el2 = dom.createElement("code");
             var el3 = dom.createComment("");
             dom.appendChild(el2, el3);
+            var el3 = dom.createTextNode("\n            ");
+            dom.appendChild(el2, el3);
             dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("\n        ");
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
             dom.appendChild(el0, el1);
             return el0;
           },
@@ -7933,8 +8991,50 @@ TEMPLATE.index=(function() {
             } else {
               fragment = this.build(dom);
             }
-            var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 0]),0,0);
+            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),0,0);
             block(env, morph0, context, "each", [get(env, context, "node.eachArray")], {"keyword": "obj"}, child0, null);
+            return fragment;
+          }
+        };
+      }());
+      var child2 = (function() {
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createElement("a");
+            dom.setAttribute(el1,"class","link fa fa-link");
+            dom.setAttribute(el1,"target","_blank");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, get = hooks.get, concat = hooks.concat, attribute = hooks.attribute;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var element0 = dom.childAt(fragment, [0]);
+            var attrMorph0 = dom.createAttrMorph(element0, 'href');
+            attribute(env, attrMorph0, element0, "href", concat(env, [get(env, context, "node.link")]));
             return fragment;
           }
         };
@@ -7947,36 +9047,40 @@ TEMPLATE.index=(function() {
         hasRendered: false,
         build: function build(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("    ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("li");
-          var el2 = dom.createTextNode("\n            ");
+          var el2 = dom.createTextNode("\n        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("span");
           dom.setAttribute(el2,"class","type");
           var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n            ");
+          var el2 = dom.createTextNode("\n        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("span");
           dom.setAttribute(el2,"class","id");
           var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n            ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
           var el2 = dom.createTextNode("\n");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n            ");
+          var el2 = dom.createTextNode(" ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
           var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -8003,18 +9107,20 @@ TEMPLATE.index=(function() {
           } else {
             fragment = this.build(dom);
           }
-          var element0 = dom.childAt(fragment, [1]);
-          var morph0 = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
-          var morph1 = dom.createMorphAt(dom.childAt(element0, [3]),0,0);
-          var morph2 = dom.createMorphAt(element0,5,5);
-          var morph3 = dom.createMorphAt(element0,7,7);
-          var morph4 = dom.createMorphAt(element0,9,9);
-          element(env, element0, context, "bind-attr", [], {"class": "node.resource.length:res:no-more :res-item"});
+          var element1 = dom.childAt(fragment, [1]);
+          var morph0 = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
+          var morph1 = dom.createMorphAt(dom.childAt(element1, [3]),0,0);
+          var morph2 = dom.createMorphAt(element1,5,5);
+          var morph3 = dom.createMorphAt(element1,7,7);
+          var morph4 = dom.createMorphAt(element1,9,9);
+          var morph5 = dom.createMorphAt(element1,11,11);
+          element(env, element1, context, "bind-attr", [], {"class": "node.resource.length:res:no-more :res-item"});
           content(env, morph0, context, "node.type");
           content(env, morph1, context, "node.id");
           block(env, morph2, context, "if", [get(env, context, "node.name")], {}, child0, null);
           block(env, morph3, context, "if", [get(env, context, "node.eachArray.length")], {}, child1, null);
-          inline(env, morph4, context, "violation-node", [], {"nodes": get(env, context, "node.resource")});
+          block(env, morph4, context, "if", [get(env, context, "node.link")], {}, child2, null);
+          inline(env, morph5, context, "violation-node", [], {"nodes": get(env, context, "node.resource")});
           return fragment;
         }
       };
@@ -8110,7 +9216,7 @@ var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; 
 
 define('component/ViolationComponent',["./template/ViolationTpl"], function(template) {
   var ResourceAttrFilterArray;
-  ResourceAttrFilterArray = ["blockDeviceMapping", "tagSet", "regionName", "type", "id", "count", "eachArray", "resource", "vpcId", "subnetId", "name", "attachmentSet", "VPCZoneIdentifier", "LaunchConfigurationName", "networkInterfaceSet", "attachment", "networkInterfaceId"];
+  ResourceAttrFilterArray = ["blockDeviceMapping", "tagSet", "regionName", "type", "id", "count", "link", "eachArray", "resource", "vpcId", "subnetId", "name", "attachmentSet", "VPCZoneIdentifier", "LaunchConfigurationName", "networkInterfaceSet", "attachment", "networkInterfaceId"];
   return Ember.Component.extend({
     layout: template.index,
     nodes: (function(key, value) {
@@ -8136,6 +9242,3992 @@ define('component/ViolationComponent',["./template/ViolationTpl"], function(temp
       });
     }).property()
   });
+});
+
+define('component/template/ViolationChartTpl',[], function(){ var TEMPLATE={};
+
+TEMPLATE.index=(function() {
+  return {
+    isHTMLBars: true,
+    revision: "Ember@1.11.3",
+    blockParams: 0,
+    cachedFragment: null,
+    hasRendered: false,
+    build: function build(dom) {
+      var el0 = dom.createDocumentFragment();
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","chart-title");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("label");
+      dom.setAttribute(el2,"class","select-name");
+      var el3 = dom.createTextNode("Statistic");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","select-wrapper");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("select");
+      dom.setAttribute(el3,"class","chart-stat");
+      dom.setAttribute(el3,"name","stat_type");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","sum");
+      var el5 = dom.createTextNode("Summary");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","avg");
+      dom.setAttribute(el4,"selected","");
+      var el5 = dom.createTextNode("Average");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","min");
+      var el5 = dom.createTextNode("Minimum");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","max");
+      var el5 = dom.createTextNode("Maximum");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","select-triangle");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("label");
+      dom.setAttribute(el2,"class","select-name");
+      var el3 = dom.createTextNode("Time Range");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","select-wrapper");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("select");
+      dom.setAttribute(el3,"class","chart-range");
+      dom.setAttribute(el3,"name","time_range");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","last_hour");
+      var el5 = dom.createTextNode("Last hour");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","last_day");
+      dom.setAttribute(el4,"selected","");
+      var el5 = dom.createTextNode("Last day");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","last_week");
+      var el5 = dom.createTextNode("Last week");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","last_month");
+      var el5 = dom.createTextNode("Last month");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","select-triangle");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("label");
+      dom.setAttribute(el2,"class","select-name");
+      var el3 = dom.createTextNode("Period");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","select-wrapper");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("select");
+      dom.setAttribute(el3,"class","chart-period");
+      dom.setAttribute(el3,"name","period");
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","1h");
+      dom.setAttribute(el4,"selected","");
+      var el5 = dom.createTextNode("1 hour");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","4h");
+      var el5 = dom.createTextNode("4 hour");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","12h");
+      var el5 = dom.createTextNode("12 hour");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n            ");
+      dom.appendChild(el3, el4);
+      var el4 = dom.createElement("option");
+      dom.setAttribute(el4,"value","1d");
+      var el5 = dom.createTextNode("1 day");
+      dom.appendChild(el4, el5);
+      dom.appendChild(el3, el4);
+      var el4 = dom.createTextNode("\n        ");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      dom.setAttribute(el3,"class","select-triangle");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("button");
+      dom.setAttribute(el2,"class","btn btn-green");
+      var el3 = dom.createElement("i");
+      dom.setAttribute(el3,"class","fa fa-refresh");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("Apply");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      var el1 = dom.createTextNode("\n");
+      dom.appendChild(el0, el1);
+      var el1 = dom.createElement("div");
+      dom.setAttribute(el1,"class","canvas-wrapper");
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","workarea-loading spinner");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"id","chartjs-tooltip");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("canvas");
+      dom.setAttribute(el2,"id","chart-canvas");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"class","chart-blank log-empty");
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("i");
+      dom.setAttribute(el3,"class","fa fa-inbox");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      var el4 = dom.createTextNode("There is no log yet.");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n        ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createElement("div");
+      var el4 = dom.createTextNode("The result of each scan will appear here.");
+      dom.appendChild(el3, el4);
+      dom.appendChild(el2, el3);
+      var el3 = dom.createTextNode("\n    ");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n");
+      dom.appendChild(el1, el2);
+      dom.appendChild(el0, el1);
+      return el0;
+    },
+    render: function render(context, env, contextualElement) {
+      var dom = env.dom;
+      var hooks = env.hooks, element = hooks.element;
+      dom.detectNamespace(contextualElement);
+      var fragment;
+      if (env.useFragmentCache && dom.canClone) {
+        if (this.cachedFragment === null) {
+          fragment = this.build(dom);
+          if (this.hasRendered) {
+            this.cachedFragment = fragment;
+          } else {
+            this.hasRendered = true;
+          }
+        }
+        if (this.cachedFragment) {
+          fragment = dom.cloneNode(this.cachedFragment, true);
+        }
+      } else {
+        fragment = this.build(dom);
+      }
+      var element0 = dom.childAt(fragment, [0, 13]);
+      element(env, element0, context, "action", ["applyFilter"], {});
+      return fragment;
+    }
+  };
+}());
+
+return TEMPLATE; });
+/*!
+ * Chart.js
+ * http://chartjs.org/
+ * Version: 1.0.2
+ *
+ * Copyright 2015 Nick Downie
+ * Released under the MIT license
+ * https://github.com/nnnick/Chart.js/blob/master/LICENSE.md
+ */
+
+
+(function(){
+
+  
+
+  //Declare root variable - window in the browser, global on the server
+  var root = this,
+    previous = root.Chart;
+
+  //Occupy the global variable of Chart, and create a simple base class
+  var Chart = function(context){
+    var chart = this;
+    this.canvas = context.canvas;
+
+    this.ctx = context;
+
+    //Variables global to the chart
+    var computeDimension = function(element,dimension)
+    {
+      if (element['offset'+dimension])
+      {
+        return element['offset'+dimension];
+      }
+      else
+      {
+        return document.defaultView.getComputedStyle(element).getPropertyValue(dimension);
+      }
+    }
+
+    var width = this.width = computeDimension(context.canvas,'Width');
+    var height = this.height = computeDimension(context.canvas,'Height');
+
+    // Firefox requires this to work correctly
+    context.canvas.width  = width;
+    context.canvas.height = height;
+
+    var width = this.width = context.canvas.width;
+    var height = this.height = context.canvas.height;
+    this.aspectRatio = this.width / this.height;
+    //High pixel density displays - multiply the size of the canvas height/width by the device pixel ratio, then scale.
+    helpers.retinaScale(this);
+
+    return this;
+  };
+  //Globally expose the defaults to allow for user updating/changing
+  Chart.defaults = {
+    global: {
+      // Boolean - Whether to animate the chart
+      animation: true,
+
+      // Number - Number of animation steps
+      animationSteps: 60,
+
+      // String - Animation easing effect
+      animationEasing: "easeOutQuart",
+
+      // Boolean - If we should show the scale at all
+      showScale: true,
+
+      // Boolean - If we want to override with a hard coded scale
+      scaleOverride: false,
+
+      // ** Required if scaleOverride is true **
+      // Number - The number of steps in a hard coded scale
+      scaleSteps: null,
+      // Number - The value jump in the hard coded scale
+      scaleStepWidth: null,
+      // Number - The scale starting value
+      scaleStartValue: null,
+
+      // String - Colour of the scale line
+      scaleLineColor: "rgba(0,0,0,.1)",
+
+      // Number - Pixel width of the scale line
+      scaleLineWidth: 1,
+
+      // Boolean - Whether to show labels on the scale
+      scaleShowLabels: true,
+
+      // Interpolated JS string - can access value
+      scaleLabel: "<%=value%>",
+
+      // Boolean - Whether the scale should stick to integers, and not show any floats even if drawing space is there
+      scaleIntegersOnly: true,
+
+      // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: false,
+
+      // String - Scale label font declaration for the scale label
+      scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Scale label font size in pixels
+      scaleFontSize: 12,
+
+      // String - Scale label font weight style
+      scaleFontStyle: "normal",
+
+      // String - Scale label font colour
+      scaleFontColor: "#666",
+
+      // Boolean - whether or not the chart should be responsive and resize when the browser does.
+      responsive: false,
+
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+
+      // Boolean - Determines whether to draw tooltips on the canvas or not - attaches events to touchmove & mousemove
+      showTooltips: true,
+
+      // Boolean - Determines whether to draw built-in tooltip or call custom tooltip function
+      customTooltips: false,
+
+      // Array - Array of string names to attach tooltip events
+      tooltipEvents: ["mousemove", "touchstart", "touchmove", "mouseout"],
+
+      // String - Tooltip background colour
+      tooltipFillColor: "rgba(0,0,0,0.8)",
+
+      // String - Tooltip label font declaration for the scale label
+      tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Tooltip label font size in pixels
+      tooltipFontSize: 14,
+
+      // String - Tooltip font weight style
+      tooltipFontStyle: "normal",
+
+      // String - Tooltip label font colour
+      tooltipFontColor: "#fff",
+
+      // String - Tooltip title font declaration for the scale label
+      tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+      // Number - Tooltip title font size in pixels
+      tooltipTitleFontSize: 14,
+
+      // String - Tooltip title font weight style
+      tooltipTitleFontStyle: "bold",
+
+      // String - Tooltip title font colour
+      tooltipTitleFontColor: "#fff",
+
+      // Number - pixel width of padding around tooltip text
+      tooltipYPadding: 6,
+
+      // Number - pixel width of padding around tooltip text
+      tooltipXPadding: 6,
+
+      // Number - Size of the caret on the tooltip
+      tooltipCaretSize: 8,
+
+      // Number - Pixel radius of the tooltip border
+      tooltipCornerRadius: 6,
+
+      // Number - Pixel offset from point x to tooltip edge
+      tooltipXOffset: 10,
+
+      // String - Template string for single tooltips
+      tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+      // String - Template string for single tooltips
+      multiTooltipTemplate: "<%= value %>",
+
+      // String - Colour behind the legend colour block
+      multiTooltipKeyBackground: '#fff',
+
+      // Function - Will fire on animation progression.
+      onAnimationProgress: function(){},
+
+      // Function - Will fire on animation completion.
+      onAnimationComplete: function(){}
+
+    }
+  };
+
+  //Create a dictionary of chart types, to allow for extension of existing types
+  Chart.types = {};
+
+  //Global Chart helpers object for utility methods and classes
+  var helpers = Chart.helpers = {};
+
+  //-- Basic js utility methods
+  var each = helpers.each = function(loopable,callback,self){
+      var additionalArgs = Array.prototype.slice.call(arguments, 3);
+      // Check to see if null or undefined firstly.
+      if (loopable){
+        if (loopable.length === +loopable.length){
+          var i;
+          for (i=0; i<loopable.length; i++){
+            callback.apply(self,[loopable[i], i].concat(additionalArgs));
+          }
+        }
+        else{
+          for (var item in loopable){
+            callback.apply(self,[loopable[item],item].concat(additionalArgs));
+          }
+        }
+      }
+    },
+    clone = helpers.clone = function(obj){
+      var objClone = {};
+      each(obj,function(value,key){
+        if (obj.hasOwnProperty(key)) objClone[key] = value;
+      });
+      return objClone;
+    },
+    extend = helpers.extend = function(base){
+      each(Array.prototype.slice.call(arguments,1), function(extensionObject) {
+        each(extensionObject,function(value,key){
+          if (extensionObject.hasOwnProperty(key)) base[key] = value;
+        });
+      });
+      return base;
+    },
+    merge = helpers.merge = function(base,master){
+      //Merge properties in left object over to a shallow clone of object right.
+      var args = Array.prototype.slice.call(arguments,0);
+      args.unshift({});
+      return extend.apply(null, args);
+    },
+    indexOf = helpers.indexOf = function(arrayToSearch, item){
+      if (Array.prototype.indexOf) {
+        return arrayToSearch.indexOf(item);
+      }
+      else{
+        for (var i = 0; i < arrayToSearch.length; i++) {
+          if (arrayToSearch[i] === item) return i;
+        }
+        return -1;
+      }
+    },
+    where = helpers.where = function(collection, filterCallback){
+      var filtered = [];
+
+      helpers.each(collection, function(item){
+        if (filterCallback(item)){
+          filtered.push(item);
+        }
+      });
+
+      return filtered;
+    },
+    findNextWhere = helpers.findNextWhere = function(arrayToSearch, filterCallback, startIndex){
+      // Default to start of the array
+      if (!startIndex){
+        startIndex = -1;
+      }
+      for (var i = startIndex + 1; i < arrayToSearch.length; i++) {
+        var currentItem = arrayToSearch[i];
+        if (filterCallback(currentItem)){
+          return currentItem;
+        }
+      }
+    },
+    findPreviousWhere = helpers.findPreviousWhere = function(arrayToSearch, filterCallback, startIndex){
+      // Default to end of the array
+      if (!startIndex){
+        startIndex = arrayToSearch.length;
+      }
+      for (var i = startIndex - 1; i >= 0; i--) {
+        var currentItem = arrayToSearch[i];
+        if (filterCallback(currentItem)){
+          return currentItem;
+        }
+      }
+    },
+    inherits = helpers.inherits = function(extensions){
+      //Basic javascript inheritance based on the model created in Backbone.js
+      var parent = this;
+      var ChartElement = (extensions && extensions.hasOwnProperty("constructor")) ? extensions.constructor : function(){ return parent.apply(this, arguments); };
+
+      var Surrogate = function(){ this.constructor = ChartElement;};
+      Surrogate.prototype = parent.prototype;
+      ChartElement.prototype = new Surrogate();
+
+      ChartElement.extend = inherits;
+
+      if (extensions) extend(ChartElement.prototype, extensions);
+
+      ChartElement.__super__ = parent.prototype;
+
+      return ChartElement;
+    },
+    noop = helpers.noop = function(){},
+    uid = helpers.uid = (function(){
+      var id=0;
+      return function(){
+        return "chart-" + id++;
+      };
+    })(),
+    warn = helpers.warn = function(str){
+      //Method for warning of errors
+      if (window.console && typeof window.console.warn == "function") console.warn(str);
+    },
+    amd = helpers.amd = (typeof define == 'function' && define.amd),
+  //-- Math methods
+    isNumber = helpers.isNumber = function(n){
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    },
+    max = helpers.max = function(array){
+      return Math.max.apply( Math, array );
+    },
+    min = helpers.min = function(array){
+      return Math.min.apply( Math, array );
+    },
+    cap = helpers.cap = function(valueToCap,maxValue,minValue){
+      if(isNumber(maxValue)) {
+        if( valueToCap > maxValue ) {
+          return maxValue;
+        }
+      }
+      else if(isNumber(minValue)){
+        if ( valueToCap < minValue ){
+          return minValue;
+        }
+      }
+      return valueToCap;
+    },
+    getDecimalPlaces = helpers.getDecimalPlaces = function(num){
+      if (num%1!==0 && isNumber(num)){
+        return num.toString().split(".")[1].length;
+      }
+      else {
+        return 0;
+      }
+    },
+    toRadians = helpers.radians = function(degrees){
+      return degrees * (Math.PI/180);
+    },
+  // Gets the angle from vertical upright to the point about a centre.
+    getAngleFromPoint = helpers.getAngleFromPoint = function(centrePoint, anglePoint){
+      var distanceFromXCenter = anglePoint.x - centrePoint.x,
+        distanceFromYCenter = anglePoint.y - centrePoint.y,
+        radialDistanceFromCenter = Math.sqrt( distanceFromXCenter * distanceFromXCenter + distanceFromYCenter * distanceFromYCenter);
+
+
+      var angle = Math.PI * 2 + Math.atan2(distanceFromYCenter, distanceFromXCenter);
+
+      //If the segment is in the top left quadrant, we need to add another rotation to the angle
+      if (distanceFromXCenter < 0 && distanceFromYCenter < 0){
+        angle += Math.PI*2;
+      }
+
+      return {
+        angle: angle,
+        distance: radialDistanceFromCenter
+      };
+    },
+    aliasPixel = helpers.aliasPixel = function(pixelWidth){
+      return (pixelWidth % 2 === 0) ? 0 : 0.5;
+    },
+    splineCurve = helpers.splineCurve = function(FirstPoint,MiddlePoint,AfterPoint,t){
+      //Props to Rob Spencer at scaled innovation for his post on splining between points
+      //http://scaledinnovation.com/analytics/splines/aboutSplines.html
+      var d01=Math.sqrt(Math.pow(MiddlePoint.x-FirstPoint.x,2)+Math.pow(MiddlePoint.y-FirstPoint.y,2)),
+        d12=Math.sqrt(Math.pow(AfterPoint.x-MiddlePoint.x,2)+Math.pow(AfterPoint.y-MiddlePoint.y,2)),
+        fa=t*d01/(d01+d12),// scaling factor for triangle Ta
+        fb=t*d12/(d01+d12);
+      return {
+        inner : {
+          x : MiddlePoint.x-fa*(AfterPoint.x-FirstPoint.x),
+          y : MiddlePoint.y-fa*(AfterPoint.y-FirstPoint.y)
+        },
+        outer : {
+          x: MiddlePoint.x+fb*(AfterPoint.x-FirstPoint.x),
+          y : MiddlePoint.y+fb*(AfterPoint.y-FirstPoint.y)
+        }
+      };
+    },
+    calculateOrderOfMagnitude = helpers.calculateOrderOfMagnitude = function(val){
+      return Math.floor(Math.log(val) / Math.LN10);
+    },
+    calculateScaleRange = helpers.calculateScaleRange = function(valuesArray, drawingSize, textSize, startFromZero, integersOnly){
+
+      //Set a minimum step of two - a point at the top of the graph, and a point at the base
+      var minSteps = 2,
+        maxSteps = Math.floor(drawingSize/(textSize * 1.5)),
+        skipFitting = (minSteps >= maxSteps);
+
+      var maxValue = max(valuesArray),
+        minValue = min(valuesArray);
+
+      // We need some degree of seperation here to calculate the scales if all the values are the same
+      // Adding/minusing 0.5 will give us a range of 1.
+      if (maxValue === minValue){
+        maxValue += 0.5;
+        // So we don't end up with a graph with a negative start value if we've said always start from zero
+        if (minValue >= 0.5 && !startFromZero){
+          minValue -= 0.5;
+        }
+        else{
+          // Make up a whole number above the values
+          maxValue += 0.5;
+        }
+      }
+
+      var	valueRange = Math.abs(maxValue - minValue),
+        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange),
+        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+        graphMin = (startFromZero) ? 0 : Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+        graphRange = graphMax - graphMin,
+        stepValue = Math.pow(10, rangeOrderOfMagnitude),
+        numberOfSteps = Math.round(graphRange / stepValue);
+
+      //If we have more space on the graph we'll use it to give more definition to the data
+      while((numberOfSteps > maxSteps || (numberOfSteps * 2) < maxSteps) && !skipFitting) {
+        if(numberOfSteps > maxSteps){
+          stepValue *=2;
+          numberOfSteps = Math.round(graphRange/stepValue);
+          // Don't ever deal with a decimal number of steps - cancel fitting and just use the minimum number of steps.
+          if (numberOfSteps % 1 !== 0){
+            skipFitting = true;
+          }
+        }
+        //We can fit in double the amount of scale points on the scale
+        else{
+          //If user has declared ints only, and the step value isn't a decimal
+          if (integersOnly && rangeOrderOfMagnitude >= 0){
+            //If the user has said integers only, we need to check that making the scale more granular wouldn't make it a float
+            if(stepValue/2 % 1 === 0){
+              stepValue /=2;
+              numberOfSteps = Math.round(graphRange/stepValue);
+            }
+            //If it would make it a float break out of the loop
+            else{
+              break;
+            }
+          }
+          //If the scale doesn't have to be an int, make the scale more granular anyway.
+          else{
+            stepValue /=2;
+            numberOfSteps = Math.round(graphRange/stepValue);
+          }
+
+        }
+      }
+
+      if (skipFitting){
+        numberOfSteps = minSteps;
+        stepValue = graphRange / numberOfSteps;
+      }
+
+      return {
+        steps : numberOfSteps,
+        stepValue : stepValue,
+        min : graphMin,
+        max	: graphMin + (numberOfSteps * stepValue)
+      };
+
+    },
+  /* jshint ignore:start */
+  // Blows up jshint errors based on the new Function constructor
+  //Templating methods
+  //Javascript micro templating by John Resig - source at http://ejohn.org/blog/javascript-micro-templating/
+    template = helpers.template = function(templateString, valuesObject){
+
+      // If templateString is function rather than string-template - call the function for valuesObject
+
+      if(templateString instanceof Function){
+        return templateString(valuesObject);
+      }
+
+      var cache = {};
+      function tmpl(str, data){
+        // Figure out if we're getting a template, or if we need to
+        // load the template - and be sure to cache the result.
+        var fn = !/\W/.test(str) ?
+          cache[str] = cache[str] :
+
+          // Generate a reusable function that will serve as a template
+          // generator (and which will be cached).
+          new Function("obj",
+            "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+              // Introduce the data as local variables using with(){}
+            "with(obj){p.push('" +
+
+              // Convert the template into pure JavaScript
+            str
+              .replace(/[\r\t\n]/g, " ")
+              .split("<%").join("\t")
+              .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+              .replace(/\t=(.*?)%>/g, "',$1,'")
+              .split("\t").join("');")
+              .split("%>").join("p.push('")
+              .split("\r").join("\\'") +
+            "');}return p.join('');"
+          );
+
+        // Provide some basic currying to the user
+        return data ? fn( data ) : fn;
+      }
+      return tmpl(templateString,valuesObject);
+    },
+  /* jshint ignore:end */
+    generateLabels = helpers.generateLabels = function(templateString,numberOfSteps,graphMin,stepValue){
+      var labelsArray = new Array(numberOfSteps);
+      if (labelTemplateString){
+        each(labelsArray,function(val,index){
+          labelsArray[index] = template(templateString,{value: (graphMin + (stepValue*(index+1)))});
+        });
+      }
+      return labelsArray;
+    },
+  //--Animation methods
+  //Easing functions adapted from Robert Penner's easing equations
+  //http://www.robertpenner.com/easing/
+    easingEffects = helpers.easingEffects = {
+      linear: function (t) {
+        return t;
+      },
+      easeInQuad: function (t) {
+        return t * t;
+      },
+      easeOutQuad: function (t) {
+        return -1 * t * (t - 2);
+      },
+      easeInOutQuad: function (t) {
+        if ((t /= 1 / 2) < 1) return 1 / 2 * t * t;
+        return -1 / 2 * ((--t) * (t - 2) - 1);
+      },
+      easeInCubic: function (t) {
+        return t * t * t;
+      },
+      easeOutCubic: function (t) {
+        return 1 * ((t = t / 1 - 1) * t * t + 1);
+      },
+      easeInOutCubic: function (t) {
+        if ((t /= 1 / 2) < 1) return 1 / 2 * t * t * t;
+        return 1 / 2 * ((t -= 2) * t * t + 2);
+      },
+      easeInQuart: function (t) {
+        return t * t * t * t;
+      },
+      easeOutQuart: function (t) {
+        return -1 * ((t = t / 1 - 1) * t * t * t - 1);
+      },
+      easeInOutQuart: function (t) {
+        if ((t /= 1 / 2) < 1) return 1 / 2 * t * t * t * t;
+        return -1 / 2 * ((t -= 2) * t * t * t - 2);
+      },
+      easeInQuint: function (t) {
+        return 1 * (t /= 1) * t * t * t * t;
+      },
+      easeOutQuint: function (t) {
+        return 1 * ((t = t / 1 - 1) * t * t * t * t + 1);
+      },
+      easeInOutQuint: function (t) {
+        if ((t /= 1 / 2) < 1) return 1 / 2 * t * t * t * t * t;
+        return 1 / 2 * ((t -= 2) * t * t * t * t + 2);
+      },
+      easeInSine: function (t) {
+        return -1 * Math.cos(t / 1 * (Math.PI / 2)) + 1;
+      },
+      easeOutSine: function (t) {
+        return 1 * Math.sin(t / 1 * (Math.PI / 2));
+      },
+      easeInOutSine: function (t) {
+        return -1 / 2 * (Math.cos(Math.PI * t / 1) - 1);
+      },
+      easeInExpo: function (t) {
+        return (t === 0) ? 1 : 1 * Math.pow(2, 10 * (t / 1 - 1));
+      },
+      easeOutExpo: function (t) {
+        return (t === 1) ? 1 : 1 * (-Math.pow(2, -10 * t / 1) + 1);
+      },
+      easeInOutExpo: function (t) {
+        if (t === 0) return 0;
+        if (t === 1) return 1;
+        if ((t /= 1 / 2) < 1) return 1 / 2 * Math.pow(2, 10 * (t - 1));
+        return 1 / 2 * (-Math.pow(2, -10 * --t) + 2);
+      },
+      easeInCirc: function (t) {
+        if (t >= 1) return t;
+        return -1 * (Math.sqrt(1 - (t /= 1) * t) - 1);
+      },
+      easeOutCirc: function (t) {
+        return 1 * Math.sqrt(1 - (t = t / 1 - 1) * t);
+      },
+      easeInOutCirc: function (t) {
+        if ((t /= 1 / 2) < 1) return -1 / 2 * (Math.sqrt(1 - t * t) - 1);
+        return 1 / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1);
+      },
+      easeInElastic: function (t) {
+        var s = 1.70158;
+        var p = 0;
+        var a = 1;
+        if (t === 0) return 0;
+        if ((t /= 1) == 1) return 1;
+        if (!p) p = 1 * 0.3;
+        if (a < Math.abs(1)) {
+          a = 1;
+          s = p / 4;
+        } else s = p / (2 * Math.PI) * Math.asin(1 / a);
+        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));
+      },
+      easeOutElastic: function (t) {
+        var s = 1.70158;
+        var p = 0;
+        var a = 1;
+        if (t === 0) return 0;
+        if ((t /= 1) == 1) return 1;
+        if (!p) p = 1 * 0.3;
+        if (a < Math.abs(1)) {
+          a = 1;
+          s = p / 4;
+        } else s = p / (2 * Math.PI) * Math.asin(1 / a);
+        return a * Math.pow(2, -10 * t) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) + 1;
+      },
+      easeInOutElastic: function (t) {
+        var s = 1.70158;
+        var p = 0;
+        var a = 1;
+        if (t === 0) return 0;
+        if ((t /= 1 / 2) == 2) return 1;
+        if (!p) p = 1 * (0.3 * 1.5);
+        if (a < Math.abs(1)) {
+          a = 1;
+          s = p / 4;
+        } else s = p / (2 * Math.PI) * Math.asin(1 / a);
+        if (t < 1) return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));
+        return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) * 0.5 + 1;
+      },
+      easeInBack: function (t) {
+        var s = 1.70158;
+        return 1 * (t /= 1) * t * ((s + 1) * t - s);
+      },
+      easeOutBack: function (t) {
+        var s = 1.70158;
+        return 1 * ((t = t / 1 - 1) * t * ((s + 1) * t + s) + 1);
+      },
+      easeInOutBack: function (t) {
+        var s = 1.70158;
+        if ((t /= 1 / 2) < 1) return 1 / 2 * (t * t * (((s *= (1.525)) + 1) * t - s));
+        return 1 / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2);
+      },
+      easeInBounce: function (t) {
+        return 1 - easingEffects.easeOutBounce(1 - t);
+      },
+      easeOutBounce: function (t) {
+        if ((t /= 1) < (1 / 2.75)) {
+          return 1 * (7.5625 * t * t);
+        } else if (t < (2 / 2.75)) {
+          return 1 * (7.5625 * (t -= (1.5 / 2.75)) * t + 0.75);
+        } else if (t < (2.5 / 2.75)) {
+          return 1 * (7.5625 * (t -= (2.25 / 2.75)) * t + 0.9375);
+        } else {
+          return 1 * (7.5625 * (t -= (2.625 / 2.75)) * t + 0.984375);
+        }
+      },
+      easeInOutBounce: function (t) {
+        if (t < 1 / 2) return easingEffects.easeInBounce(t * 2) * 0.5;
+        return easingEffects.easeOutBounce(t * 2 - 1) * 0.5 + 1 * 0.5;
+      }
+    },
+  //Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    requestAnimFrame = helpers.requestAnimFrame = (function(){
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          return window.setTimeout(callback, 1000 / 60);
+        };
+    })(),
+    cancelAnimFrame = helpers.cancelAnimFrame = (function(){
+      return window.cancelAnimationFrame ||
+        window.webkitCancelAnimationFrame ||
+        window.mozCancelAnimationFrame ||
+        window.oCancelAnimationFrame ||
+        window.msCancelAnimationFrame ||
+        function(callback) {
+          return window.clearTimeout(callback, 1000 / 60);
+        };
+    })(),
+    animationLoop = helpers.animationLoop = function(callback,totalSteps,easingString,onProgress,onComplete,chartInstance){
+
+      var currentStep = 0,
+        easingFunction = easingEffects[easingString] || easingEffects.linear;
+
+      var animationFrame = function(){
+        currentStep++;
+        var stepDecimal = currentStep/totalSteps;
+        var easeDecimal = easingFunction(stepDecimal);
+
+        callback.call(chartInstance,easeDecimal,stepDecimal, currentStep);
+        onProgress.call(chartInstance,easeDecimal,stepDecimal);
+        if (currentStep < totalSteps){
+          chartInstance.animationFrame = requestAnimFrame(animationFrame);
+        } else{
+          onComplete.apply(chartInstance);
+        }
+      };
+      requestAnimFrame(animationFrame);
+    },
+  //-- DOM methods
+    getRelativePosition = helpers.getRelativePosition = function(evt){
+      var mouseX, mouseY;
+      var e = evt.originalEvent || evt,
+        canvas = evt.currentTarget || evt.srcElement,
+        boundingRect = canvas.getBoundingClientRect();
+
+      if (e.touches){
+        mouseX = e.touches[0].clientX - boundingRect.left;
+        mouseY = e.touches[0].clientY - boundingRect.top;
+
+      }
+      else{
+        mouseX = e.clientX - boundingRect.left;
+        mouseY = e.clientY - boundingRect.top;
+      }
+
+      return {
+        x : mouseX,
+        y : mouseY
+      };
+
+    },
+    addEvent = helpers.addEvent = function(node,eventType,method){
+      if (node.addEventListener){
+        node.addEventListener(eventType,method);
+      } else if (node.attachEvent){
+        node.attachEvent("on"+eventType, method);
+      } else {
+        node["on"+eventType] = method;
+      }
+    },
+    removeEvent = helpers.removeEvent = function(node, eventType, handler){
+      if (node.removeEventListener){
+        node.removeEventListener(eventType, handler, false);
+      } else if (node.detachEvent){
+        node.detachEvent("on"+eventType,handler);
+      } else{
+        node["on" + eventType] = noop;
+      }
+    },
+    bindEvents = helpers.bindEvents = function(chartInstance, arrayOfEvents, handler){
+      // Create the events object if it's not already present
+      if (!chartInstance.events) chartInstance.events = {};
+
+      each(arrayOfEvents,function(eventName){
+        chartInstance.events[eventName] = function(){
+          handler.apply(chartInstance, arguments);
+        };
+        addEvent(chartInstance.chart.canvas,eventName,chartInstance.events[eventName]);
+      });
+    },
+    unbindEvents = helpers.unbindEvents = function (chartInstance, arrayOfEvents) {
+      each(arrayOfEvents, function(handler,eventName){
+        removeEvent(chartInstance.chart.canvas, eventName, handler);
+      });
+    },
+    getMaximumWidth = helpers.getMaximumWidth = function(domNode){
+      var container = domNode.parentNode;
+      // TODO = check cross browser stuff with this.
+      return container.clientWidth;
+    },
+    getMaximumHeight = helpers.getMaximumHeight = function(domNode){
+      var container = domNode.parentNode;
+      // TODO = check cross browser stuff with this.
+      return container.clientHeight;
+    },
+    getMaximumSize = helpers.getMaximumSize = helpers.getMaximumWidth, // legacy support
+    retinaScale = helpers.retinaScale = function(chart){
+      var ctx = chart.ctx,
+        width = chart.canvas.width,
+        height = chart.canvas.height;
+
+      if (window.devicePixelRatio) {
+        ctx.canvas.style.width = width + "px";
+        ctx.canvas.style.height = height + "px";
+        ctx.canvas.height = height * window.devicePixelRatio;
+        ctx.canvas.width = width * window.devicePixelRatio;
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
+    },
+  //-- Canvas methods
+    clear = helpers.clear = function(chart){
+      chart.ctx.clearRect(0,0,chart.width,chart.height);
+    },
+    fontString = helpers.fontString = function(pixelSize,fontStyle,fontFamily){
+      return fontStyle + " " + pixelSize+"px " + fontFamily;
+    },
+    longestText = helpers.longestText = function(ctx,font,arrayOfStrings){
+      ctx.font = font;
+      var longest = 0;
+      each(arrayOfStrings,function(string){
+        var textWidth = ctx.measureText(string).width;
+        longest = (textWidth > longest) ? textWidth : longest;
+      });
+      return longest;
+    },
+    drawRoundedRectangle = helpers.drawRoundedRectangle = function(ctx,x,y,width,height,radius){
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    };
+
+
+  //Store a reference to each instance - allowing us to globally resize chart instances on window resize.
+  //Destroy method on the chart will remove the instance of the chart from this reference.
+  Chart.instances = {};
+
+  Chart.Type = function(data,options,chart){
+    this.options = options;
+    this.chart = chart;
+    this.id = uid();
+    //Add the chart instance to the global namespace
+    Chart.instances[this.id] = this;
+
+    // Initialize is always called when a chart type is created
+    // By default it is a no op, but it should be extended
+    if (options.responsive){
+      this.resize();
+    }
+    this.initialize.call(this,data);
+  };
+
+  //Core methods that'll be a part of every chart type
+  extend(Chart.Type.prototype,{
+    initialize : function(){return this;},
+    clear : function(){
+      clear(this.chart);
+      return this;
+    },
+    stop : function(){
+      // Stops any current animation loop occuring
+      cancelAnimFrame(this.animationFrame);
+      return this;
+    },
+    resize : function(callback){
+      this.stop();
+      var canvas = this.chart.canvas,
+        newWidth = getMaximumWidth(this.chart.canvas),
+        newHeight = this.options.maintainAspectRatio ? newWidth / this.chart.aspectRatio : getMaximumHeight(this.chart.canvas);
+
+      canvas.width = this.chart.width = newWidth;
+      canvas.height = this.chart.height = newHeight;
+
+      retinaScale(this.chart);
+
+      if (typeof callback === "function"){
+        callback.apply(this, Array.prototype.slice.call(arguments, 1));
+      }
+      return this;
+    },
+    reflow : noop,
+    render : function(reflow){
+      if (reflow){
+        this.reflow();
+      }
+      if (this.options.animation && !reflow){
+        helpers.animationLoop(
+          this.draw,
+          this.options.animationSteps,
+          this.options.animationEasing,
+          this.options.onAnimationProgress,
+          this.options.onAnimationComplete,
+          this
+        );
+      }
+      else{
+        this.draw();
+        this.options.onAnimationComplete.call(this);
+      }
+      return this;
+    },
+    generateLegend : function(){
+      return template(this.options.legendTemplate,this);
+    },
+    destroy : function(){
+      this.clear();
+      unbindEvents(this, this.events);
+      var canvas = this.chart.canvas;
+
+      // Reset canvas height/width attributes starts a fresh with the canvas context
+      canvas.width = this.chart.width;
+      canvas.height = this.chart.height;
+
+      // < IE9 doesn't support removeProperty
+      if (canvas.style.removeProperty) {
+        canvas.style.removeProperty('width');
+        canvas.style.removeProperty('height');
+      } else {
+        canvas.style.removeAttribute('width');
+        canvas.style.removeAttribute('height');
+      }
+
+      delete Chart.instances[this.id];
+    },
+    showTooltip : function(ChartElements, forceRedraw){
+      // Only redraw the chart if we've actually changed what we're hovering on.
+      if (typeof this.activeElements === 'undefined') this.activeElements = [];
+
+      var isChanged = (function(Elements){
+        var changed = false;
+
+        if (Elements.length !== this.activeElements.length){
+          changed = true;
+          return changed;
+        }
+
+        each(Elements, function(element, index){
+          if (element !== this.activeElements[index]){
+            changed = true;
+          }
+        }, this);
+        return changed;
+      }).call(this, ChartElements);
+
+      if (!isChanged && !forceRedraw){
+        return;
+      }
+      else{
+        this.activeElements = ChartElements;
+      }
+      this.draw();
+      if(this.options.customTooltips){
+        this.options.customTooltips(false);
+      }
+      if (ChartElements.length > 0){
+        // If we have multiple datasets, show a MultiTooltip for all of the data points at that index
+        if (this.datasets && this.datasets.length > 1) {
+          var dataArray,
+            dataIndex;
+
+          for (var i = this.datasets.length - 1; i >= 0; i--) {
+            dataArray = this.datasets[i].points || this.datasets[i].bars || this.datasets[i].segments;
+            dataIndex = indexOf(dataArray, ChartElements[0]);
+            if (dataIndex !== -1){
+              break;
+            }
+          }
+          var tooltipLabels = [],
+            tooltipColors = [],
+            medianPosition = (function(index) {
+
+              // Get all the points at that particular index
+              var Elements = [],
+                dataCollection,
+                xPositions = [],
+                yPositions = [],
+                xMax,
+                yMax,
+                xMin,
+                yMin;
+              helpers.each(this.datasets, function(dataset){
+                dataCollection = dataset.points || dataset.bars || dataset.segments;
+                if (dataCollection[dataIndex] && dataCollection[dataIndex].hasValue()){
+                  Elements.push(dataCollection[dataIndex]);
+                }
+              });
+
+              helpers.each(Elements, function(element) {
+                xPositions.push(element.x);
+                yPositions.push(element.y);
+
+
+                //Include any colour information about the element
+                tooltipLabels.push(helpers.template(this.options.multiTooltipTemplate, element));
+                tooltipColors.push({
+                  fill: element._saved.fillColor || element.fillColor,
+                  stroke: element._saved.strokeColor || element.strokeColor
+                });
+
+              }, this);
+
+              yMin = min(yPositions);
+              yMax = max(yPositions);
+
+              xMin = min(xPositions);
+              xMax = max(xPositions);
+
+              return {
+                x: (xMin > this.chart.width/2) ? xMin : xMax,
+                y: (yMin + yMax)/2
+              };
+            }).call(this, dataIndex);
+
+          new Chart.MultiTooltip({
+            x: medianPosition.x,
+            y: medianPosition.y,
+            xPadding: this.options.tooltipXPadding,
+            yPadding: this.options.tooltipYPadding,
+            xOffset: this.options.tooltipXOffset,
+            fillColor: this.options.tooltipFillColor,
+            textColor: this.options.tooltipFontColor,
+            fontFamily: this.options.tooltipFontFamily,
+            fontStyle: this.options.tooltipFontStyle,
+            fontSize: this.options.tooltipFontSize,
+            titleTextColor: this.options.tooltipTitleFontColor,
+            titleFontFamily: this.options.tooltipTitleFontFamily,
+            titleFontStyle: this.options.tooltipTitleFontStyle,
+            titleFontSize: this.options.tooltipTitleFontSize,
+            cornerRadius: this.options.tooltipCornerRadius,
+            labels: tooltipLabels,
+            legendColors: tooltipColors,
+            legendColorBackground : this.options.multiTooltipKeyBackground,
+            title: ChartElements[0].label,
+            chart: this.chart,
+            ctx: this.chart.ctx,
+            custom: this.options.customTooltips
+          }).draw();
+
+        } else {
+          each(ChartElements, function(Element) {
+            var tooltipPosition = Element.tooltipPosition();
+            new Chart.Tooltip({
+              x: Math.round(tooltipPosition.x),
+              y: Math.round(tooltipPosition.y),
+              xPadding: this.options.tooltipXPadding,
+              yPadding: this.options.tooltipYPadding,
+              fillColor: this.options.tooltipFillColor,
+              textColor: this.options.tooltipFontColor,
+              fontFamily: this.options.tooltipFontFamily,
+              fontStyle: this.options.tooltipFontStyle,
+              fontSize: this.options.tooltipFontSize,
+              caretHeight: this.options.tooltipCaretSize,
+              cornerRadius: this.options.tooltipCornerRadius,
+              text: template(this.options.tooltipTemplate, Element),
+              chart: this.chart,
+              custom: this.options.customTooltips
+            }).draw();
+          }, this);
+        }
+      }
+      return this;
+    },
+    toBase64Image : function(){
+      return this.chart.canvas.toDataURL.apply(this.chart.canvas, arguments);
+    }
+  });
+
+  Chart.Type.extend = function(extensions){
+
+    var parent = this;
+
+    var ChartType = function(){
+      return parent.apply(this,arguments);
+    };
+
+    //Copy the prototype object of the this class
+    ChartType.prototype = clone(parent.prototype);
+    //Now overwrite some of the properties in the base class with the new extensions
+    extend(ChartType.prototype, extensions);
+
+    ChartType.extend = Chart.Type.extend;
+
+    if (extensions.name || parent.prototype.name){
+
+      var chartName = extensions.name || parent.prototype.name;
+      //Assign any potential default values of the new chart type
+
+      //If none are defined, we'll use a clone of the chart type this is being extended from.
+      //I.e. if we extend a line chart, we'll use the defaults from the line chart if our new chart
+      //doesn't define some defaults of their own.
+
+      var baseDefaults = (Chart.defaults[parent.prototype.name]) ? clone(Chart.defaults[parent.prototype.name]) : {};
+
+      Chart.defaults[chartName] = extend(baseDefaults,extensions.defaults);
+
+      Chart.types[chartName] = ChartType;
+
+      //Register this new chart type in the Chart prototype
+      Chart.prototype[chartName] = function(data,options){
+        var config = merge(Chart.defaults.global, Chart.defaults[chartName], options || {});
+        return new ChartType(data,config,this);
+      };
+    } else{
+      warn("Name not provided for this chart, so it hasn't been registered");
+    }
+    return parent;
+  };
+
+  Chart.Element = function(configuration){
+    extend(this,configuration);
+    this.initialize.apply(this,arguments);
+    this.save();
+  };
+  extend(Chart.Element.prototype,{
+    initialize : function(){},
+    restore : function(props){
+      if (!props){
+        extend(this,this._saved);
+      } else {
+        each(props,function(key){
+          this[key] = this._saved[key];
+        },this);
+      }
+      return this;
+    },
+    save : function(){
+      this._saved = clone(this);
+      delete this._saved._saved;
+      return this;
+    },
+    update : function(newProps){
+      each(newProps,function(value,key){
+        this._saved[key] = this[key];
+        this[key] = value;
+      },this);
+      return this;
+    },
+    transition : function(props,ease){
+      each(props,function(value,key){
+        this[key] = ((value - this._saved[key]) * ease) + this._saved[key];
+      },this);
+      return this;
+    },
+    tooltipPosition : function(){
+      return {
+        x : this.x,
+        y : this.y
+      };
+    },
+    hasValue: function(){
+      return isNumber(this.value);
+    }
+  });
+
+  Chart.Element.extend = inherits;
+
+
+  Chart.Point = Chart.Element.extend({
+    display: true,
+    inRange: function(chartX,chartY){
+      var hitDetectionRange = this.hitDetectionRadius + this.radius;
+      return ((Math.pow(chartX-this.x, 2)+Math.pow(chartY-this.y, 2)) < Math.pow(hitDetectionRange,2));
+    },
+    draw : function(){
+      if (this.display){
+        var ctx = this.ctx;
+        ctx.beginPath();
+
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.closePath();
+
+        ctx.strokeStyle = this.strokeColor;
+        ctx.lineWidth = this.strokeWidth;
+
+        ctx.fillStyle = this.fillColor;
+
+        ctx.fill();
+        ctx.stroke();
+      }
+
+
+      //Quick debug for bezier curve splining
+      //Highlights control points and the line between them.
+      //Handy for dev - stripped in the min version.
+
+      // ctx.save();
+      // ctx.fillStyle = "black";
+      // ctx.strokeStyle = "black"
+      // ctx.beginPath();
+      // ctx.arc(this.controlPoints.inner.x,this.controlPoints.inner.y, 2, 0, Math.PI*2);
+      // ctx.fill();
+
+      // ctx.beginPath();
+      // ctx.arc(this.controlPoints.outer.x,this.controlPoints.outer.y, 2, 0, Math.PI*2);
+      // ctx.fill();
+
+      // ctx.moveTo(this.controlPoints.inner.x,this.controlPoints.inner.y);
+      // ctx.lineTo(this.x, this.y);
+      // ctx.lineTo(this.controlPoints.outer.x,this.controlPoints.outer.y);
+      // ctx.stroke();
+
+      // ctx.restore();
+
+
+
+    }
+  });
+
+  Chart.Arc = Chart.Element.extend({
+    inRange : function(chartX,chartY){
+
+      var pointRelativePosition = helpers.getAngleFromPoint(this, {
+        x: chartX,
+        y: chartY
+      });
+
+      //Check if within the range of the open/close angle
+      var betweenAngles = (pointRelativePosition.angle >= this.startAngle && pointRelativePosition.angle <= this.endAngle),
+        withinRadius = (pointRelativePosition.distance >= this.innerRadius && pointRelativePosition.distance <= this.outerRadius);
+
+      return (betweenAngles && withinRadius);
+      //Ensure within the outside of the arc centre, but inside arc outer
+    },
+    tooltipPosition : function(){
+      var centreAngle = this.startAngle + ((this.endAngle - this.startAngle) / 2),
+        rangeFromCentre = (this.outerRadius - this.innerRadius) / 2 + this.innerRadius;
+      return {
+        x : this.x + (Math.cos(centreAngle) * rangeFromCentre),
+        y : this.y + (Math.sin(centreAngle) * rangeFromCentre)
+      };
+    },
+    draw : function(animationPercent){
+
+      var easingDecimal = animationPercent || 1;
+
+      var ctx = this.ctx;
+
+      ctx.beginPath();
+
+      ctx.arc(this.x, this.y, this.outerRadius, this.startAngle, this.endAngle);
+
+      ctx.arc(this.x, this.y, this.innerRadius, this.endAngle, this.startAngle, true);
+
+      ctx.closePath();
+      ctx.strokeStyle = this.strokeColor;
+      ctx.lineWidth = this.strokeWidth;
+
+      ctx.fillStyle = this.fillColor;
+
+      ctx.fill();
+      ctx.lineJoin = 'bevel';
+
+      if (this.showStroke){
+        ctx.stroke();
+      }
+    }
+  });
+
+  Chart.Rectangle = Chart.Element.extend({
+    draw : function(){
+      var ctx = this.ctx,
+        halfWidth = this.width/2,
+        leftX = this.x - halfWidth,
+        rightX = this.x + halfWidth,
+        top = this.base - (this.base - this.y),
+        halfStroke = this.strokeWidth / 2;
+
+      // Canvas doesn't allow us to stroke inside the width so we can
+      // adjust the sizes to fit if we're setting a stroke on the line
+      if (this.showStroke){
+        leftX += halfStroke;
+        rightX -= halfStroke;
+        top += halfStroke;
+      }
+
+      ctx.beginPath();
+
+      ctx.fillStyle = this.fillColor;
+      ctx.strokeStyle = this.strokeColor;
+      ctx.lineWidth = this.strokeWidth;
+
+      // It'd be nice to keep this class totally generic to any rectangle
+      // and simply specify which border to miss out.
+      ctx.moveTo(leftX, this.base);
+      ctx.lineTo(leftX, top);
+      ctx.lineTo(rightX, top);
+      ctx.lineTo(rightX, this.base);
+      ctx.fill();
+      if (this.showStroke){
+        ctx.stroke();
+      }
+    },
+    height : function(){
+      return this.base - this.y;
+    },
+    inRange : function(chartX,chartY){
+      return (chartX >= this.x - this.width/2 && chartX <= this.x + this.width/2) && (chartY >= this.y && chartY <= this.base);
+    }
+  });
+
+  Chart.Tooltip = Chart.Element.extend({
+    draw : function(){
+
+      var ctx = this.chart.ctx;
+
+      ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+
+      this.xAlign = "center";
+      this.yAlign = "above";
+
+      //Distance between the actual element.y position and the start of the tooltip caret
+      var caretPadding = this.caretPadding = 2;
+
+      var tooltipWidth = ctx.measureText(this.text).width + 2*this.xPadding,
+        tooltipRectHeight = this.fontSize + 2*this.yPadding,
+        tooltipHeight = tooltipRectHeight + this.caretHeight + caretPadding;
+
+      if (this.x + tooltipWidth/2 >this.chart.width){
+        this.xAlign = "left";
+      } else if (this.x - tooltipWidth/2 < 0){
+        this.xAlign = "right";
+      }
+
+      if (this.y - tooltipHeight < 0){
+        this.yAlign = "below";
+      }
+
+
+      var tooltipX = this.x - tooltipWidth/2,
+        tooltipY = this.y - tooltipHeight;
+
+      ctx.fillStyle = this.fillColor;
+
+      // Custom Tooltips
+      if(this.custom){
+        this.custom(this);
+      }
+      else{
+        switch(this.yAlign)
+        {
+          case "above":
+            //Draw a caret above the x/y
+            ctx.beginPath();
+            ctx.moveTo(this.x,this.y - caretPadding);
+            ctx.lineTo(this.x + this.caretHeight, this.y - (caretPadding + this.caretHeight));
+            ctx.lineTo(this.x - this.caretHeight, this.y - (caretPadding + this.caretHeight));
+            ctx.closePath();
+            ctx.fill();
+            break;
+          case "below":
+            tooltipY = this.y + caretPadding + this.caretHeight;
+            //Draw a caret below the x/y
+            ctx.beginPath();
+            ctx.moveTo(this.x, this.y + caretPadding);
+            ctx.lineTo(this.x + this.caretHeight, this.y + caretPadding + this.caretHeight);
+            ctx.lineTo(this.x - this.caretHeight, this.y + caretPadding + this.caretHeight);
+            ctx.closePath();
+            ctx.fill();
+            break;
+        }
+
+        switch(this.xAlign)
+        {
+          case "left":
+            tooltipX = this.x - tooltipWidth + (this.cornerRadius + this.caretHeight);
+            break;
+          case "right":
+            tooltipX = this.x - (this.cornerRadius + this.caretHeight);
+            break;
+        }
+
+        drawRoundedRectangle(ctx,tooltipX,tooltipY,tooltipWidth,tooltipRectHeight,this.cornerRadius);
+
+        ctx.fill();
+
+        ctx.fillStyle = this.textColor;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(this.text, tooltipX + tooltipWidth/2, tooltipY + tooltipRectHeight/2);
+      }
+    }
+  });
+
+  Chart.MultiTooltip = Chart.Element.extend({
+    initialize : function(){
+      this.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+
+      this.titleFont = fontString(this.titleFontSize,this.titleFontStyle,this.titleFontFamily);
+
+      this.height = (this.labels.length * this.fontSize) + ((this.labels.length-1) * (this.fontSize/2)) + (this.yPadding*2) + this.titleFontSize *1.5;
+
+      this.ctx.font = this.titleFont;
+
+      var titleWidth = this.ctx.measureText(this.title).width,
+      //Label has a legend square as well so account for this.
+        labelWidth = longestText(this.ctx,this.font,this.labels) + this.fontSize + 3,
+        longestTextWidth = max([labelWidth,titleWidth]);
+
+      this.width = longestTextWidth + (this.xPadding*2);
+
+
+      var halfHeight = this.height/2;
+
+      //Check to ensure the height will fit on the canvas
+      if (this.y - halfHeight < 0 ){
+        this.y = halfHeight;
+      } else if (this.y + halfHeight > this.chart.height){
+        this.y = this.chart.height - halfHeight;
+      }
+
+      //Decide whether to align left or right based on position on canvas
+      if (this.x > this.chart.width/2){
+        this.x -= this.xOffset + this.width;
+      } else {
+        this.x += this.xOffset;
+      }
+
+
+    },
+    getLineHeight : function(index){
+      var baseLineHeight = this.y - (this.height/2) + this.yPadding,
+        afterTitleIndex = index-1;
+
+      //If the index is zero, we're getting the title
+      if (index === 0){
+        return baseLineHeight + this.titleFontSize/2;
+      } else{
+        return baseLineHeight + ((this.fontSize*1.5*afterTitleIndex) + this.fontSize/2) + this.titleFontSize * 1.5;
+      }
+
+    },
+    draw : function(){
+      // Custom Tooltips
+      if(this.custom){
+        this.custom(this);
+      }
+      else{
+        drawRoundedRectangle(this.ctx,this.x,this.y - this.height/2,this.width,this.height,this.cornerRadius);
+        var ctx = this.ctx;
+        ctx.fillStyle = this.fillColor;
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = this.titleTextColor;
+        ctx.font = this.titleFont;
+
+        ctx.fillText(this.title,this.x + this.xPadding, this.getLineHeight(0));
+
+        ctx.font = this.font;
+        helpers.each(this.labels,function(label,index){
+          ctx.fillStyle = this.textColor;
+          ctx.fillText(label,this.x + this.xPadding + this.fontSize + 3, this.getLineHeight(index + 1));
+
+          //A bit gnarly, but clearing this rectangle breaks when using explorercanvas (clears whole canvas)
+          //ctx.clearRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+          //Instead we'll make a white filled block to put the legendColour palette over.
+
+          ctx.fillStyle = this.legendColorBackground;
+          ctx.fillRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+
+          ctx.fillStyle = this.legendColors[index].fill;
+          ctx.fillRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+
+
+        },this);
+      }
+    }
+  });
+
+  Chart.Scale = Chart.Element.extend({
+    initialize : function(){
+      this.fit();
+    },
+    buildYLabels : function(){
+      this.yLabels = [];
+
+      var stepDecimalPlaces = getDecimalPlaces(this.stepValue);
+
+      for (var i=0; i<=this.steps; i++){
+        this.yLabels.push(template(this.templateString,{value:(this.min + (i * this.stepValue)).toFixed(stepDecimalPlaces)}));
+      }
+      this.yLabelWidth = (this.display && this.showLabels) ? longestText(this.ctx,this.font,this.yLabels) : 0;
+    },
+    addXLabel : function(label){
+      this.xLabels.push(label);
+      this.valuesCount++;
+      this.fit();
+    },
+    removeXLabel : function(){
+      this.xLabels.shift();
+      this.valuesCount--;
+      this.fit();
+    },
+    // Fitting loop to rotate x Labels and figure out what fits there, and also calculate how many Y steps to use
+    fit: function(){
+      // First we need the width of the yLabels, assuming the xLabels aren't rotated
+
+      // To do that we need the base line at the top and base of the chart, assuming there is no x label rotation
+      this.startPoint = (this.display) ? this.fontSize : 0;
+      this.endPoint = (this.display) ? this.height - (this.fontSize * 1.5) - 5 : this.height; // -5 to pad labels
+
+      // Apply padding settings to the start and end point.
+      this.startPoint += this.padding;
+      this.endPoint -= this.padding;
+
+      // Cache the starting height, so can determine if we need to recalculate the scale yAxis
+      var cachedHeight = this.endPoint - this.startPoint,
+        cachedYLabelWidth;
+
+      // Build the current yLabels so we have an idea of what size they'll be to start
+      /*
+       *	This sets what is returned from calculateScaleRange as static properties of this class:
+       *
+       this.steps;
+       this.stepValue;
+       this.min;
+       this.max;
+       *
+       */
+      this.calculateYRange(cachedHeight);
+
+      // With these properties set we can now build the array of yLabels
+      // and also the width of the largest yLabel
+      this.buildYLabels();
+
+      this.calculateXLabelRotation();
+
+      while((cachedHeight > this.endPoint - this.startPoint)){
+        cachedHeight = this.endPoint - this.startPoint;
+        cachedYLabelWidth = this.yLabelWidth;
+
+        this.calculateYRange(cachedHeight);
+        this.buildYLabels();
+
+        // Only go through the xLabel loop again if the yLabel width has changed
+        if (cachedYLabelWidth < this.yLabelWidth){
+          this.calculateXLabelRotation();
+        }
+      }
+
+    },
+    calculateXLabelRotation : function(){
+      //Get the width of each grid by calculating the difference
+      //between x offsets between 0 and 1.
+
+      this.ctx.font = this.font;
+
+      var firstWidth = this.ctx.measureText(this.xLabels[0]).width,
+        lastWidth = this.ctx.measureText(this.xLabels[this.xLabels.length - 1]).width,
+        firstRotated,
+        lastRotated;
+
+
+      this.xScalePaddingRight = lastWidth/2 + 3;
+      this.xScalePaddingLeft = (firstWidth/2 > this.yLabelWidth + 10) ? firstWidth/2 : this.yLabelWidth + 10;
+
+      this.xLabelRotation = 0;
+      if (this.display){
+        var originalLabelWidth = longestText(this.ctx,this.font,this.xLabels),
+          cosRotation,
+          firstRotatedWidth;
+        this.xLabelWidth = originalLabelWidth;
+        //Allow 3 pixels x2 padding either side for label readability
+        var xGridWidth = Math.floor(this.calculateX(1) - this.calculateX(0)) - 6;
+
+        //Max label rotate should be 90 - also act as a loop counter
+        while ((this.xLabelWidth > xGridWidth && this.xLabelRotation === 0) || (this.xLabelWidth > xGridWidth && this.xLabelRotation <= 90 && this.xLabelRotation > 0)){
+          cosRotation = Math.cos(toRadians(this.xLabelRotation));
+
+          firstRotated = cosRotation * firstWidth;
+          lastRotated = cosRotation * lastWidth;
+
+          // We're right aligning the text now.
+          if (firstRotated + this.fontSize / 2 > this.yLabelWidth + 8){
+            this.xScalePaddingLeft = firstRotated + this.fontSize / 2;
+          }
+          this.xScalePaddingRight = this.fontSize/2;
+
+
+          this.xLabelRotation++;
+          this.xLabelWidth = cosRotation * originalLabelWidth;
+
+        }
+        if (this.xLabelRotation > 0){
+          this.endPoint -= Math.sin(toRadians(this.xLabelRotation))*originalLabelWidth + 3;
+        }
+      }
+      else{
+        this.xLabelWidth = 0;
+        this.xScalePaddingRight = this.padding;
+        this.xScalePaddingLeft = this.padding;
+      }
+
+    },
+    // Needs to be overidden in each Chart type
+    // Otherwise we need to pass all the data into the scale class
+    calculateYRange: noop,
+    drawingArea: function(){
+      return this.startPoint - this.endPoint;
+    },
+    calculateY : function(value){
+      var scalingFactor = this.drawingArea() / (this.min - this.max);
+      return this.endPoint - (scalingFactor * (value - this.min));
+    },
+    calculateX : function(index){
+      var isRotated = (this.xLabelRotation > 0),
+      // innerWidth = (this.offsetGridLines) ? this.width - offsetLeft - this.padding : this.width - (offsetLeft + halfLabelWidth * 2) - this.padding,
+        innerWidth = this.width - (this.xScalePaddingLeft + this.xScalePaddingRight),
+        valueWidth = innerWidth/Math.max((this.valuesCount - ((this.offsetGridLines) ? 0 : 1)), 1),
+        valueOffset = (valueWidth * index) + this.xScalePaddingLeft;
+
+      if (this.offsetGridLines){
+        valueOffset += (valueWidth/2);
+      }
+
+      return Math.round(valueOffset);
+    },
+    update : function(newProps){
+      helpers.extend(this, newProps);
+      this.fit();
+    },
+    draw : function(){
+      var ctx = this.ctx,
+        yLabelGap = (this.endPoint - this.startPoint) / this.steps,
+        xStart = Math.round(this.xScalePaddingLeft);
+      if (this.display){
+        ctx.fillStyle = this.textColor;
+        ctx.font = this.font;
+        each(this.yLabels,function(labelString,index){
+          var yLabelCenter = this.endPoint - (yLabelGap * index),
+            linePositionY = Math.round(yLabelCenter),
+            drawHorizontalLine = this.showHorizontalLines;
+
+          ctx.textAlign = "right";
+          ctx.textBaseline = "middle";
+          if (this.showLabels){
+            ctx.fillText(labelString,xStart - 10,yLabelCenter);
+          }
+
+          // This is X axis, so draw it
+          if (index === 0 && !drawHorizontalLine){
+            drawHorizontalLine = true;
+          }
+
+          if (drawHorizontalLine){
+            ctx.beginPath();
+          }
+
+          if (index > 0){
+            // This is a grid line in the centre, so drop that
+            ctx.lineWidth = this.gridLineWidth;
+            ctx.strokeStyle = this.gridLineColor;
+          } else {
+            // This is the first line on the scale
+            ctx.lineWidth = this.lineWidth;
+            ctx.strokeStyle = this.lineColor;
+          }
+
+          linePositionY += helpers.aliasPixel(ctx.lineWidth);
+
+          if(drawHorizontalLine){
+            ctx.moveTo(xStart, linePositionY);
+            ctx.lineTo(this.width, linePositionY);
+            ctx.stroke();
+            ctx.closePath();
+          }
+
+          ctx.lineWidth = this.lineWidth;
+          ctx.strokeStyle = this.lineColor;
+          ctx.beginPath();
+          ctx.moveTo(xStart - 5, linePositionY);
+          ctx.lineTo(xStart, linePositionY);
+          ctx.stroke();
+          ctx.closePath();
+
+        },this);
+
+        each(this.xLabels,function(label,index){
+          var xPos = this.calculateX(index) + aliasPixel(this.lineWidth),
+          // Check to see if line/bar here and decide where to place the line
+            linePos = this.calculateX(index - (this.offsetGridLines ? 0.5 : 0)) + aliasPixel(this.lineWidth),
+            isRotated = (this.xLabelRotation > 0),
+            drawVerticalLine = this.showVerticalLines;
+
+          // This is Y axis, so draw it
+          if (index === 0 && !drawVerticalLine){
+            drawVerticalLine = true;
+          }
+
+          if (drawVerticalLine){
+            ctx.beginPath();
+          }
+
+          if (index > 0){
+            // This is a grid line in the centre, so drop that
+            ctx.lineWidth = this.gridLineWidth;
+            ctx.strokeStyle = this.gridLineColor;
+          } else {
+            // This is the first line on the scale
+            ctx.lineWidth = this.lineWidth;
+            ctx.strokeStyle = this.lineColor;
+          }
+
+          if (drawVerticalLine){
+            ctx.moveTo(linePos,this.endPoint);
+            ctx.lineTo(linePos,this.startPoint - 3);
+            ctx.stroke();
+            ctx.closePath();
+          }
+
+
+          ctx.lineWidth = this.lineWidth;
+          ctx.strokeStyle = this.lineColor;
+
+
+          // Small lines at the bottom of the base grid line
+          ctx.beginPath();
+          ctx.moveTo(linePos,this.endPoint);
+          ctx.lineTo(linePos,this.endPoint + 5);
+          ctx.stroke();
+          ctx.closePath();
+
+          ctx.save();
+          ctx.translate(xPos,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
+          ctx.rotate(toRadians(this.xLabelRotation)*-1);
+          ctx.font = this.font;
+          ctx.textAlign = (isRotated) ? "right" : "center";
+          ctx.textBaseline = (isRotated) ? "middle" : "top";
+          ctx.fillText(label, 0, 0);
+          ctx.restore();
+        },this);
+
+      }
+    }
+
+  });
+
+  Chart.RadialScale = Chart.Element.extend({
+    initialize: function(){
+      this.size = min([this.height, this.width]);
+      this.drawingArea = (this.display) ? (this.size/2) - (this.fontSize/2 + this.backdropPaddingY) : (this.size/2);
+    },
+    calculateCenterOffset: function(value){
+      // Take into account half font size + the yPadding of the top value
+      var scalingFactor = this.drawingArea / (this.max - this.min);
+
+      return (value - this.min) * scalingFactor;
+    },
+    update : function(){
+      if (!this.lineArc){
+        this.setScaleSize();
+      } else {
+        this.drawingArea = (this.display) ? (this.size/2) - (this.fontSize/2 + this.backdropPaddingY) : (this.size/2);
+      }
+      this.buildYLabels();
+    },
+    buildYLabels: function(){
+      this.yLabels = [];
+
+      var stepDecimalPlaces = getDecimalPlaces(this.stepValue);
+
+      for (var i=0; i<=this.steps; i++){
+        this.yLabels.push(template(this.templateString,{value:(this.min + (i * this.stepValue)).toFixed(stepDecimalPlaces)}));
+      }
+    },
+    getCircumference : function(){
+      return ((Math.PI*2) / this.valuesCount);
+    },
+    setScaleSize: function(){
+      /*
+       * Right, this is really confusing and there is a lot of maths going on here
+       * The gist of the problem is here: https://gist.github.com/nnnick/696cc9c55f4b0beb8fe9
+       *
+       * Reaction: https://dl.dropboxusercontent.com/u/34601363/toomuchscience.gif
+       *
+       * Solution:
+       *
+       * We assume the radius of the polygon is half the size of the canvas at first
+       * at each index we check if the text overlaps.
+       *
+       * Where it does, we store that angle and that index.
+       *
+       * After finding the largest index and angle we calculate how much we need to remove
+       * from the shape radius to move the point inwards by that x.
+       *
+       * We average the left and right distances to get the maximum shape radius that can fit in the box
+       * along with labels.
+       *
+       * Once we have that, we can find the centre point for the chart, by taking the x text protrusion
+       * on each side, removing that from the size, halving it and adding the left x protrusion width.
+       *
+       * This will mean we have a shape fitted to the canvas, as large as it can be with the labels
+       * and position it in the most space efficient manner
+       *
+       * https://dl.dropboxusercontent.com/u/34601363/yeahscience.gif
+       */
+
+
+      // Get maximum radius of the polygon. Either half the height (minus the text width) or half the width.
+      // Use this to calculate the offset + change. - Make sure L/R protrusion is at least 0 to stop issues with centre points
+      var largestPossibleRadius = min([(this.height/2 - this.pointLabelFontSize - 5), this.width/2]),
+        pointPosition,
+        i,
+        textWidth,
+        halfTextWidth,
+        furthestRight = this.width,
+        furthestRightIndex,
+        furthestRightAngle,
+        furthestLeft = 0,
+        furthestLeftIndex,
+        furthestLeftAngle,
+        xProtrusionLeft,
+        xProtrusionRight,
+        radiusReductionRight,
+        radiusReductionLeft,
+        maxWidthRadius;
+      this.ctx.font = fontString(this.pointLabelFontSize,this.pointLabelFontStyle,this.pointLabelFontFamily);
+      for (i=0;i<this.valuesCount;i++){
+        // 5px to space the text slightly out - similar to what we do in the draw function.
+        pointPosition = this.getPointPosition(i, largestPossibleRadius);
+        textWidth = this.ctx.measureText(template(this.templateString, { value: this.labels[i] })).width + 5;
+        if (i === 0 || i === this.valuesCount/2){
+          // If we're at index zero, or exactly the middle, we're at exactly the top/bottom
+          // of the radar chart, so text will be aligned centrally, so we'll half it and compare
+          // w/left and right text sizes
+          halfTextWidth = textWidth/2;
+          if (pointPosition.x + halfTextWidth > furthestRight) {
+            furthestRight = pointPosition.x + halfTextWidth;
+            furthestRightIndex = i;
+          }
+          if (pointPosition.x - halfTextWidth < furthestLeft) {
+            furthestLeft = pointPosition.x - halfTextWidth;
+            furthestLeftIndex = i;
+          }
+        }
+        else if (i < this.valuesCount/2) {
+          // Less than half the values means we'll left align the text
+          if (pointPosition.x + textWidth > furthestRight) {
+            furthestRight = pointPosition.x + textWidth;
+            furthestRightIndex = i;
+          }
+        }
+        else if (i > this.valuesCount/2){
+          // More than half the values means we'll right align the text
+          if (pointPosition.x - textWidth < furthestLeft) {
+            furthestLeft = pointPosition.x - textWidth;
+            furthestLeftIndex = i;
+          }
+        }
+      }
+
+      xProtrusionLeft = furthestLeft;
+
+      xProtrusionRight = Math.ceil(furthestRight - this.width);
+
+      furthestRightAngle = this.getIndexAngle(furthestRightIndex);
+
+      furthestLeftAngle = this.getIndexAngle(furthestLeftIndex);
+
+      radiusReductionRight = xProtrusionRight / Math.sin(furthestRightAngle + Math.PI/2);
+
+      radiusReductionLeft = xProtrusionLeft / Math.sin(furthestLeftAngle + Math.PI/2);
+
+      // Ensure we actually need to reduce the size of the chart
+      radiusReductionRight = (isNumber(radiusReductionRight)) ? radiusReductionRight : 0;
+      radiusReductionLeft = (isNumber(radiusReductionLeft)) ? radiusReductionLeft : 0;
+
+      this.drawingArea = largestPossibleRadius - (radiusReductionLeft + radiusReductionRight)/2;
+
+      //this.drawingArea = min([maxWidthRadius, (this.height - (2 * (this.pointLabelFontSize + 5)))/2])
+      this.setCenterPoint(radiusReductionLeft, radiusReductionRight);
+
+    },
+    setCenterPoint: function(leftMovement, rightMovement){
+
+      var maxRight = this.width - rightMovement - this.drawingArea,
+        maxLeft = leftMovement + this.drawingArea;
+
+      this.xCenter = (maxLeft + maxRight)/2;
+      // Always vertically in the centre as the text height doesn't change
+      this.yCenter = (this.height/2);
+    },
+
+    getIndexAngle : function(index){
+      var angleMultiplier = (Math.PI * 2) / this.valuesCount;
+      // Start from the top instead of right, so remove a quarter of the circle
+
+      return index * angleMultiplier - (Math.PI/2);
+    },
+    getPointPosition : function(index, distanceFromCenter){
+      var thisAngle = this.getIndexAngle(index);
+      return {
+        x : (Math.cos(thisAngle) * distanceFromCenter) + this.xCenter,
+        y : (Math.sin(thisAngle) * distanceFromCenter) + this.yCenter
+      };
+    },
+    draw: function(){
+      if (this.display){
+        var ctx = this.ctx;
+        each(this.yLabels, function(label, index){
+          // Don't draw a centre value
+          if (index > 0){
+            var yCenterOffset = index * (this.drawingArea/this.steps),
+              yHeight = this.yCenter - yCenterOffset,
+              pointPosition;
+
+            // Draw circular lines around the scale
+            if (this.lineWidth > 0){
+              ctx.strokeStyle = this.lineColor;
+              ctx.lineWidth = this.lineWidth;
+
+              if(this.lineArc){
+                ctx.beginPath();
+                ctx.arc(this.xCenter, this.yCenter, yCenterOffset, 0, Math.PI*2);
+                ctx.closePath();
+                ctx.stroke();
+              } else{
+                ctx.beginPath();
+                for (var i=0;i<this.valuesCount;i++)
+                {
+                  pointPosition = this.getPointPosition(i, this.calculateCenterOffset(this.min + (index * this.stepValue)));
+                  if (i === 0){
+                    ctx.moveTo(pointPosition.x, pointPosition.y);
+                  } else {
+                    ctx.lineTo(pointPosition.x, pointPosition.y);
+                  }
+                }
+                ctx.closePath();
+                ctx.stroke();
+              }
+            }
+            if(this.showLabels){
+              ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+              if (this.showLabelBackdrop){
+                var labelWidth = ctx.measureText(label).width;
+                ctx.fillStyle = this.backdropColor;
+                ctx.fillRect(
+                  this.xCenter - labelWidth/2 - this.backdropPaddingX,
+                  yHeight - this.fontSize/2 - this.backdropPaddingY,
+                  labelWidth + this.backdropPaddingX*2,
+                  this.fontSize + this.backdropPaddingY*2
+                );
+              }
+              ctx.textAlign = 'center';
+              ctx.textBaseline = "middle";
+              ctx.fillStyle = this.fontColor;
+              ctx.fillText(label, this.xCenter, yHeight);
+            }
+          }
+        }, this);
+
+        if (!this.lineArc){
+          ctx.lineWidth = this.angleLineWidth;
+          ctx.strokeStyle = this.angleLineColor;
+          for (var i = this.valuesCount - 1; i >= 0; i--) {
+            if (this.angleLineWidth > 0){
+              var outerPosition = this.getPointPosition(i, this.calculateCenterOffset(this.max));
+              ctx.beginPath();
+              ctx.moveTo(this.xCenter, this.yCenter);
+              ctx.lineTo(outerPosition.x, outerPosition.y);
+              ctx.stroke();
+              ctx.closePath();
+            }
+            // Extra 3px out for some label spacing
+            var pointLabelPosition = this.getPointPosition(i, this.calculateCenterOffset(this.max) + 5);
+            ctx.font = fontString(this.pointLabelFontSize,this.pointLabelFontStyle,this.pointLabelFontFamily);
+            ctx.fillStyle = this.pointLabelFontColor;
+
+            var labelsCount = this.labels.length,
+              halfLabelsCount = this.labels.length/2,
+              quarterLabelsCount = halfLabelsCount/2,
+              upperHalf = (i < quarterLabelsCount || i > labelsCount - quarterLabelsCount),
+              exactQuarter = (i === quarterLabelsCount || i === labelsCount - quarterLabelsCount);
+            if (i === 0){
+              ctx.textAlign = 'center';
+            } else if(i === halfLabelsCount){
+              ctx.textAlign = 'center';
+            } else if (i < halfLabelsCount){
+              ctx.textAlign = 'left';
+            } else {
+              ctx.textAlign = 'right';
+            }
+
+            // Set the correct text baseline based on outer positioning
+            if (exactQuarter){
+              ctx.textBaseline = 'middle';
+            } else if (upperHalf){
+              ctx.textBaseline = 'bottom';
+            } else {
+              ctx.textBaseline = 'top';
+            }
+
+            ctx.fillText(this.labels[i], pointLabelPosition.x, pointLabelPosition.y);
+          }
+        }
+      }
+    }
+  });
+
+  // Attach global event to resize each chart instance when the browser resizes
+  helpers.addEvent(window, "resize", (function(){
+    // Basic debounce of resize function so it doesn't hurt performance when resizing browser.
+    var timeout;
+    return function(){
+      clearTimeout(timeout);
+      timeout = setTimeout(function(){
+        each(Chart.instances,function(instance){
+          // If the responsive flag is set in the chart instance config
+          // Cascade the resize event down to the chart.
+          if (instance.options.responsive){
+            instance.resize(instance.render, true);
+          }
+        });
+      }, 50);
+    };
+  })());
+
+
+  if (amd) {
+    define('lib/chart',[],function(){
+      return Chart;
+    });
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = Chart;
+  }
+
+  root.Chart = Chart;
+
+  Chart.noConflict = function(){
+    root.Chart = previous;
+    return Chart;
+  };
+
+}).call(this);
+
+(function(){
+  
+
+  var root = this,
+    Chart = root.Chart,
+    helpers = Chart.helpers;
+
+
+  var defaultConfig = {
+    //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+    scaleBeginAtZero : true,
+
+    //Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines : true,
+
+    //String - Colour of the grid lines
+    scaleGridLineColor : "rgba(0,0,0,.05)",
+
+    //Number - Width of the grid lines
+    scaleGridLineWidth : 1,
+
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+
+    //Boolean - If there is a stroke on each bar
+    barShowStroke : true,
+
+    //Number - Pixel width of the bar stroke
+    barStrokeWidth : 2,
+
+    //Number - Spacing between each of the X value sets
+    barValueSpacing : 5,
+
+    //Number - Spacing between data sets within X values
+    barDatasetSpacing : 1,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+  };
+
+
+  Chart.Type.extend({
+    name: "Bar",
+    defaults : defaultConfig,
+    initialize:  function(data){
+
+      //Expose options as a scope variable here so we can access it in the ScaleClass
+      var options = this.options;
+
+      this.ScaleClass = Chart.Scale.extend({
+        offsetGridLines : true,
+        calculateBarX : function(datasetCount, datasetIndex, barIndex){
+          //Reusable method for calculating the xPosition of a given bar based on datasetIndex & width of the bar
+          var xWidth = this.calculateBaseWidth(),
+            xAbsolute = this.calculateX(barIndex) - (xWidth/2),
+            barWidth = this.calculateBarWidth(datasetCount);
+
+          return xAbsolute + (barWidth * datasetIndex) + (datasetIndex * options.barDatasetSpacing) + barWidth/2;
+        },
+        calculateBaseWidth : function(){
+          return (this.calculateX(1) - this.calculateX(0)) - (2*options.barValueSpacing);
+        },
+        calculateBarWidth : function(datasetCount){
+          //The padding between datasets is to the right of each bar, providing that there are more than 1 dataset
+          var baseWidth = this.calculateBaseWidth() - ((datasetCount - 1) * options.barDatasetSpacing);
+
+          return (baseWidth / datasetCount);
+        }
+      });
+
+      this.datasets = [];
+
+      //Set up tooltip events on the chart
+      if (this.options.showTooltips){
+        helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+          var activeBars = (evt.type !== 'mouseout') ? this.getBarsAtEvent(evt) : [];
+
+          this.eachBars(function(bar){
+            bar.restore(['fillColor', 'strokeColor']);
+          });
+          helpers.each(activeBars, function(activeBar){
+            activeBar.fillColor = activeBar.highlightFill;
+            activeBar.strokeColor = activeBar.highlightStroke;
+          });
+          this.showTooltip(activeBars);
+        });
+      }
+
+      //Declare the extension of the default point, to cater for the options passed in to the constructor
+      this.BarClass = Chart.Rectangle.extend({
+        strokeWidth : this.options.barStrokeWidth,
+        showStroke : this.options.barShowStroke,
+        ctx : this.chart.ctx
+      });
+
+      //Iterate through each of the datasets, and build this into a property of the chart
+      helpers.each(data.datasets,function(dataset,datasetIndex){
+
+        var datasetObject = {
+          label : dataset.label || null,
+          fillColor : dataset.fillColor,
+          strokeColor : dataset.strokeColor,
+          bars : []
+        };
+
+        this.datasets.push(datasetObject);
+
+        helpers.each(dataset.data,function(dataPoint,index){
+          //Add a new point for each piece of data, passing any required data to draw.
+          datasetObject.bars.push(new this.BarClass({
+            value : dataPoint,
+            label : data.labels[index],
+            datasetLabel: dataset.label,
+            strokeColor : dataset.strokeColor,
+            fillColor : dataset.fillColor,
+            highlightFill : dataset.highlightFill || dataset.fillColor,
+            highlightStroke : dataset.highlightStroke || dataset.strokeColor
+          }));
+        },this);
+
+      },this);
+
+      this.buildScale(data.labels);
+
+      this.BarClass.prototype.base = this.scale.endPoint;
+
+      this.eachBars(function(bar, index, datasetIndex){
+        helpers.extend(bar, {
+          width : this.scale.calculateBarWidth(this.datasets.length),
+          x: this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
+          y: this.scale.endPoint
+        });
+        bar.save();
+      }, this);
+
+      this.render();
+    },
+    update : function(){
+      this.scale.update();
+      // Reset any highlight colours before updating.
+      helpers.each(this.activeElements, function(activeElement){
+        activeElement.restore(['fillColor', 'strokeColor']);
+      });
+
+      this.eachBars(function(bar){
+        bar.save();
+      });
+      this.render();
+    },
+    eachBars : function(callback){
+      helpers.each(this.datasets,function(dataset, datasetIndex){
+        helpers.each(dataset.bars, callback, this, datasetIndex);
+      },this);
+    },
+    getBarsAtEvent : function(e){
+      var barsArray = [],
+        eventPosition = helpers.getRelativePosition(e),
+        datasetIterator = function(dataset){
+          barsArray.push(dataset.bars[barIndex]);
+        },
+        barIndex;
+
+      for (var datasetIndex = 0; datasetIndex < this.datasets.length; datasetIndex++) {
+        for (barIndex = 0; barIndex < this.datasets[datasetIndex].bars.length; barIndex++) {
+          if (this.datasets[datasetIndex].bars[barIndex].inRange(eventPosition.x,eventPosition.y)){
+            helpers.each(this.datasets, datasetIterator);
+            return barsArray;
+          }
+        }
+      }
+
+      return barsArray;
+    },
+    buildScale : function(labels){
+      var self = this;
+
+      var dataTotal = function(){
+        var values = [];
+        self.eachBars(function(bar){
+          values.push(bar.value);
+        });
+        return values;
+      };
+
+      var scaleOptions = {
+        templateString : this.options.scaleLabel,
+        height : this.chart.height,
+        width : this.chart.width,
+        ctx : this.chart.ctx,
+        textColor : this.options.scaleFontColor,
+        fontSize : this.options.scaleFontSize,
+        fontStyle : this.options.scaleFontStyle,
+        fontFamily : this.options.scaleFontFamily,
+        valuesCount : labels.length,
+        beginAtZero : this.options.scaleBeginAtZero,
+        integersOnly : this.options.scaleIntegersOnly,
+        calculateYRange: function(currentHeight){
+          var updatedRanges = helpers.calculateScaleRange(
+            dataTotal(),
+            currentHeight,
+            this.fontSize,
+            this.beginAtZero,
+            this.integersOnly
+          );
+          helpers.extend(this, updatedRanges);
+        },
+        xLabels : labels,
+        font : helpers.fontString(this.options.scaleFontSize, this.options.scaleFontStyle, this.options.scaleFontFamily),
+        lineWidth : this.options.scaleLineWidth,
+        lineColor : this.options.scaleLineColor,
+        showHorizontalLines : this.options.scaleShowHorizontalLines,
+        showVerticalLines : this.options.scaleShowVerticalLines,
+        gridLineWidth : (this.options.scaleShowGridLines) ? this.options.scaleGridLineWidth : 0,
+        gridLineColor : (this.options.scaleShowGridLines) ? this.options.scaleGridLineColor : "rgba(0,0,0,0)",
+        padding : (this.options.showScale) ? 0 : (this.options.barShowStroke) ? this.options.barStrokeWidth : 0,
+        showLabels : this.options.scaleShowLabels,
+        display : this.options.showScale
+      };
+
+      if (this.options.scaleOverride){
+        helpers.extend(scaleOptions, {
+          calculateYRange: helpers.noop,
+          steps: this.options.scaleSteps,
+          stepValue: this.options.scaleStepWidth,
+          min: this.options.scaleStartValue,
+          max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+        });
+      }
+
+      this.scale = new this.ScaleClass(scaleOptions);
+    },
+    addData : function(valuesArray,label){
+      //Map the values array for each of the datasets
+      helpers.each(valuesArray,function(value,datasetIndex){
+        //Add a new point for each piece of data, passing any required data to draw.
+        this.datasets[datasetIndex].bars.push(new this.BarClass({
+          value : value,
+          label : label,
+          x: this.scale.calculateBarX(this.datasets.length, datasetIndex, this.scale.valuesCount+1),
+          y: this.scale.endPoint,
+          width : this.scale.calculateBarWidth(this.datasets.length),
+          base : this.scale.endPoint,
+          strokeColor : this.datasets[datasetIndex].strokeColor,
+          fillColor : this.datasets[datasetIndex].fillColor
+        }));
+      },this);
+
+      this.scale.addXLabel(label);
+      //Then re-render the chart.
+      this.update();
+    },
+    removeData : function(){
+      this.scale.removeXLabel();
+      //Then re-render the chart.
+      helpers.each(this.datasets,function(dataset){
+        dataset.bars.shift();
+      },this);
+      this.update();
+    },
+    reflow : function(){
+      helpers.extend(this.BarClass.prototype,{
+        y: this.scale.endPoint,
+        base : this.scale.endPoint
+      });
+      var newScaleProps = helpers.extend({
+        height : this.chart.height,
+        width : this.chart.width
+      });
+      this.scale.update(newScaleProps);
+    },
+    draw : function(ease){
+      var easingDecimal = ease || 1;
+      this.clear();
+
+      var ctx = this.chart.ctx;
+
+      this.scale.draw(easingDecimal);
+
+      //Draw all the bars for each dataset
+      helpers.each(this.datasets,function(dataset,datasetIndex){
+        helpers.each(dataset.bars,function(bar,index){
+          if (bar.hasValue()){
+            bar.base = this.scale.endPoint;
+            //Transition then draw
+            bar.transition({
+              x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
+              y : this.scale.calculateY(bar.value),
+              width : this.scale.calculateBarWidth(this.datasets.length)
+            }, easingDecimal).draw();
+          }
+        },this);
+
+      },this);
+    }
+  });
+
+
+}).call(this);
+
+(function(){
+  
+
+  var root = this,
+    Chart = root.Chart,
+  //Cache a local reference to Chart.helpers
+    helpers = Chart.helpers;
+
+  var defaultConfig = {
+    //Boolean - Whether we should show a stroke on each segment
+    segmentShowStroke : true,
+
+    //String - The colour of each segment stroke
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of each segment stroke
+    segmentStrokeWidth : 2,
+
+    //The percentage of the chart that we cut out of the middle.
+    percentageInnerCutout : 50,
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+  };
+
+
+  Chart.Type.extend({
+    //Passing in a name registers this chart in the Chart namespace
+    name: "Doughnut",
+    //Providing a defaults will also register the deafults in the chart namespace
+    defaults : defaultConfig,
+    //Initialize is fired when the chart is initialized - Data is passed in as a parameter
+    //Config is automatically merged by the core of Chart.js, and is available at this.options
+    initialize:  function(data){
+
+      //Declare segments as a static property to prevent inheriting across the Chart type prototype
+      this.segments = [];
+      this.outerRadius = (helpers.min([this.chart.width,this.chart.height]) -	this.options.segmentStrokeWidth/2)/2;
+
+      this.SegmentArc = Chart.Arc.extend({
+        ctx : this.chart.ctx,
+        x : this.chart.width/2,
+        y : this.chart.height/2
+      });
+
+      //Set up tooltip events on the chart
+      if (this.options.showTooltips){
+        helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+          var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
+
+          helpers.each(this.segments,function(segment){
+            segment.restore(["fillColor"]);
+          });
+          helpers.each(activeSegments,function(activeSegment){
+            activeSegment.fillColor = activeSegment.highlightColor;
+          });
+          this.showTooltip(activeSegments);
+        });
+      }
+      this.calculateTotal(data);
+
+      helpers.each(data,function(datapoint, index){
+        this.addData(datapoint, index, true);
+      },this);
+
+      this.render();
+    },
+    getSegmentsAtEvent : function(e){
+      var segmentsArray = [];
+
+      var location = helpers.getRelativePosition(e);
+
+      helpers.each(this.segments,function(segment){
+        if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);
+      },this);
+      return segmentsArray;
+    },
+    addData : function(segment, atIndex, silent){
+      var index = atIndex || this.segments.length;
+      this.segments.splice(index, 0, new this.SegmentArc({
+        value : segment.value,
+        outerRadius : (this.options.animateScale) ? 0 : this.outerRadius,
+        innerRadius : (this.options.animateScale) ? 0 : (this.outerRadius/100) * this.options.percentageInnerCutout,
+        fillColor : segment.color,
+        highlightColor : segment.highlight || segment.color,
+        showStroke : this.options.segmentShowStroke,
+        strokeWidth : this.options.segmentStrokeWidth,
+        strokeColor : this.options.segmentStrokeColor,
+        startAngle : Math.PI * 1.5,
+        circumference : (this.options.animateRotate) ? 0 : this.calculateCircumference(segment.value),
+        label : segment.label
+      }));
+      if (!silent){
+        this.reflow();
+        this.update();
+      }
+    },
+    calculateCircumference : function(value){
+      return (Math.PI*2)*(Math.abs(value) / this.total);
+    },
+    calculateTotal : function(data){
+      this.total = 0;
+      helpers.each(data,function(segment){
+        this.total += Math.abs(segment.value);
+      },this);
+    },
+    update : function(){
+      this.calculateTotal(this.segments);
+
+      // Reset any highlight colours before updating.
+      helpers.each(this.activeElements, function(activeElement){
+        activeElement.restore(['fillColor']);
+      });
+
+      helpers.each(this.segments,function(segment){
+        segment.save();
+      });
+      this.render();
+    },
+
+    removeData: function(atIndex){
+      var indexToDelete = (helpers.isNumber(atIndex)) ? atIndex : this.segments.length-1;
+      this.segments.splice(indexToDelete, 1);
+      this.reflow();
+      this.update();
+    },
+
+    reflow : function(){
+      helpers.extend(this.SegmentArc.prototype,{
+        x : this.chart.width/2,
+        y : this.chart.height/2
+      });
+      this.outerRadius = (helpers.min([this.chart.width,this.chart.height]) -	this.options.segmentStrokeWidth/2)/2;
+      helpers.each(this.segments, function(segment){
+        segment.update({
+          outerRadius : this.outerRadius,
+          innerRadius : (this.outerRadius/100) * this.options.percentageInnerCutout
+        });
+      }, this);
+    },
+    draw : function(easeDecimal){
+      var animDecimal = (easeDecimal) ? easeDecimal : 1;
+      this.clear();
+      helpers.each(this.segments,function(segment,index){
+        segment.transition({
+          circumference : this.calculateCircumference(segment.value),
+          outerRadius : this.outerRadius,
+          innerRadius : (this.outerRadius/100) * this.options.percentageInnerCutout
+        },animDecimal);
+
+        segment.endAngle = segment.startAngle + segment.circumference;
+
+        segment.draw();
+        if (index === 0){
+          segment.startAngle = Math.PI * 1.5;
+        }
+        //Check to see if it's the last segment, if not get the next and update the start angle
+        if (index < this.segments.length-1){
+          this.segments[index+1].startAngle = segment.endAngle;
+        }
+      },this);
+
+    }
+  });
+
+  Chart.types.Doughnut.extend({
+    name : "Pie",
+    defaults : helpers.merge(defaultConfig,{percentageInnerCutout : 0})
+  });
+
+}).call(this);
+(function(){
+  
+
+  var root = this,
+    Chart = root.Chart,
+    helpers = Chart.helpers;
+
+  var defaultConfig = {
+
+    ///Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines : true,
+
+    //String - Colour of the grid lines
+    scaleGridLineColor : "rgba(0,0,0,.05)",
+
+    //Number - Width of the grid lines
+    scaleGridLineWidth : 1,
+
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+
+    //Boolean - Whether the line is curved between points
+    bezierCurve : true,
+
+    //Number - Tension of the bezier curve between points
+    bezierCurveTension : 0.4,
+
+    //Boolean - Whether to show a dot for each point
+    pointDot : true,
+
+    //Number - Radius of each point dot in pixels
+    pointDotRadius : 4,
+
+    //Number - Pixel width of point dot stroke
+    pointDotStrokeWidth : 1,
+
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius : 20,
+
+    //Boolean - Whether to show a stroke for datasets
+    datasetStroke : true,
+
+    //Number - Pixel width of dataset stroke
+    datasetStrokeWidth : 2,
+
+    //Boolean - Whether to fill the dataset with a colour
+    datasetFill : true,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+  };
+
+
+  Chart.Type.extend({
+    name: "Line",
+    defaults : defaultConfig,
+    initialize:  function(data){
+      //Declare the extension of the default point, to cater for the options passed in to the constructor
+      this.PointClass = Chart.Point.extend({
+        strokeWidth : this.options.pointDotStrokeWidth,
+        radius : this.options.pointDotRadius,
+        display: this.options.pointDot,
+        hitDetectionRadius : this.options.pointHitDetectionRadius,
+        ctx : this.chart.ctx,
+        inRange : function(mouseX){
+          return (Math.pow(mouseX-this.x, 2) < Math.pow(this.radius + this.hitDetectionRadius,2));
+        }
+      });
+
+      this.datasets = [];
+
+      //Set up tooltip events on the chart
+      if (this.options.showTooltips){
+        helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+          var activePoints = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];
+          this.eachPoints(function(point){
+            point.restore(['fillColor', 'strokeColor']);
+          });
+          helpers.each(activePoints, function(activePoint){
+            activePoint.fillColor = activePoint.highlightFill;
+            activePoint.strokeColor = activePoint.highlightStroke;
+          });
+          this.showTooltip(activePoints);
+        });
+      }
+
+      //Iterate through each of the datasets, and build this into a property of the chart
+      helpers.each(data.datasets,function(dataset){
+
+        var datasetObject = {
+          label : dataset.label || null,
+          fillColor : dataset.fillColor,
+          strokeColor : dataset.strokeColor,
+          pointColor : dataset.pointColor,
+          pointStrokeColor : dataset.pointStrokeColor,
+          points : []
+        };
+
+        this.datasets.push(datasetObject);
+
+
+        helpers.each(dataset.data,function(dataPoint,index){
+          //Add a new point for each piece of data, passing any required data to draw.
+          datasetObject.points.push(new this.PointClass({
+            value : dataPoint,
+            label : data.labels[index],
+            datasetLabel: dataset.label,
+            strokeColor : dataset.pointStrokeColor,
+            fillColor : dataset.pointColor,
+            highlightFill : dataset.pointHighlightFill || dataset.pointColor,
+            highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
+          }));
+        },this);
+
+        this.buildScale(data.labels);
+
+
+        this.eachPoints(function(point, index){
+          helpers.extend(point, {
+            x: this.scale.calculateX(index),
+            y: this.scale.endPoint
+          });
+          point.save();
+        }, this);
+
+      },this);
+
+
+      this.render();
+    },
+    update : function(){
+      this.scale.update();
+      // Reset any highlight colours before updating.
+      helpers.each(this.activeElements, function(activeElement){
+        activeElement.restore(['fillColor', 'strokeColor']);
+      });
+      this.eachPoints(function(point){
+        point.save();
+      });
+      this.render();
+    },
+    eachPoints : function(callback){
+      helpers.each(this.datasets,function(dataset){
+        helpers.each(dataset.points,callback,this);
+      },this);
+    },
+    getPointsAtEvent : function(e){
+      var pointsArray = [],
+        eventPosition = helpers.getRelativePosition(e);
+      helpers.each(this.datasets,function(dataset){
+        helpers.each(dataset.points,function(point){
+          if (point.inRange(eventPosition.x,eventPosition.y)) pointsArray.push(point);
+        });
+      },this);
+      return pointsArray;
+    },
+    buildScale : function(labels){
+      var self = this;
+
+      var dataTotal = function(){
+        var values = [];
+        self.eachPoints(function(point){
+          values.push(point.value);
+        });
+
+        return values;
+      };
+
+      var scaleOptions = {
+        templateString : this.options.scaleLabel,
+        height : this.chart.height,
+        width : this.chart.width,
+        ctx : this.chart.ctx,
+        textColor : this.options.scaleFontColor,
+        fontSize : this.options.scaleFontSize,
+        fontStyle : this.options.scaleFontStyle,
+        fontFamily : this.options.scaleFontFamily,
+        valuesCount : labels.length,
+        beginAtZero : this.options.scaleBeginAtZero,
+        integersOnly : this.options.scaleIntegersOnly,
+        calculateYRange : function(currentHeight){
+          var updatedRanges = helpers.calculateScaleRange(
+            dataTotal(),
+            currentHeight,
+            this.fontSize,
+            this.beginAtZero,
+            this.integersOnly
+          );
+          helpers.extend(this, updatedRanges);
+        },
+        xLabels : labels,
+        font : helpers.fontString(this.options.scaleFontSize, this.options.scaleFontStyle, this.options.scaleFontFamily),
+        lineWidth : this.options.scaleLineWidth,
+        lineColor : this.options.scaleLineColor,
+        showHorizontalLines : this.options.scaleShowHorizontalLines,
+        showVerticalLines : this.options.scaleShowVerticalLines,
+        gridLineWidth : (this.options.scaleShowGridLines) ? this.options.scaleGridLineWidth : 0,
+        gridLineColor : (this.options.scaleShowGridLines) ? this.options.scaleGridLineColor : "rgba(0,0,0,0)",
+        padding: (this.options.showScale) ? 0 : this.options.pointDotRadius + this.options.pointDotStrokeWidth,
+        showLabels : this.options.scaleShowLabels,
+        display : this.options.showScale
+      };
+
+      if (this.options.scaleOverride){
+        helpers.extend(scaleOptions, {
+          calculateYRange: helpers.noop,
+          steps: this.options.scaleSteps,
+          stepValue: this.options.scaleStepWidth,
+          min: this.options.scaleStartValue,
+          max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+        });
+      }
+
+
+      this.scale = new Chart.Scale(scaleOptions);
+    },
+    addData : function(valuesArray,label){
+      //Map the values array for each of the datasets
+
+      helpers.each(valuesArray,function(value,datasetIndex){
+        //Add a new point for each piece of data, passing any required data to draw.
+        this.datasets[datasetIndex].points.push(new this.PointClass({
+          value : value,
+          label : label,
+          x: this.scale.calculateX(this.scale.valuesCount+1),
+          y: this.scale.endPoint,
+          strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+          fillColor : this.datasets[datasetIndex].pointColor
+        }));
+      },this);
+
+      this.scale.addXLabel(label);
+      //Then re-render the chart.
+      this.update();
+    },
+    removeData : function(){
+      this.scale.removeXLabel();
+      //Then re-render the chart.
+      helpers.each(this.datasets,function(dataset){
+        dataset.points.shift();
+      },this);
+      this.update();
+    },
+    reflow : function(){
+      var newScaleProps = helpers.extend({
+        height : this.chart.height,
+        width : this.chart.width
+      });
+      this.scale.update(newScaleProps);
+    },
+    draw : function(ease){
+      var easingDecimal = ease || 1;
+      this.clear();
+
+      var ctx = this.chart.ctx;
+
+      // Some helper methods for getting the next/prev points
+      var hasValue = function(item){
+          return item.value !== null;
+        },
+        nextPoint = function(point, collection, index){
+          return helpers.findNextWhere(collection, hasValue, index) || point;
+        },
+        previousPoint = function(point, collection, index){
+          return helpers.findPreviousWhere(collection, hasValue, index) || point;
+        };
+
+      this.scale.draw(easingDecimal);
+
+
+      helpers.each(this.datasets,function(dataset){
+        var pointsWithValues = helpers.where(dataset.points, hasValue);
+
+        //Transition each point first so that the line and point drawing isn't out of sync
+        //We can use this extra loop to calculate the control points of this dataset also in this loop
+
+        helpers.each(dataset.points, function(point, index){
+          if (point.hasValue()){
+            point.transition({
+              y : this.scale.calculateY(point.value),
+              x : this.scale.calculateX(index)
+            }, easingDecimal);
+          }
+        },this);
+
+
+        // Control points need to be calculated in a seperate loop, because we need to know the current x/y of the point
+        // This would cause issues when there is no animation, because the y of the next point would be 0, so beziers would be skewed
+        if (this.options.bezierCurve){
+          helpers.each(pointsWithValues, function(point, index){
+            var tension = (index > 0 && index < pointsWithValues.length - 1) ? this.options.bezierCurveTension : 0;
+            point.controlPoints = helpers.splineCurve(
+              previousPoint(point, pointsWithValues, index),
+              point,
+              nextPoint(point, pointsWithValues, index),
+              tension
+            );
+
+            // Prevent the bezier going outside of the bounds of the graph
+
+            // Cap puter bezier handles to the upper/lower scale bounds
+            if (point.controlPoints.outer.y > this.scale.endPoint){
+              point.controlPoints.outer.y = this.scale.endPoint;
+            }
+            else if (point.controlPoints.outer.y < this.scale.startPoint){
+              point.controlPoints.outer.y = this.scale.startPoint;
+            }
+
+            // Cap inner bezier handles to the upper/lower scale bounds
+            if (point.controlPoints.inner.y > this.scale.endPoint){
+              point.controlPoints.inner.y = this.scale.endPoint;
+            }
+            else if (point.controlPoints.inner.y < this.scale.startPoint){
+              point.controlPoints.inner.y = this.scale.startPoint;
+            }
+          },this);
+        }
+
+
+        //Draw the line between all the points
+        ctx.lineWidth = this.options.datasetStrokeWidth;
+        ctx.strokeStyle = dataset.strokeColor;
+        ctx.beginPath();
+
+        helpers.each(pointsWithValues, function(point, index){
+          if (index === 0){
+            ctx.moveTo(point.x, point.y);
+          }
+          else{
+            if(this.options.bezierCurve){
+              var previous = previousPoint(point, pointsWithValues, index);
+
+              ctx.bezierCurveTo(
+                previous.controlPoints.outer.x,
+                previous.controlPoints.outer.y,
+                point.controlPoints.inner.x,
+                point.controlPoints.inner.y,
+                point.x,
+                point.y
+              );
+            }
+            else{
+              ctx.lineTo(point.x,point.y);
+            }
+          }
+        }, this);
+
+        ctx.stroke();
+
+        if (this.options.datasetFill && pointsWithValues.length > 0){
+          //Round off the line by going to the base of the chart, back to the start, then fill.
+          ctx.lineTo(pointsWithValues[pointsWithValues.length - 1].x, this.scale.endPoint);
+          ctx.lineTo(pointsWithValues[0].x, this.scale.endPoint);
+          ctx.fillStyle = dataset.fillColor;
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        //Now draw the points over the line
+        //A little inefficient double looping, but better than the line
+        //lagging behind the point positions
+        helpers.each(pointsWithValues,function(point){
+          point.draw();
+        });
+      },this);
+    }
+  });
+
+
+}).call(this);
+
+(function(){
+  
+
+  var root = this,
+    Chart = root.Chart,
+  //Cache a local reference to Chart.helpers
+    helpers = Chart.helpers;
+
+  var defaultConfig = {
+    //Boolean - Show a backdrop to the scale label
+    scaleShowLabelBackdrop : true,
+
+    //String - The colour of the label backdrop
+    scaleBackdropColor : "rgba(255,255,255,0.75)",
+
+    // Boolean - Whether the scale should begin at zero
+    scaleBeginAtZero : true,
+
+    //Number - The backdrop padding above & below the label in pixels
+    scaleBackdropPaddingY : 2,
+
+    //Number - The backdrop padding to the side of the label in pixels
+    scaleBackdropPaddingX : 2,
+
+    //Boolean - Show line for each value in the scale
+    scaleShowLine : true,
+
+    //Boolean - Stroke a line around each segment in the chart
+    segmentShowStroke : true,
+
+    //String - The colour of the stroke on each segement.
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of the stroke value in pixels
+    segmentStrokeWidth : 2,
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect.
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether to animate the rotation of the chart
+    animateRotate : true,
+
+    //Boolean - Whether to animate scaling the chart from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+  };
+
+
+  Chart.Type.extend({
+    //Passing in a name registers this chart in the Chart namespace
+    name: "PolarArea",
+    //Providing a defaults will also register the deafults in the chart namespace
+    defaults : defaultConfig,
+    //Initialize is fired when the chart is initialized - Data is passed in as a parameter
+    //Config is automatically merged by the core of Chart.js, and is available at this.options
+    initialize:  function(data){
+      this.segments = [];
+      //Declare segment class as a chart instance specific class, so it can share props for this instance
+      this.SegmentArc = Chart.Arc.extend({
+        showStroke : this.options.segmentShowStroke,
+        strokeWidth : this.options.segmentStrokeWidth,
+        strokeColor : this.options.segmentStrokeColor,
+        ctx : this.chart.ctx,
+        innerRadius : 0,
+        x : this.chart.width/2,
+        y : this.chart.height/2
+      });
+      this.scale = new Chart.RadialScale({
+        display: this.options.showScale,
+        fontStyle: this.options.scaleFontStyle,
+        fontSize: this.options.scaleFontSize,
+        fontFamily: this.options.scaleFontFamily,
+        fontColor: this.options.scaleFontColor,
+        showLabels: this.options.scaleShowLabels,
+        showLabelBackdrop: this.options.scaleShowLabelBackdrop,
+        backdropColor: this.options.scaleBackdropColor,
+        backdropPaddingY : this.options.scaleBackdropPaddingY,
+        backdropPaddingX: this.options.scaleBackdropPaddingX,
+        lineWidth: (this.options.scaleShowLine) ? this.options.scaleLineWidth : 0,
+        lineColor: this.options.scaleLineColor,
+        lineArc: true,
+        width: this.chart.width,
+        height: this.chart.height,
+        xCenter: this.chart.width/2,
+        yCenter: this.chart.height/2,
+        ctx : this.chart.ctx,
+        templateString: this.options.scaleLabel,
+        valuesCount: data.length
+      });
+
+      this.updateScaleRange(data);
+
+      this.scale.update();
+
+      helpers.each(data,function(segment,index){
+        this.addData(segment,index,true);
+      },this);
+
+      //Set up tooltip events on the chart
+      if (this.options.showTooltips){
+        helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+          var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
+          helpers.each(this.segments,function(segment){
+            segment.restore(["fillColor"]);
+          });
+          helpers.each(activeSegments,function(activeSegment){
+            activeSegment.fillColor = activeSegment.highlightColor;
+          });
+          this.showTooltip(activeSegments);
+        });
+      }
+
+      this.render();
+    },
+    getSegmentsAtEvent : function(e){
+      var segmentsArray = [];
+
+      var location = helpers.getRelativePosition(e);
+
+      helpers.each(this.segments,function(segment){
+        if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);
+      },this);
+      return segmentsArray;
+    },
+    addData : function(segment, atIndex, silent){
+      var index = atIndex || this.segments.length;
+
+      this.segments.splice(index, 0, new this.SegmentArc({
+        fillColor: segment.color,
+        highlightColor: segment.highlight || segment.color,
+        label: segment.label,
+        value: segment.value,
+        outerRadius: (this.options.animateScale) ? 0 : this.scale.calculateCenterOffset(segment.value),
+        circumference: (this.options.animateRotate) ? 0 : this.scale.getCircumference(),
+        startAngle: Math.PI * 1.5
+      }));
+      if (!silent){
+        this.reflow();
+        this.update();
+      }
+    },
+    removeData: function(atIndex){
+      var indexToDelete = (helpers.isNumber(atIndex)) ? atIndex : this.segments.length-1;
+      this.segments.splice(indexToDelete, 1);
+      this.reflow();
+      this.update();
+    },
+    calculateTotal: function(data){
+      this.total = 0;
+      helpers.each(data,function(segment){
+        this.total += segment.value;
+      },this);
+      this.scale.valuesCount = this.segments.length;
+    },
+    updateScaleRange: function(datapoints){
+      var valuesArray = [];
+      helpers.each(datapoints,function(segment){
+        valuesArray.push(segment.value);
+      });
+
+      var scaleSizes = (this.options.scaleOverride) ?
+      {
+        steps: this.options.scaleSteps,
+        stepValue: this.options.scaleStepWidth,
+        min: this.options.scaleStartValue,
+        max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+      } :
+        helpers.calculateScaleRange(
+          valuesArray,
+          helpers.min([this.chart.width, this.chart.height])/2,
+          this.options.scaleFontSize,
+          this.options.scaleBeginAtZero,
+          this.options.scaleIntegersOnly
+        );
+
+      helpers.extend(
+        this.scale,
+        scaleSizes,
+        {
+          size: helpers.min([this.chart.width, this.chart.height]),
+          xCenter: this.chart.width/2,
+          yCenter: this.chart.height/2
+        }
+      );
+
+    },
+    update : function(){
+      this.calculateTotal(this.segments);
+
+      helpers.each(this.segments,function(segment){
+        segment.save();
+      });
+
+      this.reflow();
+      this.render();
+    },
+    reflow : function(){
+      helpers.extend(this.SegmentArc.prototype,{
+        x : this.chart.width/2,
+        y : this.chart.height/2
+      });
+      this.updateScaleRange(this.segments);
+      this.scale.update();
+
+      helpers.extend(this.scale,{
+        xCenter: this.chart.width/2,
+        yCenter: this.chart.height/2
+      });
+
+      helpers.each(this.segments, function(segment){
+        segment.update({
+          outerRadius : this.scale.calculateCenterOffset(segment.value)
+        });
+      }, this);
+
+    },
+    draw : function(ease){
+      var easingDecimal = ease || 1;
+      //Clear & draw the canvas
+      this.clear();
+      helpers.each(this.segments,function(segment, index){
+        segment.transition({
+          circumference : this.scale.getCircumference(),
+          outerRadius : this.scale.calculateCenterOffset(segment.value)
+        },easingDecimal);
+
+        segment.endAngle = segment.startAngle + segment.circumference;
+
+        // If we've removed the first segment we need to set the first one to
+        // start at the top.
+        if (index === 0){
+          segment.startAngle = Math.PI * 1.5;
+        }
+
+        //Check to see if it's the last segment, if not get the next and update the start angle
+        if (index < this.segments.length - 1){
+          this.segments[index+1].startAngle = segment.endAngle;
+        }
+        segment.draw();
+      }, this);
+      this.scale.draw();
+    }
+  });
+
+}).call(this);
+(function(){
+  
+
+  var root = this,
+    Chart = root.Chart,
+    helpers = Chart.helpers;
+
+
+
+  Chart.Type.extend({
+    name: "Radar",
+    defaults:{
+      //Boolean - Whether to show lines for each scale point
+      scaleShowLine : true,
+
+      //Boolean - Whether we show the angle lines out of the radar
+      angleShowLineOut : true,
+
+      //Boolean - Whether to show labels on the scale
+      scaleShowLabels : false,
+
+      // Boolean - Whether the scale should begin at zero
+      scaleBeginAtZero : true,
+
+      //String - Colour of the angle line
+      angleLineColor : "rgba(0,0,0,.1)",
+
+      //Number - Pixel width of the angle line
+      angleLineWidth : 1,
+
+      //String - Point label font declaration
+      pointLabelFontFamily : "'Arial'",
+
+      //String - Point label font weight
+      pointLabelFontStyle : "normal",
+
+      //Number - Point label font size in pixels
+      pointLabelFontSize : 10,
+
+      //String - Point label font colour
+      pointLabelFontColor : "#666",
+
+      //Boolean - Whether to show a dot for each point
+      pointDot : true,
+
+      //Number - Radius of each point dot in pixels
+      pointDotRadius : 3,
+
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth : 1,
+
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius : 20,
+
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke : true,
+
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth : 2,
+
+      //Boolean - Whether to fill the dataset with a colour
+      datasetFill : true,
+
+      //String - A legend template
+      legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+    },
+
+    initialize: function(data){
+      this.PointClass = Chart.Point.extend({
+        strokeWidth : this.options.pointDotStrokeWidth,
+        radius : this.options.pointDotRadius,
+        display: this.options.pointDot,
+        hitDetectionRadius : this.options.pointHitDetectionRadius,
+        ctx : this.chart.ctx
+      });
+
+      this.datasets = [];
+
+      this.buildScale(data);
+
+      //Set up tooltip events on the chart
+      if (this.options.showTooltips){
+        helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+          var activePointsCollection = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];
+
+          this.eachPoints(function(point){
+            point.restore(['fillColor', 'strokeColor']);
+          });
+          helpers.each(activePointsCollection, function(activePoint){
+            activePoint.fillColor = activePoint.highlightFill;
+            activePoint.strokeColor = activePoint.highlightStroke;
+          });
+
+          this.showTooltip(activePointsCollection);
+        });
+      }
+
+      //Iterate through each of the datasets, and build this into a property of the chart
+      helpers.each(data.datasets,function(dataset){
+
+        var datasetObject = {
+          label: dataset.label || null,
+          fillColor : dataset.fillColor,
+          strokeColor : dataset.strokeColor,
+          pointColor : dataset.pointColor,
+          pointStrokeColor : dataset.pointStrokeColor,
+          points : []
+        };
+
+        this.datasets.push(datasetObject);
+
+        helpers.each(dataset.data,function(dataPoint,index){
+          //Add a new point for each piece of data, passing any required data to draw.
+          var pointPosition;
+          if (!this.scale.animation){
+            pointPosition = this.scale.getPointPosition(index, this.scale.calculateCenterOffset(dataPoint));
+          }
+          datasetObject.points.push(new this.PointClass({
+            value : dataPoint,
+            label : data.labels[index],
+            datasetLabel: dataset.label,
+            x: (this.options.animation) ? this.scale.xCenter : pointPosition.x,
+            y: (this.options.animation) ? this.scale.yCenter : pointPosition.y,
+            strokeColor : dataset.pointStrokeColor,
+            fillColor : dataset.pointColor,
+            highlightFill : dataset.pointHighlightFill || dataset.pointColor,
+            highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
+          }));
+        },this);
+
+      },this);
+
+      this.render();
+    },
+    eachPoints : function(callback){
+      helpers.each(this.datasets,function(dataset){
+        helpers.each(dataset.points,callback,this);
+      },this);
+    },
+
+    getPointsAtEvent : function(evt){
+      var mousePosition = helpers.getRelativePosition(evt),
+        fromCenter = helpers.getAngleFromPoint({
+          x: this.scale.xCenter,
+          y: this.scale.yCenter
+        }, mousePosition);
+
+      var anglePerIndex = (Math.PI * 2) /this.scale.valuesCount,
+        pointIndex = Math.round((fromCenter.angle - Math.PI * 1.5) / anglePerIndex),
+        activePointsCollection = [];
+
+      // If we're at the top, make the pointIndex 0 to get the first of the array.
+      if (pointIndex >= this.scale.valuesCount || pointIndex < 0){
+        pointIndex = 0;
+      }
+
+      if (fromCenter.distance <= this.scale.drawingArea){
+        helpers.each(this.datasets, function(dataset){
+          activePointsCollection.push(dataset.points[pointIndex]);
+        });
+      }
+
+      return activePointsCollection;
+    },
+
+    buildScale : function(data){
+      this.scale = new Chart.RadialScale({
+        display: this.options.showScale,
+        fontStyle: this.options.scaleFontStyle,
+        fontSize: this.options.scaleFontSize,
+        fontFamily: this.options.scaleFontFamily,
+        fontColor: this.options.scaleFontColor,
+        showLabels: this.options.scaleShowLabels,
+        showLabelBackdrop: this.options.scaleShowLabelBackdrop,
+        backdropColor: this.options.scaleBackdropColor,
+        backdropPaddingY : this.options.scaleBackdropPaddingY,
+        backdropPaddingX: this.options.scaleBackdropPaddingX,
+        lineWidth: (this.options.scaleShowLine) ? this.options.scaleLineWidth : 0,
+        lineColor: this.options.scaleLineColor,
+        angleLineColor : this.options.angleLineColor,
+        angleLineWidth : (this.options.angleShowLineOut) ? this.options.angleLineWidth : 0,
+        // Point labels at the edge of each line
+        pointLabelFontColor : this.options.pointLabelFontColor,
+        pointLabelFontSize : this.options.pointLabelFontSize,
+        pointLabelFontFamily : this.options.pointLabelFontFamily,
+        pointLabelFontStyle : this.options.pointLabelFontStyle,
+        height : this.chart.height,
+        width: this.chart.width,
+        xCenter: this.chart.width/2,
+        yCenter: this.chart.height/2,
+        ctx : this.chart.ctx,
+        templateString: this.options.scaleLabel,
+        labels: data.labels,
+        valuesCount: data.datasets[0].data.length
+      });
+
+      this.scale.setScaleSize();
+      this.updateScaleRange(data.datasets);
+      this.scale.buildYLabels();
+    },
+    updateScaleRange: function(datasets){
+      var valuesArray = (function(){
+        var totalDataArray = [];
+        helpers.each(datasets,function(dataset){
+          if (dataset.data){
+            totalDataArray = totalDataArray.concat(dataset.data);
+          }
+          else {
+            helpers.each(dataset.points, function(point){
+              totalDataArray.push(point.value);
+            });
+          }
+        });
+        return totalDataArray;
+      })();
+
+
+      var scaleSizes = (this.options.scaleOverride) ?
+      {
+        steps: this.options.scaleSteps,
+        stepValue: this.options.scaleStepWidth,
+        min: this.options.scaleStartValue,
+        max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+      } :
+        helpers.calculateScaleRange(
+          valuesArray,
+          helpers.min([this.chart.width, this.chart.height])/2,
+          this.options.scaleFontSize,
+          this.options.scaleBeginAtZero,
+          this.options.scaleIntegersOnly
+        );
+
+      helpers.extend(
+        this.scale,
+        scaleSizes
+      );
+
+    },
+    addData : function(valuesArray,label){
+      //Map the values array for each of the datasets
+      this.scale.valuesCount++;
+      helpers.each(valuesArray,function(value,datasetIndex){
+        var pointPosition = this.scale.getPointPosition(this.scale.valuesCount, this.scale.calculateCenterOffset(value));
+        this.datasets[datasetIndex].points.push(new this.PointClass({
+          value : value,
+          label : label,
+          x: pointPosition.x,
+          y: pointPosition.y,
+          strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+          fillColor : this.datasets[datasetIndex].pointColor
+        }));
+      },this);
+
+      this.scale.labels.push(label);
+
+      this.reflow();
+
+      this.update();
+    },
+    removeData : function(){
+      this.scale.valuesCount--;
+      this.scale.labels.shift();
+      helpers.each(this.datasets,function(dataset){
+        dataset.points.shift();
+      },this);
+      this.reflow();
+      this.update();
+    },
+    update : function(){
+      this.eachPoints(function(point){
+        point.save();
+      });
+      this.reflow();
+      this.render();
+    },
+    reflow: function(){
+      helpers.extend(this.scale, {
+        width : this.chart.width,
+        height: this.chart.height,
+        size : helpers.min([this.chart.width, this.chart.height]),
+        xCenter: this.chart.width/2,
+        yCenter: this.chart.height/2
+      });
+      this.updateScaleRange(this.datasets);
+      this.scale.setScaleSize();
+      this.scale.buildYLabels();
+    },
+    draw : function(ease){
+      var easeDecimal = ease || 1,
+        ctx = this.chart.ctx;
+      this.clear();
+      this.scale.draw();
+
+      helpers.each(this.datasets,function(dataset){
+
+        //Transition each point first so that the line and point drawing isn't out of sync
+        helpers.each(dataset.points,function(point,index){
+          if (point.hasValue()){
+            point.transition(this.scale.getPointPosition(index, this.scale.calculateCenterOffset(point.value)), easeDecimal);
+          }
+        },this);
+
+
+
+        //Draw the line between all the points
+        ctx.lineWidth = this.options.datasetStrokeWidth;
+        ctx.strokeStyle = dataset.strokeColor;
+        ctx.beginPath();
+        helpers.each(dataset.points,function(point,index){
+          if (index === 0){
+            ctx.moveTo(point.x,point.y);
+          }
+          else{
+            ctx.lineTo(point.x,point.y);
+          }
+        },this);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.fillStyle = dataset.fillColor;
+        ctx.fill();
+
+        //Now draw the points over the line
+        //A little inefficient double looping, but better than the line
+        //lagging behind the point positions
+        helpers.each(dataset.points,function(point){
+          if (point.hasValue()){
+            point.draw();
+          }
+        });
+
+      },this);
+
+    }
+
+  });
+
+
+
+
+
+}).call(this);
+define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib/chart", "api/ApiRequest"], function(template, Chart, ApiRequest) {
+  Chart.defaults.global.customTooltips = function(tooltip) {
+    var canvas, horizonFix, left, tooltipEl, top, verticalFix;
+    tooltipEl = $("#chartjs-tooltip");
+    if (!tooltip) {
+      tooltipEl.css({
+        opacity: 0
+      });
+      return;
+    }
+    tooltipEl.removeClass("above below");
+    tooltipEl.html(tooltip.text);
+    top = 0;
+    canvas = tooltip.chart.canvas;
+    verticalFix = ((canvas.height - tooltip.y) * parseInt(getComputedStyle(canvas).paddingTop) - tooltip.y * parseInt(getComputedStyle(canvas).paddingBottom)) / canvas.height;
+    horizonFix = ((canvas.width - tooltip.x) * parseInt(getComputedStyle(canvas).paddingLeft) - tooltip.x * parseInt(getComputedStyle(canvas).paddingRight)) / canvas.width;
+    if (tooltip.yAlign === "above") {
+      top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding + verticalFix;
+    } else {
+      top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding + verticalFix;
+    }
+    if (top < 100) {
+      tooltip.yAlign = "below";
+      top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding + verticalFix;
+    }
+    tooltipEl.addClass(tooltip.yAlign);
+    left = horizonFix + tooltip.x;
+    return tooltipEl.css({
+      opacity: 1,
+      left: canvas.offsetLeft + left + "px",
+      top: canvas.offsetTop + top + "px",
+      fontFamily: tooltip.fontFamily,
+      fontSize: tooltip.fontSize,
+      fontStyle: tooltip.fontStyle
+    });
+  };
+  return Ember.Component.extend({
+    classNames: ["violation-chart"],
+    layout: template.index,
+    didInsertElement: function() {
+      var period, statType, timeRange;
+      timeRange = this.get("timeRange");
+      period = this.get("period");
+      statType = this.get("statType");
+      return this.send("renderChart", {
+        timeRange: timeRange,
+        period: period,
+        statType: statType
+      });
+    },
+    actions: {
+      applyFilter: function() {
+        var $elem, period, statType, timeRange;
+        $elem = this.$();
+        timeRange = $elem.find("[name='time_range']").val();
+        period = $elem.find("[name='period']").val();
+        statType = $elem.find("[name='stat_type']").val();
+        return this.send("renderChart", {
+          timeRange: timeRange,
+          period: period,
+          statType: statType
+        });
+      },
+      jumpToLog: function(params) {
+        var _ref;
+        return (_ref = this.get('currentController')) != null ? _ref.transitionToRoute("scanLogPage", 1).then(function() {
+          var controller;
+          controller = App.__container__.lookup("controller:scanLogPage");
+          return controller.setProperties(params);
+        }) : void 0;
+      },
+      renderChart: function(filter) {
+        var $canvasWrapper, self, timePeriodMap;
+        self = this;
+        $canvasWrapper = $(".canvas-wrapper");
+        $canvasWrapper.addClass("loading").removeClass("empty");
+        _.each(filter, function(v, k) {
+          if (!v) {
+            return delete filter[k];
+          }
+        });
+        _.defaults(filter, {
+          timeRange: "last_day",
+          period: "1h",
+          statType: "avg"
+        });
+        timePeriodMap = {
+          "1h": "1",
+          "4h": "4",
+          "12h": "12",
+          "1d": "24"
+        };
+        return ApiRequest("log_stat_violation", {
+          filter: filter
+        }).then(function(result) {
+          var ctx, data, sortedResult;
+          if (self.chartCanvas) {
+            self.chartCanvas.destroy();
+          }
+          $("#chart-canvas").remove();
+          $canvasWrapper.append("<canvas id='chart-canvas'></canvas>");
+          ctx = document.getElementById("chart-canvas").getContext("2d");
+          $canvasWrapper.removeClass("loading");
+          window.hourRange = timePeriodMap[filter.period];
+          if (result.length <= 0) {
+            $canvasWrapper.addClass("empty");
+            return;
+          }
+          sortedResult = _.sortBy(result, function(value) {
+            var date;
+            date = value._id;
+            return new Date(date.year, date.month - 1, date.day, date.hour_index || 0, 0);
+          });
+          data = {
+            labels: _.map(sortedResult, function(value) {
+              var date, label, utcDate;
+              date = value._id;
+              utcDate = new Date(Date.UTC(date.year, date.month - 1, date.day, date.hour_index * hourRange || 0));
+              label = "" + (utcDate.getFullYear()) + "-" + (utcDate.getMonth() + 1) + "-" + (utcDate.getDate()) + " " + (utcDate.getHours()) + ":00";
+              return label;
+            }),
+            datasets: [
+              {
+                label: "Violation Charts",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                period: timePeriodMap[filter.period],
+                data: _.map(sortedResult, function(value) {
+                  return value[filter.statType];
+                })
+              }
+            ]
+          };
+          self.chartCanvas = new Chart(ctx).Line(data, {
+            bezierCurve: false,
+            responsive: true,
+            scaleBeginAtZero: true,
+            scaleGridLineColor: "rgba(255,255,255,.075)",
+            tooltipTemplate: "<% var maxDate = new Date(+new Date(label) + hourRange * 1000 * 3600);\nvar year = maxDate.getFullYear();\nvar month = maxDate.getMonth() + 1;\nvar day = maxDate.getDate();\nvar hour = maxDate.getHours(); %>\n<span class=\"violation-chart-count\"><span><%= Math.round(value*10)/10 %></span>violations</span>\n<span class=\"violation-chart-range\">\n  <code>Form:</code> <span><%= label %></span> <br/>\n  <code>To&nbsp;&nbsp;:</code> <span><%=year + \"-\" + month + \"-\" + day + \" \" + hour + \":00\" %></span>\n</span>"
+          });
+          $("#chart-canvas").on("mousemove", function(evt) {
+            var activePoint, hasPoint;
+            activePoint = self.chartCanvas.getPointsAtEvent(evt)[0];
+            hasPoint = !!activePoint;
+            return $(this).toggleClass("pointer", hasPoint);
+          });
+          return document.getElementById("chart-canvas").onclick = function(evt) {
+            var activePoints, currentPoint, endTime, period, startTime, statType, timeRange;
+            activePoints = self.chartCanvas.getPointsAtEvent(evt);
+            currentPoint = activePoints[0];
+            if (!currentPoint) {
+              return false;
+            }
+            startTime = +new Date(currentPoint.label) / 1000;
+            endTime = +new Date(+startTime * 1000 + window.hourRange * 1000 * 3600) / 1000;
+            period = filter.period;
+            statType = filter.statType;
+            timeRange = filter.timeRange;
+            return self.send("jumpToLog", {
+              startTime: startTime,
+              endTime: endTime,
+              period: period,
+              statType: statType,
+              timeRange: timeRange
+            });
+          };
+        });
+      }
+    }
+  });
+});
+
+define('ui/UI.notification',[], function() {
+  var NOTIFICATION_TYPES, notification, timeout_close;
+  NOTIFICATION_TYPES = {
+    "error": true,
+    "warning": true,
+    "info": true
+  };
+  timeout_close = function(target_dom, is_error, text_length) {
+    var stay_time, to;
+    stay_time = text_length * 80;
+    if (is_error) {
+      stay_time = stay_time + 2000;
+    }
+    to = setTimeout(function() {
+      return target_dom.trigger('CLOSE_ITEM');
+    }, stay_time);
+    target_dom.data("close_to", to);
+    return false;
+  };
+  notification = function(type, template, auto_close) {
+    var close, closeTpl, i, item, item_count, item_dom, items, notification_wrap, notifyTpl, to, _results;
+    if (!NOTIFICATION_TYPES[type] || !template) {
+      return;
+    }
+    notification_wrap = $('#notification_wrap');
+    if (notification_wrap.length === 0) {
+      close = function() {
+        return $(this).closest(".notification_item").addClass("closing").slideUp('fast', function() {
+          return $(this).remove();
+        });
+      };
+      notification_wrap = $('<div id="notification_wrap"></div>').appendTo($(document.body)).on('click', ".notification_close", close).on('CLOSE_ITEM', ".notification_item", close);
+    }
+    if (auto_close) {
+      closeTpl = '<i class="notification_close">&times;</i>';
+    }
+    notifyTpl = '<div class="notification_item ' + type + '_item">' + '<span>' + $('<div>').text(template).html() + '</span>' + (closeTpl || '') + '</div>';
+    item_dom = $(notifyTpl).appendTo(notification_wrap);
+    if (!auto_close) {
+      timeout_close(item_dom, type === "error", template.length);
+    }
+    items = notification_wrap.children(":not(.closing)");
+    item_count = items.length - 1;
+    if (item_count >= 3) {
+      i = 0;
+      _results = [];
+      while (i < item_count) {
+        item = items.eq(i);
+        if (item.children("span").text() === template) {
+          to = item.trigger("CLOSE_ITEM").data("close_to");
+          if (to) {
+            clearTimeout(to);
+          }
+          break;
+        }
+        _results.push(++i);
+      }
+      return _results;
+    }
+  };
+  return notification;
 });
 
 define('core/Helper',[], function() {
@@ -8374,13 +13466,17 @@ define('core/Helper',[], function() {
     temp = wordToHex(a) + wordToHex(b) + wordToHex(c) + wordToHex(d);
     return temp.toLowerCase();
   };
-  Ember.Handlebars.helper('interval', function(value) {
-    var date, dateInterval, dateObj, dateStr;
+  Ember.Handlebars.helper('interval', function(value, noFromNow) {
+    var date, dateInterval, dateIntervalStr, dateObj, dateStr;
     date = Number(value);
     dateObj = new Date(date * 1000);
     dateStr = dateFormat(dateObj, "yyyy-MM-dd hh:mm:ss");
     dateInterval = intervalDate(date);
-    return new Ember.Handlebars.SafeString('<span data-tooltip="' + dateObj + '">' + dateStr + ' <span class="date-interval">(' + dateInterval + ')</span></span>');
+    dateIntervalStr = ' <span class="date-interval">(' + dateInterval + ')</span>';
+    if (noFromNow) {
+      dateIntervalStr = '';
+    }
+    return new Ember.Handlebars.SafeString('<span data-tooltip="' + dateObj + '">' + dateStr + dateIntervalStr + '</span>');
   });
   Ember.Handlebars.helper('dateFromNow', function(value) {
     var date, dateInterval;
@@ -8389,7 +13485,7 @@ define('core/Helper',[], function() {
     return new Ember.Handlebars.SafeString(dateInterval);
   });
   Ember.Handlebars.helper('gravatar', function(email) {
-    return new Ember.Handlebars.SafeString('http://www.gravatar.com/avatar/' + md5(email));
+    return new Ember.Handlebars.SafeString('https://www.gravatar.com/avatar/' + md5(email));
   });
   Ember.Handlebars.helper('every', function(context, options) {
     var actualData, k, oArray, _i, _len;
@@ -8407,6 +13503,10 @@ define('core/Helper',[], function() {
   });
   onClickResList = function() {
     $("body").on("click", "li.res-item", function(e) {
+      if (e.target.tagName === 'A') {
+        e.stopPropagation();
+        return;
+      }
       $(this).toggleClass("expand");
       $(this).find(" > div > .res-list").toggleClass("expand");
       return false;
@@ -8430,24 +13530,10 @@ define('core/Helper',[], function() {
   Application acts as namespace in Ember. We store our component defination(a.k.a Class)
   in Application, so that Ember will find the component and wire them up.
  */
-define('core/Application',["view/ApplicationView", "controller/ApplicationController", "core/Router", "core/Store", "route/ApplicationRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/InvalidSessionRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "./Helper"], function(ApplicationView, ApplicationController, Router, Store, ApplicationRoute, DashboardRoute, LogRoute, RuleManagerRoute, InvalidSessionRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent) {
+define('core/Application',["view/ApplicationView", "controller/ApplicationController", "core/Router", "core/Store", "route/ApplicationRoute", "route/DashboardRoute", "route/LogRoute", "route/RuleManagerRoute", "route/InvalidSessionRoute", "route/SettingsRoute", "view/SettingsView", "controller/SettingsController", "view/DashboardView", "controller/DashboardController", "model/SessionModel", "model/UserModel", "model/RuleModel", "view/RuleView", "controller/RuleManagerC", "model/DashboardModel", "model/LogModel", "controller/LogController", "view/LogView", "component/ViolationDetailComponent", "component/RuleEditorComponent", "component/PaginationComponent", "component/ViolationComponent", "component/ViolationChartComponent", "ui/UI.notification", "./Helper"], function(ApplicationView, ApplicationController, Router, Store, ApplicationRoute, DashboardRoute, LogRoute, RuleManagerRoute, InvalidSessionRoute, SettingsRoute, SettingsView, SettingsController, DashboardView, DashboardController, SessionModel, UserModel, RuleModel, RuleView, RuleController, DashboardModel, LogModel, LogController, LogView, ViolationDetailComponent, RuleEditorComponent, PaginationComponent, ViolationComponent, ViolationChartComponent, notification) {
   window.App = Ember.Application.extend({
     LOG_TRANSITIONS: true,
     rootElement: "body",
-    info: {
-      "type": "abc",
-      "message": "You are looking at a sample dashboard. <a {{action 'setup'}}>Set up cloud account</a> to get started with policy enforcement right away"
-    },
-    setMsg: function(info) {
-      if (!info) {
-        return this.set("info", null);
-      } else {
-        return this.set("info", {
-          type: info.type,
-          message: info.message
-        });
-      }
-    },
     logout: function() {
       App.session.destroyRecord().then(function() {
         return App.gotoLoginPage();
@@ -8465,6 +13551,7 @@ define('core/Application',["view/ApplicationView", "controller/ApplicationContro
       return window.location.href = "/login";
     }
   }).create();
+  App.notification = notification;
   App.refreshCSS = function() {
     var date, date_query;
     date = new Date();
@@ -8518,6 +13605,7 @@ define('core/Application',["view/ApplicationView", "controller/ApplicationContro
   App.ViolationDetailComponent = ViolationDetailComponent;
   App.RuleEditorComponent = RuleEditorComponent;
   App.ViolationNodeComponent = ViolationComponent;
+  App.ViolationChartComponent = ViolationChartComponent;
   Ember.mixin(App, SettingsRoute);
   Ember.mixin(App, SettingsView);
   Ember.mixin(App, SettingsController);

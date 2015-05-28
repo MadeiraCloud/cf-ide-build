@@ -13,7 +13,7 @@
   }
   window.MC_API_HOST = location.protocol + "//api." + window.MC_DOMAIN;
   window.language = window.version = "";
-  if (location.hostname.toLowerCase().indexOf("cloudfielder.io") >= 0 && location.protocol === "http:") {
+  if (location.hostname.toLowerCase().indexOf("cloudfielder.com") >= 0 && location.protocol === "http:") {
     window.location = location.href.replace("http:", "https:");
     return;
   }

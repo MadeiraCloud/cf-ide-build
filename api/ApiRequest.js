@@ -38,6 +38,11 @@ define('api/ApiRequestDefs',[], function() {
       method: 'filter_log',
       params: ['username', 'session_id', 'filter']
     },
+    'log_stat_violation': {
+      url: '/log/',
+      method: 'stat_violation',
+      params: ['username', 'session_id', 'filter']
+    },
     'profile_create': {
       url: '/profile/',
       method: 'create',

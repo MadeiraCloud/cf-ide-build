@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"9dca6545","api/ApiRequest.js":"cf7847fa","core/bundle.js":"a93c9972","core/config.js":"77b78b42","core/debug.js":"3cc11e3a","lib/ace.js":"e30aea27","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"f389a3e3","lib/require.js":"56cbcc51","lib/vender.js":"53999d10","ui/UI.notification.js":"03d4add8"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -17,7 +16,7 @@ window.FileVersions={"account/account.js":"9dca6545","api/ApiRequest.js":"cf7847
   }
   window.MC_API_HOST = location.protocol + "//api." + window.MC_DOMAIN;
   window.language = window.version = "";
-  if (location.hostname.toLowerCase().indexOf("cloudfielder.io") >= 0 && location.protocol === "http:") {
+  if (location.hostname.toLowerCase().indexOf("cloudfielder.com") >= 0 && location.protocol === "http:") {
     window.location = location.href.replace("http:", "https:");
     return;
   }
@@ -136,7 +135,7 @@ require.config({
     window.Base64 = Base64;
     deps = ["core/Application"];
 
-    /* env:dev                                             env:dev:end */
+    /* env:dev                                           env:dev:end */
     return require(deps, function(App) {
       return App.advanceReadiness();
     });
