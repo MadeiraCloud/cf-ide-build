@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"92428656","api/ApiRequest.js":"0238a5e0","core/bundle.js":"64ee2e4b","core/config.js":"21376f61","core/debug.js":"3cc11e3a","lib/ace/editor-grammar-checker.js":"0521ca3e","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"f389a3e3","lib/require.js":"56cbcc51","lib/vender.js":"53999d10"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -74,6 +73,8 @@ require.config({
   /* env:prod */
   bundles: {
     'lib/vender': ["lib/q", "lib/base64", "lib/underscore", "lib/ember", "lib/ember-data"],
+    'lib/ace': ["lib/ace/editor"],
+    'lib/ace-grammar': ["lib/ace/editor-grammar-checker"],
     "api/ApiRequest": ["api/ApiRequest"],
     'core/bundle': ["core/Application"],
     "core/debug": ["core/Debugger"]
