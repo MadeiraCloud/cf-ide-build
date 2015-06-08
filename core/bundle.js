@@ -811,14 +811,6 @@ define('route/LogRoute',[], function() {
       }
     }),
     ScanLogPageRoute: Ember.Route.extend({
-      queryParams: {
-        startTime: {
-          refreshModel: true
-        },
-        endTime: {
-          refreshModel: true
-        }
-      },
       model: function(params, transition) {
         return this.store.find('scanLogPage', transition.params.scanLogPage.pageId);
       },
@@ -892,8 +884,7 @@ define('route/RuleManagerRoute',[], function() {
       model: function(o) {
         if (o.id === "new") {
           return this.store.all("rule").filterBy("id", null)[0] || this.store.createRecord("rule", {
-            user: App.user,
-            content: "name\n\n  \"untitled rule\"\n\ndescription\n\n  \"db instance shouldn't have publicIp\"\n\nparameter\n\n\nif\n\n  region\n  .instance( tags[\"role\"] = \"db\", publicIpAddress!=\"\" )\n\ndo\n\n  email()"
+            user: App.user
           });
         } else {
           return this.store.find("rule", o.id);
@@ -2290,6 +2281,7 @@ define('view/SettingsView',["template/SettingsTpl", "ui/UI.bubblepopup"], functi
 define('controller/SettingsController',[], function() {
   return {
     SettingsController: Ember.Controller.extend({
+      needs: ["dashboardIndex"],
       init: function() {
         this._super();
         return this.resetState();
@@ -2297,6 +2289,15 @@ define('controller/SettingsController',[], function() {
       hasCredential: (function() {
         return !!this.get("model.profile.awsAccount");
       }).property("model.profile.awsAccount"),
+      changedCredential: (function() {
+        var dashboardController, newHash;
+        newHash = Base64.encode("AWSACCOUNT" + this.get("model.profile.awsAccount") + this.get("model.profile.cfgScanInt"));
+        if (window.awsAccountHash && window.awsAccountHash !== newHash) {
+          dashboardController = this.get("controllers.dashboardIndex");
+          dashboardController.send("refreshModel");
+        }
+        return window.awsAccountHash = newHash;
+      }).observes("model.profile.awsAccount", "model.profile.cfgScanInt"),
       resetState: function() {
         this.set("isEditingName", false);
         this.set("isEditingEmail", false);
@@ -3373,7 +3374,16 @@ define('controller/DashboardController',[], function() {
     resourceModel: (function() {
       console.log(this.store.get("resource"));
       return this.store.get("resource");
-    }).property("resources")
+    }).property("resources"),
+    actions: {
+      refreshModel: function() {
+        return this.store.find('dashboard', 1).then(function(post) {
+          if (post) {
+            return post.destroyRecord();
+          }
+        });
+      }
+    }
   });
 });
 
@@ -3681,7 +3691,7 @@ define('model/RuleModel',["api/ApiRequest"], function(ApiRequest) {
         defaultValue: true
       }),
       content: DS.attr("string", {
-        defaultValue: ""
+        defaultValue: "name \"rule-1\"\n\ndescription \"\"\n\nparameter\n\n\nif\n    region\n\ndo\n    email()"
       }),
       name: (function() {
         return stringValOfContent(this.get("content"), "name") || "Untitled";
@@ -5811,7 +5821,9 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
         profile = App.user.get("profile");
         if (!profile.get("awsAccount")) {
           defer = Q.defer();
-          defer.resolve([]);
+          defer.resolve({
+            id: 1
+          });
           return defer.promise;
         }
         return Q.all([
@@ -5821,7 +5833,7 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
         ]).spread(function(result, rules, resources, violationRules) {
           var id, nextScannedTime, violationCount, _ref, _ref1;
           nextScannedTime = (_ref = result[0]) != null ? _ref.next_run_time_utc : void 0;
-          violationCount = (_ref1 = result[0]) != null ? _ref1.last_violation_num : void 0;
+          violationCount = ((_ref1 = result[0]) != null ? _ref1.last_violation_num : void 0) || 0;
           rules = rules.toArray().map(function(a) {
             return a.id;
           });
@@ -5838,6 +5850,12 @@ define('model/DashboardModel',["api/ApiRequest"], function(ApiRequest) {
             violationCount: violationCount
           };
         });
+      },
+      deleteRecord: function() {
+        var defer;
+        defer = new Q.defer();
+        defer.resolve();
+        return defer.promise;
       }
     }),
     Dashboard: DS.Model.extend({
@@ -5956,9 +5974,6 @@ define('model/LogModel',["api/ApiRequest"], function(ApiRequest) {
   defaultPerPageNum = 50;
   return {
     ScanLogPageAdapter: DS.Adapter.extend({
-      findAll: function() {
-        return this.find();
-      },
       find: function(store, type, pageId, snapshot) {
         var filter, timeArray;
         if (pageId == null) {
@@ -6089,7 +6104,12 @@ define('controller/LogController',[], function() {
   return {
     ScanLogPageController: Ember.Controller.extend({
       startTime: (function(key, value) {
+        var label, startTime, utcDate;
         if (arguments.length === 1) {
+          startTime = this.get("model.start_timestamp");
+          utcDate = new Date(+startTime * 1000);
+          label = "" + (utcDate.getFullYear()) + "-" + (utcDate.getMonth() + 1) + "-" + (utcDate.getDate()) + " " + (utcDate.getHours()) + ":00";
+          this.set("highlight", label);
           return this.get('model.start_timestamp');
         } else if (arguments.length === 2) {
           Ember.run.once(this, 'reloadModel');
@@ -6289,6 +6309,45 @@ TEMPLATE.index=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
+        var el1 = dom.createElement("span");
+        dom.setAttribute(el1,"class","panel-note");
+        var el2 = dom.createTextNode("(SHOW CHANGED ONLY)");
+        dom.appendChild(el1, el2);
+        dom.appendChild(el0, el1);
+        return el0;
+      },
+      render: function render(context, env, contextualElement) {
+        var dom = env.dom;
+        dom.detectNamespace(contextualElement);
+        var fragment;
+        if (env.useFragmentCache && dom.canClone) {
+          if (this.cachedFragment === null) {
+            fragment = this.build(dom);
+            if (this.hasRendered) {
+              this.cachedFragment = fragment;
+            } else {
+              this.hasRendered = true;
+            }
+          }
+          if (this.cachedFragment) {
+            fragment = dom.cloneNode(this.cachedFragment, true);
+          }
+        } else {
+          fragment = this.build(dom);
+        }
+        return fragment;
+      }
+    };
+  }());
+  var child1 = (function() {
+    return {
+      isHTMLBars: true,
+      revision: "Ember@1.11.3",
+      blockParams: 0,
+      cachedFragment: null,
+      hasRendered: false,
+      build: function build(dom) {
+        var el0 = dom.createDocumentFragment();
         var el1 = dom.createTextNode("            ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
@@ -6345,7 +6404,7 @@ TEMPLATE.index=(function() {
       }
     };
   }());
-  var child1 = (function() {
+  var child2 = (function() {
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -6433,7 +6492,9 @@ TEMPLATE.index=(function() {
       var el3 = dom.createElement("i");
       dom.setAttribute(el3,"class","fa fa-clock-o");
       dom.appendChild(el2, el3);
-      var el3 = dom.createTextNode("HISTORY LOG");
+      var el3 = dom.createTextNode("HISTORY LOG ");
+      dom.appendChild(el2, el3);
+      var el3 = dom.createComment("");
       dom.appendChild(el2, el3);
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n    ");
@@ -6480,15 +6541,18 @@ TEMPLATE.index=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element2 = dom.childAt(fragment, [2, 3]);
+      var element2 = dom.childAt(fragment, [2]);
+      var element3 = dom.childAt(element2, [3]);
       var morph0 = dom.createMorphAt(dom.childAt(fragment, [0, 3]),1,1);
-      var morph1 = dom.createMorphAt(element2,1,1);
-      var morph2 = dom.createMorphAt(element2,3,3);
-      var morph3 = dom.createMorphAt(element2,5,5);
-      inline(env, morph0, context, "violation-chart", [], {"currentControllerBinding": "controller", "period": get(env, context, "period"), "statType": get(env, context, "statType"), "timeRange": get(env, context, "timeRange")});
-      block(env, morph1, context, "if", [get(env, context, "startTime")], {}, child0, null);
-      inline(env, morph2, context, "view", ["scanLogList"], {"controller": get(env, context, "controllers.scanLogList"), "model": get(env, context, "result")});
-      block(env, morph3, context, "if", [get(env, context, "showPagination")], {}, child1, null);
+      var morph1 = dom.createMorphAt(dom.childAt(element2, [1]),2,2);
+      var morph2 = dom.createMorphAt(element3,1,1);
+      var morph3 = dom.createMorphAt(element3,3,3);
+      var morph4 = dom.createMorphAt(element3,5,5);
+      inline(env, morph0, context, "violation-chart", [], {"currentControllerBinding": "controller", "period": get(env, context, "period"), "statType": get(env, context, "statType"), "timeRange": get(env, context, "timeRange"), "highlight": get(env, context, "highlight")});
+      block(env, morph1, context, "unless", [get(env, context, "startTime")], {}, child0, null);
+      block(env, morph2, context, "if", [get(env, context, "startTime")], {}, child1, null);
+      inline(env, morph3, context, "view", ["scanLogList"], {"controller": get(env, context, "controllers.scanLogList"), "model": get(env, context, "result")});
+      block(env, morph4, context, "if", [get(env, context, "showPagination")], {}, child2, null);
       return fragment;
     }
   };
@@ -8259,7 +8323,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
         return count += rule.count;
       });
       return count;
-    }).property(),
+    }).property("nodes"),
     isLoadingViolation: (function(key, value) {
       var self;
       self = this;
@@ -8299,6 +8363,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
           self.set("content", result.content);
           return self.set("isLoadingAudit", false);
         }, function(err) {
+          self.set("isLoadingAudit", false);
           return self.set('error', err);
         });
       } else if (this.get("isLoadingViolation") || loadingViolation) {
@@ -8311,6 +8376,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
           return self.set("isLoadingViolation", false);
         }, function(err) {
           var result;
+          self.set("isLoadingViolation", false);
           if (err.error === 255) {
             result = err.result.message;
             if (err.result.row && err.result.column) {
@@ -8897,107 +8963,6 @@ TEMPLATE.index=(function() {
         };
       }());
       var child1 = (function() {
-        var child0 = (function() {
-          return {
-            isHTMLBars: true,
-            revision: "Ember@1.11.3",
-            blockParams: 0,
-            cachedFragment: null,
-            hasRendered: false,
-            build: function build(dom) {
-              var el0 = dom.createDocumentFragment();
-              var el1 = dom.createComment("");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode(" = ");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createComment("");
-              dom.appendChild(el0, el1);
-              var el1 = dom.createTextNode(" ");
-              dom.appendChild(el0, el1);
-              return el0;
-            },
-            render: function render(context, env, contextualElement) {
-              var dom = env.dom;
-              var hooks = env.hooks, content = hooks.content;
-              dom.detectNamespace(contextualElement);
-              var fragment;
-              if (env.useFragmentCache && dom.canClone) {
-                if (this.cachedFragment === null) {
-                  fragment = this.build(dom);
-                  if (this.hasRendered) {
-                    this.cachedFragment = fragment;
-                  } else {
-                    this.hasRendered = true;
-                  }
-                }
-                if (this.cachedFragment) {
-                  fragment = dom.cloneNode(this.cachedFragment, true);
-                }
-              } else {
-                fragment = this.build(dom);
-              }
-              var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
-              var morph1 = dom.createMorphAt(fragment,2,2,contextualElement);
-              dom.insertBoundary(fragment, 0);
-              content(env, morph0, context, "obj.key");
-              content(env, morph1, context, "obj.value");
-              return fragment;
-            }
-          };
-        }());
-        return {
-          isHTMLBars: true,
-          revision: "Ember@1.11.3",
-          blockParams: 0,
-          cachedFragment: null,
-          hasRendered: false,
-          build: function build(dom) {
-            var el0 = dom.createDocumentFragment();
-            var el1 = dom.createTextNode("\n        ");
-            dom.appendChild(el0, el1);
-            var el1 = dom.createElement("pre");
-            var el2 = dom.createTextNode("\n            ");
-            dom.appendChild(el1, el2);
-            var el2 = dom.createElement("code");
-            var el3 = dom.createComment("");
-            dom.appendChild(el2, el3);
-            var el3 = dom.createTextNode("\n            ");
-            dom.appendChild(el2, el3);
-            dom.appendChild(el1, el2);
-            var el2 = dom.createTextNode("\n        ");
-            dom.appendChild(el1, el2);
-            dom.appendChild(el0, el1);
-            var el1 = dom.createTextNode("\n");
-            dom.appendChild(el0, el1);
-            return el0;
-          },
-          render: function render(context, env, contextualElement) {
-            var dom = env.dom;
-            var hooks = env.hooks, get = hooks.get, block = hooks.block;
-            dom.detectNamespace(contextualElement);
-            var fragment;
-            if (env.useFragmentCache && dom.canClone) {
-              if (this.cachedFragment === null) {
-                fragment = this.build(dom);
-                if (this.hasRendered) {
-                  this.cachedFragment = fragment;
-                } else {
-                  this.hasRendered = true;
-                }
-              }
-              if (this.cachedFragment) {
-                fragment = dom.cloneNode(this.cachedFragment, true);
-              }
-            } else {
-              fragment = this.build(dom);
-            }
-            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 1]),0,0);
-            block(env, morph0, context, "each", [get(env, context, "node.eachArray")], {"keyword": "obj"}, child0, null);
-            return fragment;
-          }
-        };
-      }());
-      var child2 = (function() {
         return {
           isHTMLBars: true,
           revision: "Ember@1.11.3",
@@ -9039,6 +9004,101 @@ TEMPLATE.index=(function() {
           }
         };
       }());
+      var child2 = (function() {
+        var child0 = (function() {
+          return {
+            isHTMLBars: true,
+            revision: "Ember@1.11.3",
+            blockParams: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            build: function build(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createComment("");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode(" = ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createComment("");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            render: function render(context, env, contextualElement) {
+              var dom = env.dom;
+              var hooks = env.hooks, content = hooks.content;
+              dom.detectNamespace(contextualElement);
+              var fragment;
+              if (env.useFragmentCache && dom.canClone) {
+                if (this.cachedFragment === null) {
+                  fragment = this.build(dom);
+                  if (this.hasRendered) {
+                    this.cachedFragment = fragment;
+                  } else {
+                    this.hasRendered = true;
+                  }
+                }
+                if (this.cachedFragment) {
+                  fragment = dom.cloneNode(this.cachedFragment, true);
+                }
+              } else {
+                fragment = this.build(dom);
+              }
+              var morph0 = dom.createMorphAt(fragment,0,0,contextualElement);
+              var morph1 = dom.createMorphAt(fragment,2,2,contextualElement);
+              dom.insertBoundary(fragment, 0);
+              content(env, morph0, context, "obj.key");
+              content(env, morph1, context, "obj.value");
+              return fragment;
+            }
+          };
+        }());
+        return {
+          isHTMLBars: true,
+          revision: "Ember@1.11.3",
+          blockParams: 0,
+          cachedFragment: null,
+          hasRendered: false,
+          build: function build(dom) {
+            var el0 = dom.createDocumentFragment();
+            var el1 = dom.createTextNode("        ");
+            dom.appendChild(el0, el1);
+            var el1 = dom.createElement("pre");
+            var el2 = dom.createElement("code");
+            var el3 = dom.createComment("");
+            dom.appendChild(el2, el3);
+            dom.appendChild(el1, el2);
+            dom.appendChild(el0, el1);
+            var el1 = dom.createTextNode("\n");
+            dom.appendChild(el0, el1);
+            return el0;
+          },
+          render: function render(context, env, contextualElement) {
+            var dom = env.dom;
+            var hooks = env.hooks, get = hooks.get, block = hooks.block;
+            dom.detectNamespace(contextualElement);
+            var fragment;
+            if (env.useFragmentCache && dom.canClone) {
+              if (this.cachedFragment === null) {
+                fragment = this.build(dom);
+                if (this.hasRendered) {
+                  this.cachedFragment = fragment;
+                } else {
+                  this.hasRendered = true;
+                }
+              }
+              if (this.cachedFragment) {
+                fragment = dom.cloneNode(this.cachedFragment, true);
+              }
+            } else {
+              fragment = this.build(dom);
+            }
+            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1, 0]),0,0);
+            block(env, morph0, context, "each", [get(env, context, "node.eachArray")], {"keyword": "obj"}, child0, null);
+            return fragment;
+          }
+        };
+      }());
       return {
         isHTMLBars: true,
         revision: "Ember@1.11.3",
@@ -9068,15 +9128,15 @@ TEMPLATE.index=(function() {
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode(" ");
+          var el2 = dom.createTextNode("\n        ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
           var el2 = dom.createTextNode("        ");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          var el2 = dom.createTextNode("\n        ");
           dom.appendChild(el1, el2);
           var el2 = dom.createComment("");
           dom.appendChild(el1, el2);
@@ -9118,8 +9178,8 @@ TEMPLATE.index=(function() {
           content(env, morph0, context, "node.type");
           content(env, morph1, context, "node.id");
           block(env, morph2, context, "if", [get(env, context, "node.name")], {}, child0, null);
-          block(env, morph3, context, "if", [get(env, context, "node.eachArray.length")], {}, child1, null);
-          block(env, morph4, context, "if", [get(env, context, "node.link")], {}, child2, null);
+          block(env, morph3, context, "if", [get(env, context, "node.link")], {}, child1, null);
+          block(env, morph4, context, "if", [get(env, context, "node.eachArray.length")], {}, child2, null);
           inline(env, morph5, context, "violation-node", [], {"nodes": get(env, context, "node.resource")});
           return fragment;
         }
@@ -9451,6 +9511,11 @@ TEMPLATE.index=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createElement("div");
       dom.setAttribute(el2,"id","chartjs-tooltip");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n    ");
+      dom.appendChild(el1, el2);
+      var el2 = dom.createElement("div");
+      dom.setAttribute(el2,"id","chartjs-highlight");
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n    ");
       dom.appendChild(el1, el2);
@@ -13128,6 +13193,31 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
               }
             ]
           };
+          Chart.defaults.global.onAnimationComplete = function() {
+            var canvas, highlightElement, horizonFix, label, left, targetPoint, top, verticalFix;
+            highlightElement = $("#chartjs-highlight");
+            if (self.get("highlight")) {
+              label = self.get("highlight");
+              targetPoint = _.findWhere(self.chartCanvas.datasets[0].points, {
+                label: label
+              });
+              if (!targetPoint) {
+                highlightElement.hide();
+                return false;
+              }
+              canvas = self.chartCanvas.chart.canvas;
+              horizonFix = ((canvas.width - targetPoint.x) * parseInt(getComputedStyle(canvas).paddingLeft) - targetPoint.x * parseInt(getComputedStyle(canvas).paddingRight)) / canvas.width;
+              verticalFix = ((canvas.height - targetPoint.y) * parseInt(getComputedStyle(canvas).paddingTop) - targetPoint.y * parseInt(getComputedStyle(canvas).paddingBottom)) / canvas.height;
+              left = horizonFix + targetPoint.x - 10 + canvas.offsetLeft;
+              top = targetPoint.y + verticalFix - 10 - canvas.offsetTop;
+              return highlightElement.css({
+                left: left,
+                top: top
+              }).show();
+            } else {
+              return highlightElement.hide();
+            }
+          };
           self.chartCanvas = new Chart(ctx).Line(data, {
             bezierCurve: false,
             responsive: true,
@@ -13142,9 +13232,10 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
             return $(this).toggleClass("pointer", hasPoint);
           });
           return document.getElementById("chart-canvas").onclick = function(evt) {
-            var activePoints, currentPoint, endTime, period, startTime, statType, timeRange;
+            var activePoints, currentPoint, endTime, highlight, period, startTime, statType, timeRange;
             activePoints = self.chartCanvas.getPointsAtEvent(evt);
             currentPoint = activePoints[0];
+            highlight = currentPoint.label;
             if (!currentPoint) {
               return false;
             }
@@ -13158,7 +13249,8 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
               endTime: endTime,
               period: period,
               statType: statType,
-              timeRange: timeRange
+              timeRange: timeRange,
+              highlight: highlight
             });
           };
         });
