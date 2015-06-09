@@ -249,7 +249,7 @@ TEMPLATE.index=(function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createComment(" env:dev                                                                                            env:dev:end ");
+      var el3 = dom.createComment(" env:dev                                                                                              env:dev:end ");
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n    ");
       dom.appendChild(el2, el3);
@@ -4451,7 +4451,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": get(env, context, "isLoadingAudit"), "version": get(env, context, "version"), "isAudit": get(env, context, "isAudit")});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": get(env, context, "isLoadingAudit"), "version": get(env, context, "version"), "isAudit": get(env, context, "isAudit"), "isValid": get(env, context, "isValid")});
           return fragment;
         }
       };
@@ -4494,7 +4494,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": get(env, context, "isLoadingViolation")});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": get(env, context, "isLoadingViolation"), "isValid": get(env, context, "isValid")});
           return fragment;
         }
       };
@@ -5079,6 +5079,14 @@ TEMPLATE.rule_content=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n");
       dom.appendChild(el1, el2);
+      var el2 = dom.createElement("button");
+      dom.setAttribute(el2,"class","btn btn-green editor-expand");
+      var el3 = dom.createElement("i");
+      dom.setAttribute(el3,"class","fa fa-arrows-alt");
+      dom.appendChild(el2, el3);
+      dom.appendChild(el1, el2);
+      var el2 = dom.createTextNode("\n\n");
+      dom.appendChild(el1, el2);
       var el2 = dom.createComment("");
       dom.appendChild(el1, el2);
       var el2 = dom.createTextNode("\n\n");
@@ -5125,7 +5133,7 @@ TEMPLATE.rule_content=(function() {
       var element5 = dom.childAt(fragment, [0]);
       var morph0 = dom.createMorphAt(element5,1,1);
       var morph1 = dom.createMorphAt(element5,3,3);
-      var morph2 = dom.createMorphAt(element5,5,5);
+      var morph2 = dom.createMorphAt(element5,7,7);
       var morph3 = dom.createMorphAt(fragment,2,2,contextualElement);
       var morph4 = dom.createMorphAt(fragment,4,4,contextualElement);
       dom.insertBoundary(fragment, null);
@@ -5580,6 +5588,7 @@ define('controller/RuleManagerC',[], function() {
             self.set("showDetailPanel", false);
             self.set("isLoadingAudit", false);
             self.set("isAudit", false);
+            self.set("isValid", false);
             return self.set("version", null);
           }, 300);
         }
@@ -5678,6 +5687,7 @@ define('controller/RuleManagerC',[], function() {
           ruleController = this.get("controllers.rule");
           ruleController.set("isLoadingViolation", true);
           ruleController.set('isAudit', false);
+          ruleController.set('isValid', true);
           return ruleController.set('showDetailPanel', true);
         },
         toggleTab: function(tab) {
@@ -7709,6 +7719,101 @@ define('component/template/ViolationDetailTpl',[], function(){ var TEMPLATE={};
 
 TEMPLATE.index=(function() {
   var child0 = (function() {
+    var child0 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.11.3",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("            ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          dom.setAttribute(el1,"class","violation-loading");
+          var el2 = dom.createTextNode("\n                ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("div");
+          dom.setAttribute(el2,"class","workarea-loading");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n            ");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          return fragment;
+        }
+      };
+    }());
+    var child1 = (function() {
+      return {
+        isHTMLBars: true,
+        revision: "Ember@1.11.3",
+        blockParams: 0,
+        cachedFragment: null,
+        hasRendered: false,
+        build: function build(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("            ");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("div");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        render: function render(context, env, contextualElement) {
+          var dom = env.dom;
+          var hooks = env.hooks, element = hooks.element, get = hooks.get, inline = hooks.inline;
+          dom.detectNamespace(contextualElement);
+          var fragment;
+          if (env.useFragmentCache && dom.canClone) {
+            if (this.cachedFragment === null) {
+              fragment = this.build(dom);
+              if (this.hasRendered) {
+                this.cachedFragment = fragment;
+              } else {
+                this.hasRendered = true;
+              }
+            }
+            if (this.cachedFragment) {
+              fragment = dom.cloneNode(this.cachedFragment, true);
+            }
+          } else {
+            fragment = this.build(dom);
+          }
+          var element2 = dom.childAt(fragment, [1]);
+          var morph0 = dom.createMorphAt(element2,0,0);
+          element(env, element2, context, "bind-attr", [], {"class": ":vio-rule-content isAudit:audit"});
+          inline(env, morph0, context, "rule-editor", [], {"content": get(env, context, "content"), "readonly": true});
+          return fragment;
+        }
+      };
+    }());
     return {
       isHTMLBars: true,
       revision: "Ember@1.11.3",
@@ -7717,24 +7822,25 @@ TEMPLATE.index=(function() {
       hasRendered: false,
       build: function build(dom) {
         var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
+        var el1 = dom.createTextNode("        ");
         dom.appendChild(el0, el1);
         var el1 = dom.createElement("div");
-        dom.setAttribute(el1,"class","violation-loading");
-        var el2 = dom.createTextNode("\n                ");
+        dom.setAttribute(el1,"class","vio-rule-head");
+        var el2 = dom.createElement("i");
+        dom.setAttribute(el2,"class","fa fa-file-text-o");
         dom.appendChild(el1, el2);
-        var el2 = dom.createElement("div");
-        dom.setAttribute(el2,"class","workarea-loading");
-        dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("\n            ");
+        var el2 = dom.createTextNode("Rule content");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
+        dom.appendChild(el0, el1);
+        var el1 = dom.createComment("");
         dom.appendChild(el0, el1);
         return el0;
       },
       render: function render(context, env, contextualElement) {
         var dom = env.dom;
+        var hooks = env.hooks, get = hooks.get, block = hooks.block;
         dom.detectNamespace(contextualElement);
         var fragment;
         if (env.useFragmentCache && dom.canClone) {
@@ -7752,58 +7858,14 @@ TEMPLATE.index=(function() {
         } else {
           fragment = this.build(dom);
         }
+        var morph0 = dom.createMorphAt(fragment,3,3,contextualElement);
+        dom.insertBoundary(fragment, null);
+        block(env, morph0, context, "if", [get(env, context, "isLoadingAudit")], {}, child0, child1);
         return fragment;
       }
     };
   }());
   var child1 = (function() {
-    return {
-      isHTMLBars: true,
-      revision: "Ember@1.11.3",
-      blockParams: 0,
-      cachedFragment: null,
-      hasRendered: false,
-      build: function build(dom) {
-        var el0 = dom.createDocumentFragment();
-        var el1 = dom.createTextNode("            ");
-        dom.appendChild(el0, el1);
-        var el1 = dom.createElement("div");
-        var el2 = dom.createComment("");
-        dom.appendChild(el1, el2);
-        dom.appendChild(el0, el1);
-        var el1 = dom.createTextNode("\n");
-        dom.appendChild(el0, el1);
-        return el0;
-      },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, element = hooks.element, get = hooks.get, inline = hooks.inline;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
-        var element2 = dom.childAt(fragment, [1]);
-        var morph0 = dom.createMorphAt(element2,0,0);
-        element(env, element2, context, "bind-attr", [], {"class": ":vio-rule-content isAudit:audit"});
-        inline(env, morph0, context, "rule-editor", [], {"content": get(env, context, "content"), "readonly": true});
-        return fragment;
-      }
-    };
-  }());
-  var child2 = (function() {
     var child0 = (function() {
       var child0 = (function() {
         return {
@@ -8208,16 +8270,6 @@ TEMPLATE.index=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createElement("div");
       dom.setAttribute(el2,"class","panel-content");
-      var el3 = dom.createTextNode("\n        ");
-      dom.appendChild(el2, el3);
-      var el3 = dom.createElement("div");
-      dom.setAttribute(el3,"class","vio-rule-head");
-      var el4 = dom.createElement("i");
-      dom.setAttribute(el4,"class","fa fa-file-text-o");
-      dom.appendChild(el3, el4);
-      var el4 = dom.createTextNode("Rule content");
-      dom.appendChild(el3, el4);
-      dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n");
       dom.appendChild(el2, el3);
       var el3 = dom.createComment("");
@@ -8257,12 +8309,12 @@ TEMPLATE.index=(function() {
       var element5 = dom.childAt(element4, [2]);
       var element6 = dom.childAt(element3, [3]);
       var morph0 = dom.createMorphAt(element4,1,1);
-      var morph1 = dom.createMorphAt(element6,3,3);
-      var morph2 = dom.createMorphAt(element6,4,4);
+      var morph1 = dom.createMorphAt(element6,1,1);
+      var morph2 = dom.createMorphAt(element6,2,2);
       content(env, morph0, context, "rule.name");
       element(env, element5, context, "action", ["close"], {});
-      block(env, morph1, context, "if", [get(env, context, "isLoadingAudit")], {}, child0, child1);
-      block(env, morph2, context, "unless", [get(env, context, "isAudit")], {}, child2, null);
+      block(env, morph1, context, "unless", [get(env, context, "isValid")], {}, child0, null);
+      block(env, morph2, context, "unless", [get(env, context, "isAudit")], {}, child1, null);
       return fragment;
     }
   };
@@ -13148,10 +13200,11 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
           "12h": "12",
           "1d": "24"
         };
+        $("#chartjs-highlight").hide();
         return ApiRequest("log_stat_violation", {
           filter: filter
         }).then(function(result) {
-          var ctx, data, sortedResult;
+          var ctx, data, scaleStepWidth, sortedResult;
           if (self.chartCanvas) {
             self.chartCanvas.destroy();
           }
@@ -13193,7 +13246,7 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
               }
             ]
           };
-          Chart.defaults.global.onAnimationComplete = function() {
+          Chart.defaults.global.onAnimationProgress = function() {
             var canvas, highlightElement, horizonFix, label, left, targetPoint, top, verticalFix;
             highlightElement = $("#chartjs-highlight");
             if (self.get("highlight")) {
@@ -13213,18 +13266,28 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
               return highlightElement.css({
                 left: left,
                 top: top
-              }).show();
+              });
             } else {
               return highlightElement.hide();
             }
           };
+          scaleStepWidth = (Math.floor(_.max(data.datasets[0].data) * 1.1 / 10 / 5) + 1) * 5 || 5;
           self.chartCanvas = new Chart(ctx).Line(data, {
             bezierCurve: false,
             responsive: true,
             scaleBeginAtZero: true,
             scaleGridLineColor: "rgba(255,255,255,.075)",
+            scaleOverride: true,
+            scaleSteps: 10,
+            scaleStepWidth: scaleStepWidth,
+            scaleStartValue: 0,
             tooltipTemplate: "<% var maxDate = new Date(+new Date(label) + hourRange * 1000 * 3600);\nvar year = maxDate.getFullYear();\nvar month = maxDate.getMonth() + 1;\nvar day = maxDate.getDate();\nvar hour = maxDate.getHours(); %>\n<span class=\"violation-chart-count\"><span><%= Math.round(value*10)/10 %></span>violations</span>\n<span class=\"violation-chart-range\">\n  <code>Form:</code> <span><%= label %></span> <br/>\n  <code>To&nbsp;&nbsp;:</code> <span><%=year + \"-\" + month + \"-\" + day + \" \" + hour + \":00\" %></span>\n</span>"
           });
+          if (self.get('highlight')) {
+            $("#chartjs-highlight").show();
+          } else {
+            $("#chartjs-highlight").hide();
+          }
           $("#chart-canvas").on("mousemove", function(evt) {
             var activePoint, hasPoint;
             activePoint = self.chartCanvas.getPointsAtEvent(evt)[0];

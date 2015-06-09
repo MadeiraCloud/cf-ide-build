@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"92428656","api/ApiRequest.js":"0238a5e0","core/bundle.js":"f898366f","core/config.js":"5f9569e9","core/debug.js":"3cc11e3a","lib/ace.js":"e2ce549b","lib/ace/editor-grammar-checker.js":"9da5c5de","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"f389a3e3","lib/require.js":"56cbcc51","lib/vender.js":"53999d10"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -109,10 +108,10 @@ require.config({
     }
   };
   requirejs.onError = requirejsErrorHandler;
-  require(["lib/q", "lib/base64", "lib/jquery", "lib/jquery-cookie", "lib/underscore", "lib/ember", "lib/ember-data"], function(Q, Base64) {
+  require(["lib/jquery", "lib/jquery-cookie"], function() {
 
     /* Platform */
-    var browser, deps, kclass, ua;
+    var browser, kclass, ua;
     ua = navigator.userAgent.toLowerCase();
     browser = /(chrome)[ \/]([\w.]+)/.exec(ua);
     browser = browser || /(webkit)[ \/]([\w.]+)/.exec(ua);
@@ -133,13 +132,16 @@ require.config({
     $(document.body).addClass(kclass);
 
     /* Platform */
-    window.Q = Q;
-    window.Base64 = Base64;
-    deps = ["core/Application"];
+    return require(["lib/q", "lib/base64", "lib/underscore", "lib/ember", "lib/ember-data"], function(Q, Base64) {
+      var deps;
+      window.Q = Q;
+      window.Base64 = Base64;
+      deps = ["core/Application"];
 
-    /* env:dev                                           env:dev:end */
-    return require(deps, function(App) {
-      return App.advanceReadiness();
+      /* env:dev                                                 env:dev:end */
+      return require(deps, function(App) {
+        return App.advanceReadiness();
+      });
     });
   });
 })();
