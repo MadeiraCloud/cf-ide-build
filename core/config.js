@@ -1,4 +1,3 @@
-window.FileVersions={"account/account.js":"92428656","api/ApiRequest.js":"0238a5e0","core/bundle.js":"c3b28956","core/config.js":"3faf4924","core/debug.js":"3cc11e3a","lib/ace.js":"ab9a6df2","lib/ace/editor-grammar-checker.js":"ade81db9","lib/jquery-cookie.js":"35af54d1","lib/jquery.js":"f389a3e3","lib/require.js":"56cbcc51","lib/vender.js":"53999d10"};
 (function() {
   var getCookie, hosts, location, p, s, scripts, version, _i, _len;
   if (!window) {
@@ -139,7 +138,7 @@ require.config({
       window.Base64 = Base64;
       deps = ["core/Application"];
 
-      /* env:dev                                                 env:dev:end */
+      /* env:dev                                               env:dev:end */
       return require(deps, function(App) {
         return App.advanceReadiness();
       });
