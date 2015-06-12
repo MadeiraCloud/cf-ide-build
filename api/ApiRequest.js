@@ -171,7 +171,7 @@ define('api/ApiRequestDefs',[], function() {
     'aws_resource': {
       url: '/aws/',
       method: 'resource',
-      params: ['username', 'session_id', 'profile_id', 'regions', 'resources']
+      params: ['username', 'session_id', 'profile_id', 'regions', 'resources', 'limit']
     },
     'aws_resource_stat': {
       url: '/aws/',
