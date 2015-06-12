@@ -2024,6 +2024,8 @@
   color: #7F83AE; }
   .violation-detail .vio-rule-head .fa {
     margin-right: 8px; }
+  .violation-detail .vio-rule-head.vio-res {
+    padding-bottom: 0; }
 .violation-detail .vio-rule-content {
   margin: 0 25px; }
 .violation-detail ul.vio-rule.vio-rule-summary {
@@ -2039,6 +2041,51 @@
   border-left: 3px solid #d0021b;
   color: #d0021b;
   margin-top: 20px; }
+.violation-detail .editor-hint {
+  padding: 25px;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto; }
+  .violation-detail .editor-hint .hint-head {
+    margin-bottom: 20px;
+    color: #7F83AE; }
+    .violation-detail .editor-hint .hint-head .fa {
+      margin-right: 10px; }
+    .violation-detail .editor-hint .hint-head .link {
+      border: 1px solid #464956;
+      -webkit-border-radius: 2px;
+              border-radius: 2px;
+      padding: 2px 6px;
+      display: inline-block; }
+  .violation-detail .editor-hint .hint-content {
+    color: #BABABA;
+    font-size: 12px; }
+    .violation-detail .editor-hint .hint-content pre {
+      margin: 0; }
+    .violation-detail .editor-hint .hint-content .key {
+      color: #bbb;
+      border: 1px solid #464956;
+      -webkit-border-radius: 2px;
+              border-radius: 2px;
+      padding: 2px 6px;
+      margin: 4px 0px;
+      display: inline-block; }
+      .violation-detail .editor-hint .hint-content .key.highlight-member {
+        background-color: #009DE2;
+        color: #002242;
+        border: 1px solid #00B2FF; }
+      .violation-detail .editor-hint .hint-content .key.highlight-submember {
+        background-color: #0084BE;
+        color: #002242;
+        border: 1px solid #009BDF; }
+    .violation-detail .editor-hint .hint-content .string {
+      color: #848484; }
+  .violation-detail .editor-hint .panel-content.blank .fa {
+    font-size: 18px;
+    margin-right: 5px; }
 
 /* Violation List Component */
 .violation-list {
@@ -3626,7 +3673,7 @@ button, .btn {
   -webkit-border-radius: 2px;
           border-radius: 2px;
   text-align: center;
-  padding: 8px 15px;
+  padding: 8px 12px;
   cursor: pointer;
   line-height: 12px; }
   button.btn-blue, .btn.btn-blue {

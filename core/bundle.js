@@ -249,7 +249,7 @@ TEMPLATE.index=(function() {
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n        ");
       dom.appendChild(el2, el3);
-      var el3 = dom.createComment(" env:dev                                                                                              env:dev:end ");
+      var el3 = dom.createComment(" env:dev                                                                                            env:dev:end ");
       dom.appendChild(el2, el3);
       var el3 = dom.createTextNode("\n    ");
       dom.appendChild(el2, el3);
@@ -2138,7 +2138,7 @@ define('view/SettingsView',["template/SettingsTpl", "ui/UI.bubblepopup"], functi
           })(this), (function(_this) {
             return function(error) {
               _this.set("controller.isSavingEmail", false);
-              if (error && error.error === 117) {
+              if (error && (error.error === 117 || error.error === 110)) {
                 return _this.set("errorEmail", error6);
               } else {
                 return _this.set("errorEmail", error2);
@@ -2234,7 +2234,7 @@ define('view/SettingsView',["template/SettingsTpl", "ui/UI.bubblepopup"], functi
           var self;
           self = this;
           popupBubble(this.$('#cfgRemoveAccount'), {
-            title: "Are youre sure to remove the cloud account?",
+            title: "Are you sure to remove the cloud account?",
             confirm: "Confirm",
             cancel: "Cancel"
           }, {
@@ -3352,11 +3352,22 @@ define('controller/DashboardController',[], function() {
       this._super();
       return this.set("user", App.user);
     },
-    nextScanTime: (function() {
-      var nextScanTime;
+    watchNextScanTime: (function() {
+      var nextScanTime, self;
+      self = this;
+      window.clearInterval(this.get("countDownInterval"));
+      this.set("countDownInterval", window.setInterval((function() {
+        var nextScanTime;
+        nextScanTime = this.get("nextScanTime") - 1;
+        if (nextScanTime === 0) {
+          nextScanTime = App.user.get("profile").get("cfgScanInt");
+          this.get("model").reload();
+        }
+        return this.set("nextScanTime", nextScanTime);
+      }).bind(self), 1000 * 60));
       nextScanTime = Math.round((this.model.get("nextScannedTime") * 1000 - new Date()) / 1000 / 60);
-      return nextScanTime;
-    }).property("nextScannedTime"),
+      return this.set("nextScanTime", nextScanTime);
+    }).observes("model.nextScannedTime"),
     activeRules: (function(key, value) {
       var rules;
       if (!App.get('user.profile.awsAccount')) {
@@ -4464,7 +4475,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": get(env, context, "isLoadingAudit"), "version": get(env, context, "version"), "isAudit": get(env, context, "isAudit"), "isValid": get(env, context, "isValid"), "parsedRule": get(env, context, "parsedRule")});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingAudit": get(env, context, "isLoadingAudit"), "version": get(env, context, "version"), "isAudit": get(env, context, "isAudit"), "isValid": get(env, context, "isValid"), "parsedRule": get(env, context, "parsedRule"), "hovertip": get(env, context, "hovertip")});
           return fragment;
         }
       };
@@ -4507,7 +4518,7 @@ TEMPLATE.rule=(function() {
             fragment = this.build(dom);
           }
           var morph0 = dom.createMorphAt(fragment,1,1,contextualElement);
-          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": get(env, context, "isLoadingViolation"), "isValid": get(env, context, "isValid"), "parsedRule": get(env, context, "parsedRule")});
+          inline(env, morph0, context, "violation-detail", [], {"action": "closeViolationDetail", "rule": get(env, context, "model"), "isLoadingViolation": get(env, context, "isLoadingViolation"), "isValid": get(env, context, "isValid"), "parsedRule": get(env, context, "parsedRule"), "hovertip": get(env, context, "hovertip")});
           return fragment;
         }
       };
@@ -4888,9 +4899,9 @@ TEMPLATE.rule_content=(function() {
         var el1 = dom.createElement("button");
         dom.setAttribute(el1,"class","btn btn-blue");
         var el2 = dom.createElement("i");
-        dom.setAttribute(el2,"class","fa fa-eye");
+        dom.setAttribute(el2,"class","fa fa-bug");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("Valid");
+        var el2 = dom.createTextNode("Debug");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -4936,9 +4947,9 @@ TEMPLATE.rule_content=(function() {
         dom.setAttribute(el1,"class","btn btn-blue");
         dom.setAttribute(el1,"disabled","disabled");
         var el2 = dom.createElement("i");
-        dom.setAttribute(el2,"class","fa fa-eye");
+        dom.setAttribute(el2,"class","fa fa-bug");
         dom.appendChild(el1, el2);
-        var el2 = dom.createTextNode("Valid");
+        var el2 = dom.createTextNode("Debug");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
         var el1 = dom.createTextNode("\n");
@@ -5412,9 +5423,9 @@ define('view/RuleView',["template/RuleTpl", "ui/UI.bubblepopup"], function(RuleT
           var controller, text;
           controller = this.get("controller");
           if (controller.get("allRuleSelected")) {
-            text = "Are you sure to delect all rules?";
+            text = "Are you sure to delete all rules?";
           } else if (controller.get("hasRuleSelected")) {
-            text = "Are you sure to delect selected rules?";
+            text = "Are you sure to delete selected rules?";
           } else {
             return;
           }
@@ -5593,7 +5604,11 @@ define('controller/RuleManagerC',[], function() {
       }
     }),
     RuleController: Ember.Controller.extend({
+      needs: ["ruleIndex"],
       showDetailPanel: false,
+      hovertip: (function() {
+        return this.get('controllers.ruleIndex').get('hovertip');
+      }).property('controllers.ruleIndex.hovertip'),
       actions: {
         closeViolationDetail: function() {
           var self;
@@ -7853,9 +7868,9 @@ TEMPLATE.index=(function() {
             } else {
               fragment = this.build(dom);
             }
-            var element5 = dom.childAt(fragment, [1]);
-            var morph0 = dom.createMorphAt(element5,0,0);
-            element(env, element5, context, "bind-attr", [], {"class": ":vio-rule-content isAudit:audit"});
+            var element6 = dom.childAt(fragment, [1]);
+            var morph0 = dom.createMorphAt(element6,0,0);
+            element(env, element6, context, "bind-attr", [], {"class": ":vio-rule-content isAudit:audit"});
             inline(env, morph0, context, "rule-editor", [], {"content": get(env, context, "content"), "parsedRule": get(env, context, "parsedRule"), "readonly": true});
             return fragment;
           }
@@ -8017,9 +8032,9 @@ TEMPLATE.index=(function() {
             dom.appendChild(el1, el2);
             var el2 = dom.createElement("li");
             var el3 = dom.createElement("i");
-            dom.setAttribute(el3,"class","fa fa-bug");
+            dom.setAttribute(el3,"class","fa fa-search");
             dom.appendChild(el2, el3);
-            var el3 = dom.createTextNode("FILTERED");
+            var el3 = dom.createTextNode("PREVIEW");
             dom.appendChild(el2, el3);
             dom.appendChild(el1, el2);
             var el2 = dom.createTextNode("\n                    ");
@@ -8058,18 +8073,145 @@ TEMPLATE.index=(function() {
             } else {
               fragment = this.build(dom);
             }
-            var element2 = dom.childAt(fragment, [1]);
-            var element3 = dom.childAt(element2, [1]);
-            var element4 = dom.childAt(element2, [3]);
-            element(env, element3, context, "bind-attr", [], {"class": "showHint::active"});
-            element(env, element3, context, "action", ["toggleHint"], {});
-            element(env, element4, context, "bind-attr", [], {"class": "showHint:active"});
-            element(env, element4, context, "action", ["toggleHint"], {});
+            var element3 = dom.childAt(fragment, [1]);
+            var element4 = dom.childAt(element3, [1]);
+            var element5 = dom.childAt(element3, [3]);
+            element(env, element4, context, "bind-attr", [], {"class": "showHint::active"});
+            element(env, element4, context, "action", ["toggleHint", false], {});
+            element(env, element5, context, "bind-attr", [], {"class": "showHint:active"});
+            element(env, element5, context, "action", ["toggleHint", true], {});
             return fragment;
           }
         };
       }());
       var child2 = (function() {
+        var child0 = (function() {
+          return {
+            isHTMLBars: true,
+            revision: "Ember@1.11.3",
+            blockParams: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            build: function build(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("                    ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("div");
+              dom.setAttribute(el1,"class","hint-head");
+              var el2 = dom.createTextNode("\n                        ");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createElement("i");
+              dom.setAttribute(el2,"class","fa fa-chevron-right");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode("\n                        Example Data Structure for ");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createElement("a");
+              dom.setAttribute(el2,"class","link");
+              dom.setAttribute(el2,"target","_blank");
+              var el3 = dom.createComment("");
+              dom.appendChild(el2, el3);
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode("\n                        ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n                    ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("div");
+              dom.setAttribute(el1,"class","hint-content");
+              var el2 = dom.createTextNode("\n                        ");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createElement("pre");
+              var el3 = dom.createElement("code");
+              var el4 = dom.createComment("");
+              dom.appendChild(el3, el4);
+              dom.appendChild(el2, el3);
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode("\n                    ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            render: function render(context, env, contextualElement) {
+              var dom = env.dom;
+              var hooks = env.hooks, get = hooks.get, concat = hooks.concat, attribute = hooks.attribute, content = hooks.content;
+              dom.detectNamespace(contextualElement);
+              var fragment;
+              if (env.useFragmentCache && dom.canClone) {
+                if (this.cachedFragment === null) {
+                  fragment = this.build(dom);
+                  if (this.hasRendered) {
+                    this.cachedFragment = fragment;
+                  } else {
+                    this.hasRendered = true;
+                  }
+                }
+                if (this.cachedFragment) {
+                  fragment = dom.cloneNode(this.cachedFragment, true);
+                }
+              } else {
+                fragment = this.build(dom);
+              }
+              var element2 = dom.childAt(fragment, [1, 3]);
+              var morph0 = dom.createMorphAt(element2,0,0);
+              var attrMorph0 = dom.createAttrMorph(element2, 'href');
+              var morph1 = dom.createUnsafeMorphAt(dom.childAt(fragment, [3, 1, 0]),0,0);
+              attribute(env, attrMorph0, element2, "href", concat(env, [get(env, context, "resApiLink")]));
+              content(env, morph0, context, "hovertip.resource");
+              content(env, morph1, context, "jsonTree");
+              return fragment;
+            }
+          };
+        }());
+        var child1 = (function() {
+          return {
+            isHTMLBars: true,
+            revision: "Ember@1.11.3",
+            blockParams: 0,
+            cachedFragment: null,
+            hasRendered: false,
+            build: function build(dom) {
+              var el0 = dom.createDocumentFragment();
+              var el1 = dom.createTextNode("                        ");
+              dom.appendChild(el0, el1);
+              var el1 = dom.createElement("div");
+              dom.setAttribute(el1,"class","panel-content blank");
+              var el2 = dom.createTextNode("\n                            ");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createElement("i");
+              dom.setAttribute(el2,"class","fa fa-lightbulb-o");
+              dom.appendChild(el1, el2);
+              var el2 = dom.createTextNode("\n                            Focus an resource or attribute keyword to show hint.\n                        ");
+              dom.appendChild(el1, el2);
+              dom.appendChild(el0, el1);
+              var el1 = dom.createTextNode("\n");
+              dom.appendChild(el0, el1);
+              return el0;
+            },
+            render: function render(context, env, contextualElement) {
+              var dom = env.dom;
+              dom.detectNamespace(contextualElement);
+              var fragment;
+              if (env.useFragmentCache && dom.canClone) {
+                if (this.cachedFragment === null) {
+                  fragment = this.build(dom);
+                  if (this.hasRendered) {
+                    this.cachedFragment = fragment;
+                  } else {
+                    this.hasRendered = true;
+                  }
+                }
+                if (this.cachedFragment) {
+                  fragment = dom.cloneNode(this.cachedFragment, true);
+                }
+              } else {
+                fragment = this.build(dom);
+              }
+              return fragment;
+            }
+          };
+        }());
         return {
           isHTMLBars: true,
           revision: "Ember@1.11.3",
@@ -8082,7 +8224,11 @@ TEMPLATE.index=(function() {
             dom.appendChild(el0, el1);
             var el1 = dom.createElement("div");
             dom.setAttribute(el1,"class","editor-hint");
-            var el2 = dom.createTextNode("\n\n                ");
+            var el2 = dom.createTextNode("\n");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createComment("");
+            dom.appendChild(el1, el2);
+            var el2 = dom.createTextNode("                ");
             dom.appendChild(el1, el2);
             dom.appendChild(el0, el1);
             var el1 = dom.createTextNode("\n");
@@ -8091,6 +8237,7 @@ TEMPLATE.index=(function() {
           },
           render: function render(context, env, contextualElement) {
             var dom = env.dom;
+            var hooks = env.hooks, get = hooks.get, block = hooks.block;
             dom.detectNamespace(contextualElement);
             var fragment;
             if (env.useFragmentCache && dom.canClone) {
@@ -8108,6 +8255,8 @@ TEMPLATE.index=(function() {
             } else {
               fragment = this.build(dom);
             }
+            var morph0 = dom.createMorphAt(dom.childAt(fragment, [1]),1,1);
+            block(env, morph0, context, "if", [get(env, context, "jsonTree")], {}, child0, child1);
             return fragment;
           }
         };
@@ -8669,7 +8818,7 @@ TEMPLATE.index=(function() {
       dom.appendChild(el1, el2);
       var el2 = dom.createElement("div");
       dom.setAttribute(el2,"class","panel-title");
-      var el3 = dom.createTextNode("\n        Violation Detail for ");
+      var el3 = dom.createTextNode("\n        Detail for ");
       dom.appendChild(el2, el3);
       var el3 = dom.createComment("");
       dom.appendChild(el2, el3);
@@ -8721,15 +8870,15 @@ TEMPLATE.index=(function() {
       } else {
         fragment = this.build(dom);
       }
-      var element6 = dom.childAt(fragment, [0]);
-      var element7 = dom.childAt(element6, [1]);
-      var element8 = dom.childAt(element7, [2]);
-      var element9 = dom.childAt(element6, [3]);
-      var morph0 = dom.createMorphAt(element7,1,1);
-      var morph1 = dom.createMorphAt(element9,1,1);
-      var morph2 = dom.createMorphAt(element9,3,3);
+      var element7 = dom.childAt(fragment, [0]);
+      var element8 = dom.childAt(element7, [1]);
+      var element9 = dom.childAt(element8, [2]);
+      var element10 = dom.childAt(element7, [3]);
+      var morph0 = dom.createMorphAt(element8,1,1);
+      var morph1 = dom.createMorphAt(element10,1,1);
+      var morph2 = dom.createMorphAt(element10,3,3);
       content(env, morph0, context, "rule.name");
-      element(env, element8, context, "action", ["close"], {});
+      element(env, element9, context, "action", ["close"], {});
       block(env, morph1, context, "unless", [get(env, context, "isValid")], {}, child0, null);
       block(env, morph2, context, "unless", [get(env, context, "isAudit")], {}, child1, null);
       return fragment;
@@ -8738,8 +8887,724 @@ TEMPLATE.index=(function() {
 }());
 
 return TEMPLATE; });
-define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "api/ApiRequest"], function(template, ApiRequest) {
-  var ViolationDetailComponent, resourceLoop;
+define('component/data/AwsResource',[], function(){
+
+    var resources = {};
+
+    var resourceMap = _.invert({
+        AZ: "AWS.EC2.AvailabilityZone",
+        INSTANCE: "AWS.EC2.Instance",
+        KP: "AWS.EC2.KeyPair",
+        SG: "AWS.EC2.SecurityGroup",
+        EIP: "AWS.EC2.EIP",
+        AMI: "AWS.EC2.AMI",
+        VOL: "AWS.EC2.EBS.Volume",
+        SNAP: "AWS.EC2.EBS.Snapshot",
+        ELB: "AWS.ELB",
+        VPC: "AWS.VPC.VPC",
+        SUBNET: "AWS.VPC.Subnet",
+        IGW: "AWS.VPC.InternetGateway",
+        RTB: "AWS.VPC.RouteTable",
+        VGW: "AWS.VPC.VPNGateway",
+        CGW: "AWS.VPC.CustomerGateway",
+        ENI: "AWS.VPC.NetworkInterface",
+        DHCP: "AWS.VPC.DhcpOptions",
+        VPN: "AWS.VPC.VPNConnection",
+        ACL: "AWS.VPC.NetworkAcl",
+        IAM: "AWS.IAM.ServerCertificate",
+        ASG: 'AWS.AutoScaling.Group',
+        LC: 'AWS.AutoScaling.LaunchConfiguration',
+        NC: 'AWS.AutoScaling.NotificationConfiguration',
+        SP: 'AWS.AutoScaling.ScalingPolicy',
+        SA: 'AWS.AutoScaling.ScheduledActions',
+        CW: 'AWS.CloudWatch.CloudWatch',
+        SUBSCRIPTION: 'AWS.SNS.Subscription',
+        TOPIC: 'AWS.SNS.Topic',
+        TAG: 'AWS.EC2.Tag',
+        ASGTAG: 'AWS.AutoScaling.Tag',
+        DBSUBNETGROUP: 'AWS.RDS.DBSubnetGroup',
+        DBINSTANCE: 'AWS.RDS.DBInstance',
+        DBPARAM: 'AWS.RDS.Parameter',
+        DBPG: 'AWS.RDS.ParameterGroup',
+        DBSNAP: 'AWS.RDS.Snapshot',
+        DBES: 'AWS.RDS.EventSubscription',
+        DBOG: 'AWS.RDS.OptionGroup',
+        DBENGINE: 'AWS.RDS.DBEngineVersion'
+    });
+
+    var resourceJson = [
+    {
+        "resource": [
+            {
+                "productCodes": null,
+                "vpcId": "vpc-07b30000",
+                "instanceId": "i-7d570000",
+                "imageId": "ami-52210000",
+                "keyName": "docker",
+                "clientToken": "app-e1d335be-FE70F4C5-BA06-4C2A-B54B-FC606DA68C08-req-e21c7000",
+                "subnetId": "subnet-9d2a0000",
+                "amiLaunchIndex": "0",
+                "instanceType": "t2.micro",
+                "regionName": "us-east-1",
+                "groupSet": [
+                    {
+                        "groupName": "default",
+                        "groupId": "sg-c4d20000"
+                    }
+                ],
+                "monitoring": {
+                    "state": "disabled"
+                },
+                "dnsName": null,
+                "stateReason": {
+                    "message": "Client.UserInitiatedShutdown: User initiated shutdown",
+                    "code": "Client.UserInitiatedShutdown"
+                },
+                "privateIpAddress": "10.0.0.4",
+                "ipAddress": "56.12.122.1",
+                "virtualizationType": "hvm",
+                "privateDnsName": "ip-10-0-0-4.ec2.internal",
+                "reason": "User initiated (2014-10-14 11:48:44 GMT)",
+                "tagSet": {
+                    "visualops": "app-name=Docker-Hadoop-Builder2 app-id=app-e1d30000 created-by=tibo",
+                    "Name": "Builder"
+                },
+                "sourceDestCheck": "true",
+                "blockDeviceMapping": [
+                    {
+                        "deviceName": "/dev/xvda",
+                        "ebs": {
+                            "status": "attached",
+                            "deleteOnTermination": "true",
+                            "volumeId": "vol-82f10000",
+                            "attachTime": "2014-10-13T11:05:47.000Z"
+                        }
+                    }
+                ],
+                "placement": {
+                    "groupName": null,
+                    "tenancy": "default",
+                    "availabilityZone": "us-east-1a"
+                },
+                "instanceState": {
+                    "code": "80",
+                    "name": "stopped"
+                },
+                "networkInterfaceSet": [
+                    {
+                        "status": "in-use",
+                        "macAddress": "0a:61:8d:bd:22:44",
+                        "sourceDestCheck": "true",
+                        "vpcId": "vpc-07b30000",
+                        "description": null,
+                        "networkInterfaceId": "eni-444e0000",
+                        "groupSet": [
+                            {
+                                "groupName": "default",
+                                "groupId": "sg-c4d20000"
+                            }
+                        ],
+                        "attachment": {
+                            "status": "attached",
+                            "deviceIndex": "0",
+                            "deleteOnTermination": "true",
+                            "attachmentId": "eni-attach-dfcf0000",
+                            "attachTime": "2014-10-13T11:05:43.000Z"
+                        },
+                        "subnetId": "subnet-9d2a0000",
+                        "ownerId": "994554130000",
+                        "privateIpAddressesSet": [
+                            {
+                                "primary": "true",
+                                "privateIpAddress": "10.0.0.4"
+                            }
+                        ],
+                        "privateIpAddress": "10.0.0.4"
+                    }
+                ],
+                "ebsOptimized": "false",
+                "launchTime": "2014-10-13T11:05:43.000Z",
+                "architecture": "x86_64",
+                "hypervisor": "xen",
+                "rootDeviceType": "ebs",
+                "rootDeviceName": "/dev/xvda"
+            }
+        ],
+        "type": "AWS.EC2.Instance"
+    },
+    {
+        "resource": [
+            {
+                "regionEndpoint": "ec2.us-east-1.amazonaws.com",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.EC2.Region"
+    },
+    {
+        "resource": [
+            {
+                "domain": "vpc",
+                "instanceId": "i-49750000",
+                "networkInterfaceId": "eni-4a7d0000",
+                "associationId": "eipassoc-4f3b0000",
+                "networkInterfaceOwnerId": "994554130000",
+                "publicIp": "52.7.220.187",
+                "allocationId": "eipalloc-c084f6a5",
+                "privateIpAddress": "10.0.0.4",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.EC2.EIP"
+    },
+    {
+        "resource": [
+            {
+                "ipPermissionsEgress": null,
+                "groupId": "sg-33250000",
+                "ipPermissions": null,
+                "groupName": "#YJNI&&",
+                "ownerId": "994554130000",
+                "groupDescription": "jiojp",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.EC2.SecurityGroup"
+    },
+    {
+        "resource": [
+            {
+                "vpcId": "vpc-861e0000",
+                "instanceTenancy": "default",
+                "state": "available",
+                "tagSet": {
+                    "visualops": "app-name=rds-test app-id=app-e25c0000 created-by=jimmy",
+                    "Name": "vpc"
+                },
+                "dhcpOptionsId": "dopt-a7b40000",
+                "cidrBlock": "10.0.0.0/16",
+                "isDefault": "false",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.VPC"
+    },
+    {
+        "resource": [
+            {
+                "routeSet": [
+                    {
+                        "gatewayId": "local",
+                        "destinationCidrBlock": "10.0.0.0/16",
+                        "state": "active",
+                        "origin": "CreateRouteTable"
+                    },
+                    {
+                        "gatewayId": "igw-04a82761",
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "state": "active",
+                        "origin": "CreateRoute"
+                    }
+                ],
+                "routeTableId": "rtb-17500000",
+                "vpcId": "vpc-9aac0000",
+                "propagatingVgwSet": null,
+                "tagSet": {
+                    "visualops": "app-name=docker-python2 app-id=app-42580000 created-by=tibo",
+                    "Name": "RT-0"
+                },
+                "associationSet": [
+                    {
+                        "routeTableAssociationId": "rtbassoc-bc880000",
+                        "main": "true",
+                        "routeTableId": "rtb-17500000"
+                    },
+                    {
+                        "subnetId": "subnet-7d300000",
+                        "routeTableId": "rtb-17500000",
+                        "main": "true"
+                    }
+                ],
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.RouteTable"
+    },
+    {
+        "resource": [
+            {
+                "ipAddress": "122.0.0.1",
+                "state": "available",
+                "tagSet": {
+                    "app": "untitled-14",
+                    "app-id": "app-81ef0000",
+                    "Name": "customer-gateway-0",
+                    "Created by": "ken"
+                },
+                "customerGatewayId": "cgw-602ecd09",
+                "bgpAsn": "65000",
+                "type": "ipsec.1",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.CustomerGateway"
+    },
+    {
+        "resource": [
+            {
+                "AutoScalingGroupARN": "arn:aws:autoscaling:us-east-1:994554130000:autoScalingGroup:797d7379-b9a8-4c9d-93cf-44910871eda6:autoScalingGroupName/asg0---app-67420000",
+                "AvailabilityZones": [
+                    "us-east-1a"
+                ],
+                "SuspendedProcesses": null,
+                "DesiredCapacity": "1",
+                "Tags": {
+                    "ResourceType": "auto-scaling-group",
+                    "visualops": "app-name=test-asg app-id=app-67420000 created-by=prod",
+                    "Name": "asg0",
+                    "PropagateAtLaunch": "true",
+                    "ResourceId": "asg0---app-67420000"
+                },
+                "EnabledMetrics": null,
+                "LaunchConfigurationName": "launch-config-0---app-67420000",
+                "AutoScalingGroupName": "asg0---app-67420000",
+                "DefaultCooldown": "300",
+                "MinSize": "1",
+                "Instances": [
+                    {
+                        "InstanceId": "i-2a870000",
+                        "AvailabilityZone": "us-east-1a",
+                        "HealthStatus": "Healthy",
+                        "LifecycleState": "InService",
+                        "LaunchConfigurationName": "launch-config-0---app-67420000"
+                    }
+                ],
+                "MaxSize": "2",
+                "VPCZoneIdentifier": "subnet-dec89ea9",
+                "TerminationPolicies": [
+                    "Default"
+                ],
+                "CreatedTime": "2015-06-12T06:37:44.767Z",
+                "HealthCheckGracePeriod": "300",
+                "LoadBalancerNames": null,
+                "HealthCheckType": "EC2",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.AutoScaling.Group"
+    },
+    {
+        "resource": [
+            {
+                "UserData": null,
+                "KernelId": null,
+                "LaunchConfigurationARN": "arn:aws:autoscaling:us-east-1:994554130000:launchConfiguration:b8478227-9d29-45f7-8e08-7fbac7039862:launchConfigurationName/WebAS",
+                "InstanceMonitoring": {
+                    "Enabled": "true"
+                },
+                "ImageId": "ami-05350000",
+                "KeyName": null,
+                "BlockDeviceMappings": null,
+                "EbsOptimized": "false",
+                "SecurityGroups": [
+                    "sg-dc883eb7"
+                ],
+                "LaunchConfigurationName": "WebAS",
+                "CreatedTime": "2013-07-31T07:48:47.086Z",
+                "RamdiskId": null,
+                "ClassicLinkVPCSecurityGroups": null,
+                "InstanceType": "t1.micro",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.AutoScaling.LaunchConfiguration"
+    },
+    {
+        "resource": [
+            {
+                "virtualizationType": "paravirtual",
+                "blockDeviceMapping": [
+                    {
+                        "deviceName": "/dev/sda1",
+                        "ebs": {
+                            "volumeSize": "8",
+                            "snapshotId": "snap-f2700000",
+                            "deleteOnTermination": "true",
+                            "volumeType": "standard",
+                            "encrypted": "false"
+                        }
+                    }
+                ],
+                "description": "Amazon Linux AMI x86_64 PV EBS",
+                "name": "amzn-ami-pv-2013.03.1.x86_64-ebs",
+                "imageOwnerId": "137112412989",
+                "hypervisor": "xen",
+                "isPublic": "true",
+                "imageId": "ami-05350000",
+                "imageState": "available",
+                "kernelId": "aki-88aa75e1",
+                "architecture": "x86_64",
+                "imageOwnerAlias": "amazon",
+                "rootDeviceType": "ebs",
+                "regionName": "us-east-1",
+                "rootDeviceName": "/dev/sda1",
+                "imageType": "machine",
+                "imageLocation": "amazon/amzn-ami-pv-2013.03.1.x86_64-ebs"
+            }
+        ],
+        "type": "AWS.EC2.AMI"
+    },
+    {
+        "resource": [
+            {
+                "status": "in-use",
+                "availabilityZone": "us-east-1b",
+                "encrypted": "false",
+                "volumeType": "standard",
+                "volumeId": "vol-c0d20000",
+                "attachmentSet": [
+                    {
+                        "status": "attached",
+                        "attachTime": "2014-04-21T07:51:37.000Z",
+                        "instanceId": "i-58890000",
+                        "volumeId": "vol-c0d20000",
+                        "deleteOnTermination": "true",
+                        "device": "/dev/sda1"
+                    }
+                ],
+                "snapshotId": "snap-85ab0000",
+                "regionName": "us-east-1",
+                "createTime": "2014-04-21T07:51:37.382Z",
+                "size": "20"
+            }
+        ],
+        "type": "AWS.EC2.EBS.Volume"
+    },
+    {
+        "resource": [
+            {
+                "status": "available",
+                "macAddress": "0a:22:57:8d:ba:d2",
+                "sourceDestCheck": "true",
+                "vpcId": "vpc-31820000",
+                "description": null,
+                "networkInterfaceId": "eni-01470000",
+                "requesterManaged": "false",
+                "availabilityZone": "us-east-1a",
+                "tagSet": null,
+                "ownerId": "994554130000",
+                "subnetId": "subnet-976b0000",
+                "groupSet": [
+                    {
+                        "groupName": "default",
+                        "groupId": "sg-28550000"
+                    }
+                ],
+                "privateIpAddressesSet": [
+                    {
+                        "primary": "true",
+                        "privateIpAddress": "10.0.0.55"
+                    }
+                ],
+                "privateIpAddress": "10.0.0.55",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.NetworkInterface"
+    },
+    {
+        "resource": [
+            {
+                "PubliclyAccessible": "false",
+                "MasterUsername": "root",
+                "LicenseModel": "general-public-license",
+                "VpcSecurityGroups": [
+                    {
+                        "Status": "active",
+                        "VpcSecurityGroupId": "sg-0ca40000"
+                    }
+                ],
+                "OptionGroupMemberships": {
+                    "OptionGroupMembership": {
+                        "Status": "in-sync",
+                        "OptionGroupName": "default:mysql-5-6"
+                    }
+                },
+                "PendingModifiedValues": {
+                    "MasterUserPassword": "****"
+                },
+                "Engine": "mysql",
+                "MultiAZ": "false",
+                "DBSecurityGroups": null,
+                "DBParameterGroups": {
+                    "DBParameterGroup": {
+                        "DBParameterGroupName": "default.mysql5.6",
+                        "ParameterApplyStatus": "in-sync"
+                    }
+                },
+                "AutoMinorVersionUpgrade": "true",
+                "PreferredBackupWindow": "03:10-03:40",
+                "DBSubnetGroup": {
+                    "Subnets": {
+                        "Subnet": [
+                            {
+                                "SubnetStatus": "Active",
+                                "SubnetIdentifier": "subnet-33490000",
+                                "SubnetAvailabilityZone": {
+                                    "Name": "us-east-1a"
+                                }
+                            },
+                            {
+                                "SubnetStatus": "Active",
+                                "SubnetIdentifier": "subnet-e4110000",
+                                "SubnetAvailabilityZone": {
+                                    "Name": "us-east-1b"
+                                }
+                            }
+                        ]
+                    },
+                    "DBSubnetGroupName": "subnetgroup0-0000",
+                    "VpcId": "vpc-a84b0000",
+                    "DBSubnetGroupDescription": "subnetgroup0 default description",
+                    "SubnetGroupStatus": "Complete"
+                },
+                "ReadReplicaDBInstanceIdentifiers": null,
+                "AllocatedStorage": "5",
+                "BackupRetentionPeriod": "1",
+                "regionName": "us-east-1",
+                "PreferredMaintenanceWindow": "tue:07:13-tue:07:43",
+                "DBInstanceStatus": "creating",
+                "EngineVersion": "5.6.22",
+                "AvailabilityZone": "us-east-1a",
+                "StorageType": "standard",
+                "DbiResourceId": "db-BEEJVYLQKBSLTWLQ7EQGNPL2V4",
+                "CACertificateIdentifier": "rds-ca-2015",
+                "StorageEncrypted": "false",
+                "DBInstanceClass": "db.t1.micro",
+                "DbInstancePort": "0",
+                "DBInstanceIdentifier": "db0-0000"
+            }
+        ],
+        "type": "AWS.RDS.DBInstance"
+    },
+    {
+        "resource": [
+            {
+                "networkAclId": "acl-11d00000",
+                "vpcId": "vpc-22c10000",
+                "default": "true",
+                "entrySet": [
+                    {
+                        "protocol": "-1",
+                        "egress": "true",
+                        "cidrBlock": "0.0.0.0/0",
+                        "ruleNumber": "100",
+                        "ruleAction": "allow"
+                    },
+                    {
+                        "protocol": "-1",
+                        "egress": "true",
+                        "cidrBlock": "0.0.0.0/0",
+                        "ruleNumber": "32767",
+                        "ruleAction": "deny"
+                    },
+                    {
+                        "protocol": "-1",
+                        "egress": "false",
+                        "cidrBlock": "0.0.0.0/0",
+                        "ruleNumber": "100",
+                        "ruleAction": "allow"
+                    },
+                    {
+                        "protocol": "-1",
+                        "egress": "false",
+                        "cidrBlock": "0.0.0.0/0",
+                        "ruleNumber": "32767",
+                        "ruleAction": "deny"
+                    }
+                ],
+                "tagSet": {
+                    "visualops": "app-name=private-version-demo-virgin app-id=app-2e070000 created-by=vo_demo",
+                    "Name": "DefaultACL"
+                },
+                "associationSet": [
+                    {
+                        "subnetId": "subnet-ec490000",
+                        "networkAclId": "acl-11d00000",
+                        "networkAclAssociationId": "aclassoc-8a0f0000"
+                    }
+                ],
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.NetworkAcl"
+    },
+    {
+        "resource": [
+            {
+                "mapPublicIpOnLaunch": "false",
+                "availableIpAddressCount": "249",
+                "defaultForAz": "false",
+                "state": "available",
+                "vpcId": "vpc-cbbf0000",
+                "tagSet": {
+                    "visualops": "app-name=dev-visualops app-id=app-68420000 created-by=madeiradev",
+                    "app-id": "app-68420000",
+                    "Name": "subnet1",
+                    "app": "visualops-dev",
+                    "Created by": "madeiradev",
+                    "name": "subnet1"
+                },
+                "subnetId": "subnet-717d0000",
+                "cidrBlock": "10.0.1.0/24",
+                "availabilityZone": "us-east-1b",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.Subnet"
+    },
+    {
+        "resource": [
+            {
+                "Subnets": [
+                    "subnet-52273f26",
+                    "subnet-707d7836",
+                    "subnet-dc0623f4"
+                ],
+                "CanonicalHostedZoneNameID": "Z3DZXE0Q79N41H",
+                "VPCId": "vpc-cbbf0000",
+                "ListenerDescriptions": [
+                    {
+                        "Listener": {
+                            "InstancePort": "80",
+                            "LoadBalancerPort": "80",
+                            "Protocol": "HTTP",
+                            "InstanceProtocol": "HTTP"
+                        },
+                        "PolicyNames": null
+                    },
+                    {
+                        "Listener": {
+                            "InstancePort": "80",
+                            "SSLCertificateId": "arn:aws:iam::994554130000:server-certificate/mc3-iam---app-68420000",
+                            "LoadBalancerPort": "443",
+                            "Protocol": "SSL",
+                            "InstanceProtocol": "TCP"
+                        },
+                        "PolicyNames": [
+                            "ELBSecurityPolicy-2014-01"
+                        ]
+                    }
+                ],
+                "HealthCheck": {
+                    "HealthyThreshold": "2",
+                    "Interval": "15",
+                    "Target": "TCP:80",
+                    "Timeout": "5",
+                    "UnhealthyThreshold": "2"
+                },
+                "regionName": "us-east-1",
+                "BackendServerDescriptions": null,
+                "Instances": [
+                    {
+                        "InstanceId": "i-070f0000"
+                    },
+                    {
+                        "InstanceId": "i-bcf40000"
+                    }
+                ],
+                "DNSName": "load-balancer-0---app-68420000-1075268000.us-east-1.elb.amazonaws.com",
+                "SecurityGroups": [
+                    "sg-d3bed6b6"
+                ],
+                "Policies": {
+                    "LBCookieStickinessPolicies": null,
+                    "AppCookieStickinessPolicies": null,
+                    "OtherPolicies": {
+                        "member": "ELBSecurityPolicy-2014-01"
+                    }
+                },
+                "LoadBalancerName": "load-balancer-0---app-68420000",
+                "CreatedTime": "2014-06-30T02:41:36.970Z",
+                "CanonicalHostedZoneName": "load-balancer-0---app-68420000-1075268000.us-east-1.elb.amazonaws.com",
+                "AvailabilityZones": [
+                    "us-east-1b",
+                    "us-east-1a",
+                    "us-east-1d"
+                ],
+                "Scheme": "internet-facing",
+                "SourceSecurityGroup": {
+                    "OwnerAlias": "994554130000",
+                    "GroupName": "VPC-visualops-dev-elbsg-load-balancer-0-app-6842d000"
+                }
+            }
+        ],
+        "type": "AWS.ELB"
+    },
+    {
+        "resource": [
+            {
+                "Subnets": [
+                    {
+                        "SubnetStatus": "Active",
+                        "SubnetIdentifier": "subnet-0ab40000",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1d"
+                        }
+                    },
+                    {
+                        "SubnetStatus": "Active",
+                        "SubnetIdentifier": "subnet-17220000",
+                        "SubnetAvailabilityZone": {
+                            "Name": "us-east-1b"
+                        }
+                    }
+                ],
+                "VpcId": "vpc-23750000",
+                "DBSubnetGroupDescription": "subnet-group0 default description",
+                "SubnetGroupStatus": "Complete",
+                "DBSubnetGroupName": "subnet-group0-5a61",
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.RDS.DBSubnetGroup"
+    },
+    {
+        "resource": [
+            {
+                "attachmentSet": [
+                    {
+                        "state": "available",
+                        "vpcId": "vpc-36500003"
+                    }
+                ],
+                "internetGatewayId": "igw-ba250000",
+                "tagSet": {
+                    "visualops": "app-name=Wordpress-RDS-0 app-id=app-99240000 created-by=song",
+                    "Name": "Internet-gateway"
+                },
+                "regionName": "us-east-1"
+            }
+        ],
+        "type": "AWS.VPC.InternetGateway"
+    }
+]
+
+
+    _.each(resourceJson, function(r) {
+        var type = resourceMap[r.type]
+        type && ( type = type.toLowerCase() )
+        if ( type )
+            resources[ type ] = r.resource[0];
+    })
+
+    return resources;
+
+
+});
+
+define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "api/ApiRequest", "./data/AwsResource"], function(template, ApiRequest, AwsResource) {
+  var ViolationDetailComponent, resourceLoop, syntaxHighlight;
   resourceLoop = function(aArray, count) {
     return _.map(aArray, function(value) {
       var link, platform, _ref, _ref1, _ref2, _ref3, _ref4;
@@ -8772,12 +9637,69 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
       return value;
     });
   };
+  syntaxHighlight = function(json, hovertip) {
+    var hjson, hv, k, sk, sv, v;
+    hjson = {};
+    if (hovertip != null ? hovertip.member : void 0) {
+      for (k in json) {
+        v = json[k];
+        if (k === hovertip.member) {
+          if (hovertip.subMember && _.isObject(v) && !_.isArray(v)) {
+            hv = {};
+            for (sk in v) {
+              sv = v[sk];
+              if (sk === hovertip.subMember) {
+                hv[sk + '::highlightsubmember::'] = sv;
+              } else {
+                hv[sk] = sv;
+              }
+            }
+          } else {
+            hv = v;
+          }
+          hjson[k + '::highlightmember::'] = hv;
+        } else {
+          hjson[k] = v;
+        }
+      }
+    } else {
+      hjson = json;
+    }
+    if (typeof hjson !== 'string') {
+      hjson = JSON.stringify(hjson, void 0, 4);
+    }
+    hjson = hjson.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return hjson.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+      var cls;
+      cls = 'number';
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'key';
+          if (match.indexOf('::highlightmember::') > -1) {
+            cls += ' highlight-member';
+            match = match.replace('::highlightmember::', '');
+          } else if (match.indexOf('::highlightsubmember::') > -1) {
+            cls += ' highlight-submember';
+            match = match.replace('::highlightsubmember::', '');
+          }
+        } else {
+          cls = 'string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'boolean';
+      } else if (/null/.test(match)) {
+        cls = 'null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+    });
+  };
   ViolationDetailComponent = Ember.Component.extend({
     layout: template.index,
     classNames: ["violation-detail"],
     nodes: (function() {
+      var _ref, _ref1;
       if (this.get("log")) {
-        return resourceLoop(this.get("log").log.filter_result.resource);
+        return resourceLoop(((_ref = this.get("log").log) != null ? (_ref1 = _ref.filter_result) != null ? _ref1.resource : void 0 : void 0) || []);
       } else {
         return [];
       }
@@ -8852,6 +9774,44 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
         });
       });
     },
+    observeHoverTip: (function() {
+      if (!this.get("hovertip")) {
+        return false;
+      }
+      return _.delay((function(_this) {
+        return function() {
+          var $highlightMember, $highlightSubmember, $targetDom;
+          $highlightMember = $(".highlight-member");
+          $highlightSubmember = $(".highlight-submember");
+          $targetDom = $highlightMember.size() ? $highlightMember : $highlightSubmember.size() ? $highlightSubmember : null;
+          if (!$targetDom) {
+            return false;
+          }
+          return $('.editor-hint').animate({
+            scrollTop: $targetDom.offset().top + $('.editor-hint').scrollTop() - 160
+          }, 300);
+        };
+      })(this), 100);
+    }).observes("hovertip"),
+    jsonTree: (function() {
+      var hovertip, json;
+      hovertip = this.get('hovertip');
+      json = (hovertip != null ? hovertip.resource : void 0) && AwsResource[hovertip.resource];
+      if (json) {
+        return syntaxHighlight(json, hovertip);
+      } else {
+        return null;
+      }
+    }).property('hovertip'),
+    resApiLink: (function() {
+      var hovertip, link;
+      hovertip = this.get('hovertip');
+      link = (hovertip != null ? hovertip.resource : void 0) && window.ResourceAPILinkMap[hovertip.resource];
+      if (link) {
+        return link;
+      }
+      return null;
+    }).property('hovertip'),
     didInsertElement: function() {
       return _.delay((function(_this) {
         return function() {
@@ -8876,6 +9836,7 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
         });
       } else if (this.get("isLoadingViolation") || loadingViolation) {
         this.set('error', null);
+        this.set("showHint", false);
         if (!App.get('user.profile.awsAccount')) {
           self.set("error", {
             result: "You need to Setup Cloud Account before valid your rules."
@@ -8920,8 +9881,8 @@ define('component/ViolationDetailComponent',["./template/ViolationDetailTpl", "a
           return self.sendAction();
         }), 300);
       },
-      toggleHint: function() {
-        return this.toggleProperty("showHint");
+      toggleHint: function(toggle) {
+        return this.set("showHint", toggle);
       }
     }
   });
@@ -9860,8 +10821,11 @@ define('component/ViolationComponent',["./template/ViolationTpl"], function(temp
             subAttrArray = _.pluck(_.where(subAttr, {
               name: _key
             }), "attr");
-            if (_.isObject(_value) && subAttrArray.length && subAttrArray[0] !== void 0) {
+            if (_.isObject(_value) && subAttrArray.length && subAttrArray[0] !== void 0 && !_.isArray(_value)) {
               _.each(_value, function(value, key) {
+                if (typeof key === "number") {
+                  return false;
+                }
                 if (__indexOf.call(subAttrArray, key) < 0) {
                   return delete _value[key];
                 }
@@ -13866,10 +14830,10 @@ define('component/ViolationChartComponent',["./template/ViolationChartTpl", "lib
             var activePoints, currentPoint, endTime, highlight, period, startTime, statType, timeRange;
             activePoints = self.chartCanvas.getPointsAtEvent(evt);
             currentPoint = activePoints[0];
-            highlight = currentPoint.label;
             if (!currentPoint) {
               return false;
             }
+            highlight = currentPoint.label;
             startTime = +new Date(currentPoint.label) / 1000;
             endTime = +new Date(+startTime * 1000 + window.hourRange * 1000 * 3600) / 1000;
             period = filter.period;
