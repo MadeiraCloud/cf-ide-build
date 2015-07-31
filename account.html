@@ -3,12 +3,12 @@
 	<title>CloudFielder</title>
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<link rel="shortcut icon" href="/asset/image/favicon.ico?v=a5547818" type="image/x-icon"/>
-  <link rel="stylesheet" href="/asset/css/account.css?v=304d707f"/>
+	<link rel="shortcut icon" href="/asset/image/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/asset/css/account.css"/>
 </head>
 
 <body>
-  <h1><img src="/asset/image/logo.png?v=632511d4" /></h1>
+  <h1><img src="/asset/image/logo.png" /></h1>
   <div class="form-wrap reset" style="display:none;">
     <section class="form reset-card reset-card-email">
       <div class="front">
@@ -81,39 +81,15 @@
 
   <div class="form-wrap signup" style="display:none;">
     <section class="form signup-card">
-    <div class="front">
-      <header>Sign Up <span>Already a member? <a href="/login/">Log In</a></span></header>
-      <div class="form-content">
-        <div class="input-wrap left">
-          <input type="text" required="required" id="iptRegisterFN">
-          <label>FIRST NAME</label>
-        </div>
-        <div class="input-wrap right">
-          <input type="text" required="required" id="iptRegisterLN">
-          <label>LAST NAME</label>
-        </div>
-        <div class="input-wrap">
-          <input type="text" required="required" id="iptRegisterName">
-          <label>USERNAME</label>
-        </div>
-        <div class="input-wrap">
-          <input type="text" required="required" id="iptRegisterEmail">
-          <label>EMAIL ADDRESS</label>
-        </div>
-        <div class="input-wrap left">
-          <input type="password" required="required" id="iptRegisterPass">
-          <label>PASSWORD</label>
-        </div>
-        <div class="input-wrap right">
-          <input type="password" required="required" id="iptRegisterPass2">
-          <label>CONFIRM PASSWORD</label>
-        </div>
+    <div class="sys-upgrade-wrap clearfix" style="color: white; text-align: center; position: absolute; top: -200px; width: 480px;">
+      <div class="sys-upgrade-animation">
       </div>
-      <div class="action-wrap">
-        <button class="action" id="actRegister" data-loading="Signing Up..." data-normal="Sign Up">Sign Up</button>
-        <div>By clicking the create account button, you agree to our <a href="http://www.visualops.io/terms-conditions-privacy-policy/" target="_blank">Terms of Service</a>.</div>
-      </div>
-      <div class="network-error">Failed to connect CloudFielder, please try again later.</div>
+      <section class="sys-upgrade-text">
+          <h3>System Upgrading</h3>
+          <p>We will come back in 2-3 hours.</p>
+          <p>Get ready for a better CloudFielder!<p>
+          <p class="footer">In case for emergency, <a href="mailto:support@visualops.io">Contact us</a>.</p>
+      </section>
     </div>
     <div class="back">
       <h3 style="margin-top:0;">Registered Successfully</h3>
